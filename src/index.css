@@ -1,7 +1,8 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+@import "@font/nunito";
 
-  color-scheme: light dark;
+:root {
+  font-family: var(--fontFamily-nunito);
+
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
 
