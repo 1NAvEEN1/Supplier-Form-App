@@ -3,6 +3,7 @@ import Loadable from "./components/Loadable/Loadable";
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./layout";
+import ThemeProvider from "./theme";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
 
@@ -28,9 +29,9 @@ function App() {
     },
   ]);
   return (
-    <>
+    <ThemeProvider>
       <RouterProvider router={router} />
-    </>
+    </ThemeProvider>
   );
 }
 
