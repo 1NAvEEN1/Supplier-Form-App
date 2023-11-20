@@ -2,8 +2,9 @@ import { Grid, Typography, Box, Button } from "@mui/material";
 import React from "react";
 import HomeLogo from "../assets/HomeLogo.svg";
 import Carousel from "../components/Carousel/Carousel";
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  let navigate = useNavigate();
   return (
     <div>
       <Grid
@@ -56,6 +57,7 @@ const Home = () => {
                 borderRadius: 3,
                 color: "white",
               }}
+              onClick={() => navigate("/form")}
             >
               <Typography textTransform="capitalize" variant="h6">
                 Get Started

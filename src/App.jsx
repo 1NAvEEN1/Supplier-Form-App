@@ -6,6 +6,7 @@ import Layout from "./layout";
 import ThemeProvider from "./theme";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
+const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
 
 function App() {
   const router = createBrowserRouter([
@@ -21,10 +22,10 @@ function App() {
           path: "",
           element: <HomePage />,
         },
-        // {
-        //   path: "portfolio",
-        //   element: <HomePage />,
-        // },
+        {
+          path: "/form",
+          element: <LanguageSelect />,
+        },
       ],
     },
   ]);
