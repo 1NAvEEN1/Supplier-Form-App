@@ -7,10 +7,10 @@ import { pxToRem, responsiveFontSizes } from "../utils/getFontValue";
 
 const typography = {
   fontFamily: 'Nunito',
-  fontSize: 12,
-  fontWeightRegular: 400,
-  fontWeightMedium: 600,
-  fontWeightBold: 700,
+  // fontSize: 12,
+  // fontWeightRegular: 400,
+  // fontWeightMedium: 600,
+  // fontWeightBold: 700,
   // h1: {
   //   fontWeight: 700,
   //   lineHeight: 80 / 64,

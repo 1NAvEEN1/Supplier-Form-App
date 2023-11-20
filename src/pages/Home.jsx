@@ -8,13 +8,16 @@ const Home = () => {
       <Grid
         container
         sx={{
-          height: "95vh",
+          height: {
+            xs: "95vh",
+          },
+          padding: 2,
         }}
       >
         <Grid
           item
           xs={12}
-          height="40vh"
+          height="45vh"
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -23,7 +26,7 @@ const Home = () => {
         >
           <img src={HomeLogo} />
         </Grid>
-        <Grid item xs={12} height="30vh">
+        <Grid item xs={12} height="35vh">
           <Box>
             <Typography variant="h5">Welcome to Ceylon Exports Hub</Typography>
             <Typography mt={2} variant="h4">
@@ -36,18 +39,27 @@ const Home = () => {
         <Grid
           item
           xs={12}
-          height="15vh"
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "end",
+            height: {
+              xs: "13vh",
+              sm: "10vh",
+              lg: "11vh",
+            },
           }}
         >
           <Button
             variant="contained"
-            size="medium"
+            size="large"
             fullWidth
-            sx={{height:50 , borderRadius:3, color:"white"}}
+            sx={{
+              height: "7vh",
+              maxHeight: 50,
+              borderRadius: 3,
+              color: "white",
+            }}
           >
             Get Started
           </Button>
