@@ -1,6 +1,7 @@
 import { Grid, Typography, Box, Button } from "@mui/material";
 import React from "react";
 import HomeLogo from "../assets/HomeLogo.svg";
+import Carousel from "../components/Carousel/Carousel";
 
 const Home = () => {
   return (
@@ -24,45 +25,43 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          <img src={HomeLogo} />
-        </Grid>
-        <Grid item xs={12} height="35vh">
-          <Box>
-            <Typography variant="h5">Welcome to Ceylon Exports Hub</Typography>
-            <Typography mt={2} variant="h4">
-              We're delighted to invite you to become a new supplier,
-              contributing to the growth of Sri Lanka's rural economy by
-              showcasing its quality products on the global stage.
-            </Typography>
-          </Box>
+          <img src={HomeLogo} width="60%" />
         </Grid>
         <Grid
           item
           xs={12}
+          display="flex"
+          alignItems="end"
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "end",
             height: {
-              xs: "13vh",
-              sm: "10vh",
-              lg: "11vh",
+              xs: "48vh",
+              sm: "45vh",
+              lg: "46vh",
             },
           }}
+          container
         >
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
-            sx={{
-              height: "7vh",
-              maxHeight: 50,
-              borderRadius: 3,
-              color: "white",
-            }}
-          >
-            Get Started
-          </Button>
+          <Grid item xs={12}>
+            <Carousel />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              sx={{
+                height: "7vh",
+                maxHeight: 50,
+                borderRadius: 3,
+                color: "white",
+              }}
+            >
+              <Typography textTransform="capitalize" variant="h6">
+                Get Started
+              </Typography>
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </div>
