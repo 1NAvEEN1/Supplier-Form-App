@@ -11,26 +11,20 @@ const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/", // Define the root path
+      path: "/Supplier-Form-App",
+      element: <Layout />,
       children: [
         {
-          path: "Supplier-Form-App", // Parent path
-          element: <Layout />,
-          children: [
-            {
-              path: "GetStarted", // Child path
-              element: <HomePage />, // or <GetStartedPage />
-            },
-            {
-              path: "LangSelect", // Another child path
-              element: <LanguageSelect />, // or <LanguageSelectPage />
-            },
-          ],
+          path: "/Supplier-Form-App",
+          element: <HomePage />,
+        },
+        {
+          path: "/Supplier-Form-App/LangSelect",
+          element: <LanguageSelect />,
         },
       ],
     },
   ]);
-
   return (
     <ThemeProvider>
       <RouterProvider router={router} />
