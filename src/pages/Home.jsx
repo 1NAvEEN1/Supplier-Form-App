@@ -57,7 +57,7 @@ const Home = () => {
                 borderRadius: 3,
                 color: "white",
               }}
-              onClick={() => navigate("/form")}
+              onClick={() => navigate("../LangSelect")}
             >
               <Typography textTransform="capitalize" variant="h6">
                 Get Started
