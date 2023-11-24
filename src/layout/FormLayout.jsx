@@ -41,7 +41,7 @@ const FormLayout = () => {
           item
           xs={12}
           sx={{
-            height: { xs: "78.5dvh", sm: "77dvh", lg: "78.3dvh" },
+            height: { xs: "78.5dvh", sm: "78dvh", lg: "78.3dvh" },
           }}
         >
           <Outlet />

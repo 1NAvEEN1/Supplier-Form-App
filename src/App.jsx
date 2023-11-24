@@ -8,6 +8,7 @@ import ThemeProvider from "./theme";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
 const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
+const BasicDetails = Loadable(lazy(() => import("./pages/BasicDetails")));
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,9 @@ function App() {
             {
               path: "/Supplier-Form-App/LangSelect",
               element: <LanguageSelect />,
+            },{
+              path: "/Supplier-Form-App/BasicDetails",
+              element: <BasicDetails />,
             },
           ],
         },
