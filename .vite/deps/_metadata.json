@@ -1,0 +1,101 @@
+{
+  "hash": "87f8889a",
+  "browserHash": "b397bd07",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "3834f7e8",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "2300aef1",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "10c00a3f",
+      "needsInterop": false
+    },
+    "@mui/icons-material": {
+      "src": "../../node_modules/@mui/icons-material/esm/index.js",
+      "file": "@mui_icons-material.js",
+      "fileHash": "1e92e2d3",
+      "needsInterop": false
+    },
+    "@mui/material": {
+      "src": "../../node_modules/@mui/material/index.js",
+      "file": "@mui_material.js",
+      "fileHash": "d2beb7b8",
+      "needsInterop": false
+    },
+    "prop-types": {
+      "src": "../../node_modules/prop-types/index.js",
+      "file": "prop-types.js",
+      "fileHash": "9cbdac77",
+      "needsInterop": true
+    },
+    "@mui/material/styles": {
+      "src": "../../node_modules/@mui/material/styles/index.js",
+      "file": "@mui_material_styles.js",
+      "fileHash": "bc7ea3c8",
+      "needsInterop": false
+    },
+    "@mui/material/LinearProgress": {
+      "src": "../../node_modules/@mui/material/LinearProgress/index.js",
+      "file": "@mui_material_LinearProgress.js",
+      "fileHash": "6190925f",
+      "needsInterop": false
+    },
+    "@mui/material/useMediaQuery": {
+      "src": "../../node_modules/@mui/material/useMediaQuery/index.js",
+      "file": "@mui_material_useMediaQuery.js",
+      "fileHash": "faab0e5b",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-WIOC63DX": {
+      "file": "chunk-WIOC63DX.js"
+    },
+    "chunk-PXJLUKTU": {
+      "file": "chunk-PXJLUKTU.js"
+    },
+    "chunk-VVMJQ377": {
+      "file": "chunk-VVMJQ377.js"
+    },
+    "chunk-4C3NCOXN": {
+      "file": "chunk-4C3NCOXN.js"
+    },
+    "chunk-7PGN2LNB": {
+      "file": "chunk-7PGN2LNB.js"
+    },
+    "chunk-RZJCOO2Y": {
+      "file": "chunk-RZJCOO2Y.js"
+    },
+    "chunk-ARC26ZC5": {
+      "file": "chunk-ARC26ZC5.js"
+    },
+    "chunk-JNWFZTWF": {
+      "file": "chunk-JNWFZTWF.js"
+    },
+    "chunk-VPCHDRT3": {
+      "file": "chunk-VPCHDRT3.js"
+    },
+    "chunk-W4PI6TJZ": {
+      "file": "chunk-W4PI6TJZ.js"
+    },
+    "chunk-FQO5W7GE": {
+      "file": "chunk-FQO5W7GE.js"
+    },
+    "chunk-ILEAYNS5": {
+      "file": "chunk-ILEAYNS5.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
+    }
+  }
+}

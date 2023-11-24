@@ -3,6 +3,7 @@ import Loadable from "./components/Loadable/Loadable";
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./layout";
+import FormLayout from "./layout/FormLayout";
 import ThemeProvider from "./theme";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
@@ -19,8 +20,14 @@ function App() {
           element: <HomePage />,
         },
         {
-          path: "/Supplier-Form-App/LangSelect",
-          element: <LanguageSelect />,
+          path: "/Supplier-Form-App",
+          element: <FormLayout />,
+          children: [
+            {
+              path: "/Supplier-Form-App/LangSelect",
+              element: <LanguageSelect />,
+            },
+          ],
         },
       ],
     },

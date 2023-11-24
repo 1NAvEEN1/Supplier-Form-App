@@ -11,8 +11,9 @@ const Home = () => {
         container
         sx={{
           height: {
-            xs: "95vh",
+            xs: "95svh",
           },
+          minHeight:800,
           padding: 2,
         }}
       >
@@ -36,8 +37,8 @@ const Home = () => {
           sx={{
             height: {
               xs: "48vh",
-              sm: "45vh",
-              lg: "46vh",
+              sm: "46vh",
+              lg: "46.7vh",
             },
           }}
           container
