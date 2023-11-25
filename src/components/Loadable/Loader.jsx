@@ -19,7 +19,7 @@ const LoaderWrapper = styled("div")(({ theme }) => ({
 
 const Loader = () => (
   <LoaderWrapper>
-    <LinearProgress color="inherit" />
+    <LinearProgress color="primary" />
   </LoaderWrapper>
 );
 

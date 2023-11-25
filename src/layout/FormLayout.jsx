@@ -1,6 +1,6 @@
 import { Grid, Box, IconButton, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LinearProgress, {
@@ -24,11 +24,38 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 const FormLayout = () => {
   let navigate = useNavigate();
 
+  const pages = ["", "LangSelect", "BasicDetails"];
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+
+  const navigateToNextPage = () => {
+    const nextPageIndex = currentPageIndex + 1;
+    if (nextPageIndex < pages.length) {
+      setCurrentPageIndex(nextPageIndex);
+      navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
+    } else {
+      // Handle if there are no more pages
+      // For example, navigate to a different route or perform a different action
+    }
+  };
+
+  const navigateToPreviousPage = () => {
+    const prevPageIndex = currentPageIndex - 1;
+    if (prevPageIndex >= 0) {
+      setCurrentPageIndex(prevPageIndex);
+      navigate(`/Supplier-Form-App/${pages[prevPageIndex]}`);
+    } else {
+      // Handle if trying to navigate back from the first page
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [currentPageIndex]);
   return (
-    <Box height="95dvh">
+    <Box minHeight={800}>
       <Grid container p={2} display="flex">
         <Grid item xs={2} height={50}>
-          <IconButton onClick={() => navigate(-1)}>
+          <IconButton onClick={navigateToPreviousPage}>
             <ArrowBackIcon style={{ color: "black" }} />
           </IconButton>
         </Grid>
@@ -41,23 +68,22 @@ const FormLayout = () => {
           item
           xs={12}
           sx={{
-            height: { xs: "78.5dvh", sm: "78dvh", lg: "78.3dvh" },
+            minHeight: 638,
           }}
         >
           <Outlet />
         </Grid>
-        <Grid item xs={12} display="flex" alignItems="end" height="9dvh">
+        <Grid item xs={12} display="flex" alignItems="end" height={80}>
           <Button
             variant="contained"
             size="large"
             fullWidth
             sx={{
-              height: "8vh",
-              maxHeight: 50,
+              height: 50,
               borderRadius: 3,
               color: "white",
             }}
-            onClick={() => navigate("/Supplier-Form-App/BasicDetails")}
+            onClick={navigateToNextPage}
           >
             <Typography textTransform="capitalize" variant="h6">
               Continue

@@ -20,7 +20,7 @@ const BasicDetails = () => {
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        BasicDetails
+        Basic Details
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <Box

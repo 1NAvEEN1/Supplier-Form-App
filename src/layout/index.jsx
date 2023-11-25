@@ -10,7 +10,7 @@ const layout = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "100svh",
       }}
     >
       <Box
@@ -18,18 +18,13 @@ const layout = () => {
         boxShadow="0px 4px 6px 3px rgba(0, 0, 0, 0.1)"
         sx={{
           width: {
-            lg: 500,
-            sm:"50vw",
+            sm: 500,
             xs: "100vw",
           },
-          minWidth:{
-            xs:"100vw",
-            sm:450
-          },
-          height: {
-            lg: "95vh",
-            sm: "95vh",
-            xs: "95vh",
+          minHeight: {
+            lg: 800,
+            sm: 800,
+            xs: 800,
           },
           // minHeight:720,
           borderRadius: {
