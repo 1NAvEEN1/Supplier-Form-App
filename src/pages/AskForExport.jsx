@@ -13,11 +13,13 @@ import React, { useState } from "react";
 const AskForExport = () => {
   const [exporting, setExporting] = useState(true);
 
-  const handleRegistrationChange = (event) => {};
+  const handleRegistrationChange = (event) => {
+    setExporting(event.target.value === "true");
+  };
 
   return (
     <div>
-      <Typography  fontWeight={700} mt={2} mb={2}>
+      <Typography fontWeight={700} mt={2} mb={2}>
         Would you be open to supplying your product for us to handle the export?
       </Typography>
       <Divider sx={{ mb: 3 }} />

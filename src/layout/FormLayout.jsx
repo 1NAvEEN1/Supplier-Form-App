@@ -55,9 +55,16 @@ const FormLayout = () => {
       // Handle if trying to navigate back from the first page
     }
   };
+  
+  const scrollToTop = () => {
+    const element = document.documentElement;
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    scrollToTop();
   }, [currentPageIndex]);
   return (
     <Box minHeight={700}>

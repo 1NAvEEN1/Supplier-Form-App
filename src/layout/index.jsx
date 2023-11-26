@@ -35,7 +35,6 @@ const layout = () => {
             sm: "100svh",
             xs: "100svh",
           },
-          // minHeight:720,
           borderRadius: {
             lg: 5,
             sm: 5,
