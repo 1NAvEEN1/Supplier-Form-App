@@ -30,6 +30,7 @@ const FormLayout = () => {
     "BasicDetails",
     "ProductDetails",
     "BusinessDetails",
+    "CertificatesDetails",
   ];
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
@@ -68,7 +69,7 @@ const FormLayout = () => {
         <Grid item xs={8} pt={2} height={50}>
           <BorderLinearProgress
             variant="determinate"
-            value={(currentPageIndex / 4) * 100}
+            value={(currentPageIndex / 5) * 100}
           />
         </Grid>
         <Grid item xs={2} height={50}></Grid>

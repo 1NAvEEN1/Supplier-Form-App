@@ -11,6 +11,9 @@ const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
 const BasicDetails = Loadable(lazy(() => import("./pages/BasicDetails")));
 const ProductDetails = Loadable(lazy(() => import("./pages/ProductDetails")));
 const BusinessDetails = Loadable(lazy(() => import("./pages/BusinessDetails")));
+const CertificatesDetails = Loadable(
+  lazy(() => import("./pages/CertificatesDetails"))
+);
 
 function App() {
   const router = createBrowserRouter([
@@ -41,6 +44,10 @@ function App() {
             {
               path: "/Supplier-Form-App/BusinessDetails",
               element: <BusinessDetails />,
+            },
+            {
+              path: "/Supplier-Form-App/CertificatesDetails",
+              element: <CertificatesDetails />,
             },
           ],
         },

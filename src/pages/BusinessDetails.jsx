@@ -14,7 +14,7 @@ import React, { useState } from "react";
 
 const BusinessDetails = () => {
   const [businessType, setBusinessType] = useState("pvt");
-  const [registeredBusiness, setRegisteredBusiness] = useState(false);
+  const [registeredBusiness, setRegisteredBusiness] = useState(true);
 
   const handleRegistrationChange = (event) => {
     setRegisteredBusiness(event.target.value === "true");
@@ -69,10 +69,14 @@ const BusinessDetails = () => {
               p: 1,
               borderColor: businessType === "pvt" ? "#F47621" : "lightgrey",
               mt: 4,
+              "&:hover": {
+                backgroundColor: "lightgray",
+                cursor: "pointer",
+              },
             }}
             onClick={() => setBusinessType("pvt")}
           >
-            <Typography fontWeight={700}>Private Limited Company</Typography>
+            <Typography fontWeight={500}>Private Limited Company</Typography>
           </Box>
           <Box
             sx={{
@@ -83,10 +87,14 @@ const BusinessDetails = () => {
                 businessType === "partnership" ? "#F47621" : "lightgrey",
               mt: 2,
               mb: 2,
+              "&:hover": {
+                backgroundColor: "lightgray",
+                cursor: "pointer",
+              },
             }}
             onClick={() => setBusinessType("partnership")}
           >
-            <Typography fontWeight={700}>Partnership</Typography>
+            <Typography fontWeight={500}>Partnership</Typography>
           </Box>
           <Box
             sx={{
@@ -94,10 +102,14 @@ const BusinessDetails = () => {
               border: businessType === "solo" ? 2 : 1,
               p: 1,
               borderColor: businessType === "solo" ? "#F47621" : "lightgrey",
+              "&:hover": {
+                backgroundColor: "lightgray",
+                cursor: "pointer",
+              },
             }}
             onClick={() => setBusinessType("solo")}
           >
-            <Typography fontWeight={700}>Solo Proprietor</Typography>
+            <Typography fontWeight={500}>Solo Proprietor</Typography>
           </Box>
           <Typography fontWeight={700} mt={4} mb={2}>
             Please mention your business name
