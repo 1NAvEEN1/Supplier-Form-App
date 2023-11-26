@@ -10,6 +10,7 @@ const HomePage = Loadable(lazy(() => import("./pages/Home")));
 const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
 const BasicDetails = Loadable(lazy(() => import("./pages/BasicDetails")));
 const ProductDetails = Loadable(lazy(() => import("./pages/ProductDetails")));
+const BusinessDetails = Loadable(lazy(() => import("./pages/BusinessDetails")));
 
 function App() {
   const router = createBrowserRouter([
@@ -36,6 +37,10 @@ function App() {
             {
               path: "/Supplier-Form-App/ProductDetails",
               element: <ProductDetails />,
+            },
+            {
+              path: "/Supplier-Form-App/BusinessDetails",
+              element: <BusinessDetails />,
             },
           ],
         },
