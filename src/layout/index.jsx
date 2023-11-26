@@ -11,6 +11,7 @@ const layout = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100svh",
+        bgcolor:"#DCDCDC"
       }}
     >
       <Box
@@ -37,6 +38,7 @@ const layout = () => {
             sm: "1px 1px 2px 2px rgba(0, 0, 0, 0.1)",
             xs: 0,
           },
+          bgcolor: "#f9fafb",
         }}
       >
         <Outlet />

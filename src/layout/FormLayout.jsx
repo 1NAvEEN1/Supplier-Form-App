@@ -31,6 +31,8 @@ const FormLayout = () => {
     "ProductDetails",
     "BusinessDetails",
     "CertificatesDetails",
+    "ExportingDetails",
+    "AskForExport",
   ];
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
@@ -40,8 +42,7 @@ const FormLayout = () => {
       setCurrentPageIndex(nextPageIndex);
       navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
     } else {
-      // Handle if there are no more pages
-      // For example, navigate to a different route or perform a different action
+      navigate("/Supplier-Form-App/FinalPage");
     }
   };
 
@@ -69,7 +70,7 @@ const FormLayout = () => {
         <Grid item xs={8} pt={2} height={50}>
           <BorderLinearProgress
             variant="determinate"
-            value={(currentPageIndex / 5) * 100}
+            value={(currentPageIndex / 7) * 100}
           />
         </Grid>
         <Grid item xs={2} height={50}></Grid>

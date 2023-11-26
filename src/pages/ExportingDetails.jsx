@@ -10,23 +10,23 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const CertificatesDetails = () => {
-  const [certificates, setCertificates] = useState(true);
+const ExportingDetails = () => {
+  const [exporting, setExporting] = useState(true);
 
   const handleRegistrationChange = (event) => {
-    setCertificates(event.target.value === "true");
+    setExporting(event.target.value === "true");
   };
 
   return (
     <div>
       <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-        Do you have any quality certificates?
+        Are you presently exporting your product?
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          value={certificates.toString()}
+          value={exporting.toString()}
           onChange={handleRegistrationChange}
           name="radio-buttons-group"
         >
@@ -54,15 +54,15 @@ const CertificatesDetails = () => {
           </Grid>
         </RadioGroup>
       </FormControl>
-      {certificates && (
+      {exporting && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-            If Yes, please note them here
+            If Yes, which countries are you exporting to?
           </Typography>
           <TextField
             fullWidth
             InputProps={{ sx: { borderRadius: 3 } }}
-            placeholder="GMP | HAPPC | SLS | HALAL"
+            placeholder="USA, UK ,Canada, Japan , India"
             multiline
             rows={7}
             maxRows={7}
@@ -73,4 +73,4 @@ const CertificatesDetails = () => {
   );
 };
 
-export default CertificatesDetails;
+export default ExportingDetails;

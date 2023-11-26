@@ -12,6 +12,8 @@ const Home = () => {
         sx={{
           minHeight: 800,
           padding: 2,
+          bgcolor:"white",
+          borderRadius:5
         }}
       >
         <Grid

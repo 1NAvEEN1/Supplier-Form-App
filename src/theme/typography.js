@@ -58,18 +58,18 @@ const typography = {
   //   lineHeight: 22 / 14,
   //   fontSize: pxToRem(14),
   // },
-  // body1: {
-  //   lineHeight: 1.5,
-  //   fontSize: pxToRem(14), // Changed Here
-  // },
-  // body2: {
-  //   lineHeight: 22 / 14,
-  //   fontSize: pxToRem(14),
-  // },
-  // smallText: {
-  //   lineHeight: 22 / 14,
-  //   fontSize: pxToRem(11),
-  // },
+  body1: {
+    lineHeight: 1.5,
+    fontSize: pxToRem(14), // Changed Here
+  },
+  body2: {
+    lineHeight: 22 / 14,
+    fontSize: pxToRem(14),
+  },
+  smallText: {
+    lineHeight: 22 / 14,
+    fontSize: pxToRem(11),
+  },
   // caption: {
   //   lineHeight: 1.5,
   //   fontSize: pxToRem(12),

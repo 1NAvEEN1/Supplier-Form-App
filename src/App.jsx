@@ -14,6 +14,11 @@ const BusinessDetails = Loadable(lazy(() => import("./pages/BusinessDetails")));
 const CertificatesDetails = Loadable(
   lazy(() => import("./pages/CertificatesDetails"))
 );
+const ExportingDetails = Loadable(
+  lazy(() => import("./pages/ExportingDetails"))
+);
+const AskForExport = Loadable(lazy(() => import("./pages/AskForExport")));
+const FinalPage = Loadable(lazy(() => import("./pages/FinalPage")));
 
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +29,10 @@ function App() {
         {
           path: "/Supplier-Form-App",
           element: <HomePage />,
+        },
+        {
+          path: "/Supplier-Form-App/FinalPage",
+          element: <FinalPage />,
         },
         {
           path: "/Supplier-Form-App",
@@ -48,6 +57,14 @@ function App() {
             {
               path: "/Supplier-Form-App/CertificatesDetails",
               element: <CertificatesDetails />,
+            },
+            {
+              path: "/Supplier-Form-App/ExportingDetails",
+              element: <ExportingDetails />,
+            },
+            {
+              path: "/Supplier-Form-App/AskForExport",
+              element: <AskForExport />,
             },
           ],
         },
