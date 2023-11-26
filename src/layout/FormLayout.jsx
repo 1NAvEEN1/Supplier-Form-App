@@ -24,7 +24,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 const FormLayout = () => {
   let navigate = useNavigate();
 
-  const pages = ["", "LangSelect", "BasicDetails"];
+  const pages = ["", "LangSelect", "BasicDetails", "ProductDetails"];
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
   const navigateToNextPage = () => {
@@ -60,7 +60,10 @@ const FormLayout = () => {
           </IconButton>
         </Grid>
         <Grid item xs={8} pt={2} height={50}>
-          <BorderLinearProgress variant="determinate" value={50} />
+          <BorderLinearProgress
+            variant="determinate"
+            value={(currentPageIndex / 3) * 100}
+          />
         </Grid>
         <Grid item xs={2} height={50}></Grid>
 

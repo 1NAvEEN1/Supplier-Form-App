@@ -4,11 +4,10 @@ import {
   Divider,
   Box,
   TextField,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 
 const BasicDetails = () => {
   const [province, setProvince] = useState(10);
