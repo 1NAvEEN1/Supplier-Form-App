@@ -10,10 +10,10 @@ const Home = () => {
       <Grid
         container
         sx={{
-          minHeight: 800,
+          minHeight: { lg: 800, xs: "100svh" },
           padding: 2,
-          bgcolor:"white",
-          borderRadius:5
+          bgcolor: "white",
+          borderRadius: 5,
         }}
       >
         <Grid
@@ -23,7 +23,7 @@ const Home = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: 350,
+            minHeight: { lg: 350, xs: "30svh" }
           }}
         >
           <img src={HomeLogo} width="60%" />
@@ -34,15 +34,29 @@ const Home = () => {
           display="flex"
           alignItems="end"
           sx={{
-            minHeight: 400,
+            minHeight: { lg: 400, xs: "30svh" },
           }}
           container
         >
-          <Grid item xs={12} minHeight={300}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              minHeight: { lg: 300, xs: "40svh" },
+            }}
+          >
             <Carousel />
           </Grid>
 
-          <Grid item xs={12} minHeight={80} display="flex" alignItems="end">
+          <Grid
+            item
+            xs={12}
+            sx={{
+              minHeight: { lg: 80, xs: "10svh" },
+            }}
+            display="flex"
+            alignItems="end"
+          >
             <Button
               variant="contained"
               size="large"

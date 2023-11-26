@@ -10,8 +10,16 @@ const layout = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100svh",
-        bgcolor:"#DCDCDC"
+        minHeight: "100svh",
+        bgcolor: "#DCDCDC",
+        mt: {
+          xs: 0,
+          lg: 2,
+        },
+        pb: {
+          xs: 0,
+          lg: 2,
+        },
       }}
     >
       <Box
@@ -23,9 +31,9 @@ const layout = () => {
             xs: "100vw",
           },
           minHeight: {
-            lg: 800,
-            sm: 800,
-            xs: 800,
+            lg: 700,
+            sm: "100svh",
+            xs: "100svh",
           },
           // minHeight:720,
           borderRadius: {

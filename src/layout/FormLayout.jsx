@@ -60,31 +60,62 @@ const FormLayout = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [currentPageIndex]);
   return (
-    <Box minHeight={800}>
+    <Box minHeight={700}>
       <Grid container p={2} display="flex">
-        <Grid item xs={2} height={50}>
+        <Grid
+          item
+          xs={2}
+          sx={{
+            height: {
+              lg: 50,
+              xs: "5svh",
+            },
+          }}
+        >
           <IconButton onClick={navigateToPreviousPage}>
             <ArrowBackIcon style={{ color: "black" }} />
           </IconButton>
         </Grid>
-        <Grid item xs={8} pt={2} height={50}>
+        <Grid
+          item
+          xs={8}
+          pt={2}
+          sx={{
+            height: {
+              lg: 50,
+              xs: "5svh",
+            },
+          }}
+        >
           <BorderLinearProgress
             variant="determinate"
             value={(currentPageIndex / 7) * 100}
           />
         </Grid>
-        <Grid item xs={2} height={50}></Grid>
-
         <Grid
           item
           xs={12}
           sx={{
-            minHeight: 638,
+            minHeight: {
+              lg: 538,
+              xs: "80svh",
+            },
           }}
         >
           <Outlet />
         </Grid>
-        <Grid item xs={12} display="flex" alignItems="end" height={80}>
+        <Grid
+          item
+          xs={12}
+          display="flex"
+          alignItems="end"
+          sx={{
+            height: {
+              lg: 80,
+              xs: "10svh",
+            },
+          }}
+        >
           <Button
             variant="contained"
             size="large"
