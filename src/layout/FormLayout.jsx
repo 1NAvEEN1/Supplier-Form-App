@@ -1,6 +1,6 @@
 import { Grid, Box, IconButton, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LinearProgress, {
@@ -55,19 +55,24 @@ const FormLayout = () => {
       // Handle if trying to navigate back from the first page
     }
   };
-  
-  const scrollToTop = () => {
-    const element = document.documentElement;
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
 
+  // const scrollToTop = () => {
+  //   const element = document.documentElement;
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: "smooth", block: "start" });
+  //   }
+  // };
+  const ref = useRef();
   useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     scrollToTop();
   }, [currentPageIndex]);
   return (
     <Box minHeight={700}>
+      <Box ref={ref}></Box>
       <Grid container p={2} display="flex">
         <Grid
           item

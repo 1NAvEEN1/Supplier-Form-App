@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 
-const ProductDetails = () => {
+const AddProducts = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -30,7 +30,7 @@ const ProductDetails = () => {
   const [province, setProvince] = useState(10);
 
   const handleChange = (e) => {
-    setProvince(e);
+    setProvince(e); 
   };
 
   const drawerContent = (
@@ -175,4 +175,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default AddProducts;
