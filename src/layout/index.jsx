@@ -11,7 +11,6 @@ const layout = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100svh",
-        bgcolor: "#DCDCDC",
         mt: {
           xs: 0,
           lg: 2,

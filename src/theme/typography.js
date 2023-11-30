@@ -60,7 +60,7 @@ const typography = {
   // },
   body1: {
     lineHeight: 1.5,
-    fontSize: pxToRem(14), // Changed Here
+    fontSize: pxToRem(18), // Changed Here
   },
   body2: {
     lineHeight: 22 / 14,

@@ -42,7 +42,7 @@ const Home = () => {
             item
             xs={12}
             sx={{
-              minHeight: { lg: 300, xs: "40svh" },
+              height: { lg: 300, xs: "40svh" },
             }}
           >
             <Carousel />
