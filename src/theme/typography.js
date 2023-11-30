@@ -6,7 +6,7 @@ import { pxToRem, responsiveFontSizes } from "../utils/getFontValue";
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
 const typography = {
-  fontFamily: ['Nunito', '"Noto Sans Sinhala"'],
+  fontFamily: ["sans-serif", '"Noto Sans Sinhala"', "Nunito"],
   // fontSize: 12,
   // fontWeightRegular: 400,
   // fontWeightMedium: 600,
