@@ -14,7 +14,7 @@ const FinalPage = () => {
           },
         }}
       >
-        <Box p={5}>
+        <Box>
           <Typography variant="h4" textAlign="center">
             Thank you for submitting
           </Typography>

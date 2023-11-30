@@ -7,6 +7,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -71,80 +72,118 @@ const FormLayout = () => {
     scrollToTop();
   }, [currentPageIndex]);
   return (
-    <Box minHeight={700}>
-      <Box ref={ref}></Box>
-      <Grid container p={2} display="flex">
-        <Grid
-          item
-          xs={2}
-          sx={{
-            height: {
-              lg: 50,
-              xs: "5svh",
-            },
-          }}
-        >
-          <IconButton onClick={navigateToPreviousPage}>
-            <ArrowBackIcon style={{ color: "black" }} />
-          </IconButton>
-        </Grid>
-        <Grid
-          item
-          xs={8}
-          pt={2}
-          sx={{
-            height: {
-              lg: 50,
-              xs: "5svh",
-            },
-          }}
-        >
-          <BorderLinearProgress
-            variant="determinate"
-            value={(currentPageIndex / 7) * 100}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            minHeight: {
-              lg: 538,
-              xs: "80svh",
-            },
-          }}
-        >
-          <Outlet />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          display="flex"
-          alignItems="end"
-          sx={{
-            height: {
-              lg: 80,
-              xs: "10svh",
-            },
-          }}
-        >
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
+    <Box
+      bgcolor={"#F9FAFB"}
+      width={"100vw"}
+      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
+      <Box height={"100svh"} minHeight={700} maxWidth={700} bgcolor={"#F9FAFB"}>
+        <Box ref={ref}></Box>
+        <Grid container p={2} display="flex">
+          <Grid
+            item
+            xs={2}
             sx={{
-              height: 50,
-              borderRadius: 3,
-              color: "white",
+              height: {
+                lg: "5svh",
+                xs: "5svh",
+              },
             }}
-            onClick={navigateToNextPage}
           >
-            <Typography textTransform="capitalize" variant="h6">
-              Continue
-            </Typography>
-          </Button>
+            <IconButton onClick={navigateToPreviousPage}>
+              <ArrowBackIcon style={{ color: "black" }} />
+            </IconButton>
+          </Grid>
+          <Grid
+            item
+            xs={8}
+            pt={2}
+            sx={{
+              height: {
+                lg: "5svh",
+                xs: "5svh",
+              },
+            }}
+          >
+            <BorderLinearProgress
+              variant="determinate"
+              value={(currentPageIndex / 7) * 100}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              minHeight: {
+                lg: "80svh",
+                xs: "80svh",
+              },
+            }}
+          >
+            <Outlet />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            alignItems="end"
+            justifyContent="center"
+            sx={{
+              height: {
+                lg: "10svh",
+                xs: "10svh",
+              },
+              gap: {
+                sm: 5,
+                xs: 0,
+              },
+            }}
+          >
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              sx={{
+                height: 50,
+                borderRadius: 3,
+                width: {
+                  sm: 200,
+                  xs: "100%",
+                },
+                display: {
+                  sm: "inherit",
+                  xs: "none",
+                },
+              }}
+              color="secondary"
+              onClick={navigateToPreviousPage}
+            >
+              <Typography textTransform="capitalize" variant="h6">
+                Back
+              </Typography>
+            </Button>
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              sx={{
+                height: 50,
+                borderRadius: 3,
+                color: "white",
+                width: {
+                  sm: 200,
+                  xs: "100%",
+                },
+              }}
+              onClick={navigateToNextPage}
+            >
+              <Typography textTransform="capitalize" variant="h6">
+                Continue
+              </Typography>
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Box>
   );
 };

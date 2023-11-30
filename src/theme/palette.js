@@ -7,11 +7,11 @@ const PRIMARY = {
   darker: "#F47621",
 };
 const SECONDARY = {
-  lighter: "#D6E4FF",
-  light: "#84A9FF",
-  main: "#3366FF",
-  dark: "#1939B7",
-  darker: "#091A7A",
+  lighter: "#F5F5F5",
+  light: "#E5E4E2",
+  main: "#C0C0C0",
+  dark: "#696969",
+  darker: "#555555",
 };
 const INFO = {
   lighter: "#D0F2FF",
@@ -50,8 +50,27 @@ const CHART_COLORS = {
   red: ["#FF6C40", "#FF8F6D", "#FFBD98", "#FFF2D4"],
 };
 
+const GREY = {
+  0: "#FFFFFF",
+  100: "#F9FAFB",
+  200: "#F4F6F8",
+  300: "#DFE3E8",
+  400: "#C4CDD5",
+  500: "#919EAB",
+  600: "#637381",
+  700: "#454F5B",
+  800: "#212B36",
+  900: "#161C24",
+};
+
+const COMMON = {
+  grey: GREY,
+};
+
 const palette = {
+  ...COMMON,
   primary: PRIMARY,
+  secondary: SECONDARY,
 };
 
 export default palette;

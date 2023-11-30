@@ -17,7 +17,7 @@ const BasicDetails = () => {
   };
 
   return (
-    <div>
+    <div >
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
         Basic Details
       </Typography>
