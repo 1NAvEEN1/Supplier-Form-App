@@ -44,37 +44,21 @@ const ProductDetails = () => {
         Click the button below to add your product
       </Typography>
       <Box display="flex" justifyContent="center" mt={2}>
-        {isMobile && (
-          <Button
-            variant="contained"
-            size="medium"
-            sx={{
-              borderRadius: 2,
-              color: "white",
-            }}
-            onClick={toggleDrawer(true)}
-          >
-            <Typography textTransform="capitalize" variant="b1">
-              Add Product
-            </Typography>
-          </Button>
-        )}
-        {isDesktop && (
-          <Button
-            variant="contained"
-            size="medium"
-            sx={{
-              borderRadius: 2,
-              color: "white",
-              ml: isMobile ? 2 : 0,
-            }}
-            onClick={toggleDrawer(true)}
-          >
-            <Typography textTransform="capitalize" variant="b1">
-              Add Product
-            </Typography>
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          size="medium"
+          sx={{
+            borderRadius: 2,
+            color: "white",
+            ml: isMobile ? 2 : 0,
+          }}
+          onClick={toggleDrawer(true)}
+        >
+          <Typography textTransform="capitalize" variant="b1">
+            Add Product
+          </Typography>
+        </Button>
+
         {isMobile && (
           <SwipeableDrawer
             anchor="bottom"
@@ -95,9 +79,7 @@ const ProductDetails = () => {
             <DialogContent>
               <Box
                 sx={{
-
-
-                  // bgcolor: "background.paper",
+                  bgcolor: "#F9FAFB",
                   borderRadius: 4,
                   p: 4,
                 }}

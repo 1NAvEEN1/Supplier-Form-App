@@ -10,21 +10,50 @@ import {
   Select,
   MenuItem,
   Grid,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@mui/material";
+import { DateRangePicker } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+
+import { MonthCalendar } from "@mui/x-date-pickers";
+
+const CustomStyledBox = ({ children, ...rest }) => (
+  <Box
+    sx={{
+      boxShadow: "1px 5px 8px 5px rgba(0, 0, 0, 0.05)",
+      borderRadius: 3,
+      mt: 3,
+      pt: 1,
+      pr: 2,
+      pb: 1,
+      ...rest, // Apply additional styles passed as props
+    }}
+  >
+    {children}
+  </Box>
+);
 
 const AddProducts = ({ closeDrawer }) => {
-  const [province, setProvince] = useState(10);
+  const [category, setCategory] = useState(10);
+  const [subCategory, setSubCategory] = useState(10);
 
-  const handleChange = (e) => {
-    setProvince(e);
+  const [unit, setUnit] = useState(10);
+
+  const [supplyFrequency, setSupplyFrequency] = useState(true);
+  const [mothRange, setMothRange] = useState();
+
+  const handleFrequencyChange = (event) => {
+    setSupplyFrequency(event.target.value === "true");
   };
-
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
-        //
+        bgcolor: "#F9FAFB",
         // borderRadius: 4,
       }}
     >
@@ -35,50 +64,277 @@ const AddProducts = ({ closeDrawer }) => {
           p: 2,
           width: 500,
           borderRadius: 4,
-          bgcolor: "white",
         }}
       >
         <Grid item xs={12}>
           <Typography textAlign="center" fontWeight={600}>
             Add new product
           </Typography>
-          <Box
-            sx={{
-              boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
-              borderRadius: 3,
-              mt: 3,
-              pt: 1,
-              pr: 2,
-              pb: 1,
-            }}
-          >
-            <Typography variant="b1" fontWeight={600} color="primary" pl={2}>
+          <CustomStyledBox>
+            <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
               Product category
             </Typography>
             <FormControl fullWidth>
               <Select
                 id="demo-simple-select"
-                value={province}
+                value={category}
                 sx={{
                   boxShadow: "none",
                   ".MuiOutlinedInput-notchedOutline": { border: 0 },
                   borderRadius: 3,
                   height: 30,
                 }}
-                onChange={(e) => handleChange(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               >
-                <MenuItem value={10}>
-                  <b>Spices</b>
-                </MenuItem>
-                <MenuItem value={20}>
-                  <b>Oils</b>
-                </MenuItem>
-                <MenuItem value={30}>
-                  <b>condiments</b>
-                </MenuItem>
+                <MenuItem value={10}>Spices</MenuItem>
+                <MenuItem value={20}>Oils</MenuItem>
+                <MenuItem value={30}>condiments</MenuItem>
               </Select>
             </FormControl>
-          </Box>
+          </CustomStyledBox>
+          <CustomStyledBox>
+            <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
+              Product sub category
+            </Typography>
+            <FormControl fullWidth>
+              <Select
+                id="demo-simple-select"
+                value={subCategory}
+                sx={{
+                  boxShadow: "none",
+                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  borderRadius: 3,
+                  height: 30,
+                }}
+                onChange={(e) => setSubCategory(e.target.value)}
+              >
+                <MenuItem value={10}>Cinnamon</MenuItem>
+                <MenuItem value={20}>Turmeric</MenuItem>
+                <MenuItem value={30}>Pepper</MenuItem>
+              </Select>
+            </FormControl>
+          </CustomStyledBox>
+          <CustomStyledBox>
+            <Typography color="primary" pl={2}>
+              Product name
+            </Typography>
+            <TextField
+              size="small"
+              sx={{
+                boxShadow: "none",
+                ".MuiOutlinedInput-notchedOutline": { border: 0 },
+              }}
+              placeholder="Product Name ABC"
+              fullWidth
+            ></TextField>
+          </CustomStyledBox>
+        </Grid>
+
+        <Grid item xs={12} mt={3}>
+          <Typography fontWeight={600}>Pricing range</Typography>
+          <Typography fontSize={"13px"} mt={1}>
+            Please select the units of quantity when adding price. <br />
+            (For example: per kg, per liter, per gram, per one piece, etc.)
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={7}>
+              <CustomStyledBox>
+                <Typography color="primary" pl={2}>
+                  Price (Rupees)
+                </Typography>
+                <TextField
+                  size="small"
+                  sx={{
+                    boxShadow: "none",
+                    ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  }}
+                  placeholder="0000"
+                  fullWidth
+                  inputProps={{ style: { fontWeight: "bold" } }}
+                ></TextField>
+              </CustomStyledBox>
+            </Grid>
+            <Grid item xs={5}>
+              <CustomStyledBox height={85}>
+                <Typography color="primary" pl={2} mb={1}>
+                  Quantity unit
+                </Typography>
+                <FormControl fullWidth>
+                  <Select
+                    id="demo-simple-select"
+                    value={unit}
+                    sx={{
+                      boxShadow: "none",
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 30,
+                    }}
+                    onChange={(e) => setUnit(e.target.value)}
+                  >
+                    <MenuItem value={10}>kg</MenuItem>
+                    <MenuItem value={20}>gram</MenuItem>
+                  </Select>
+                </FormControl>
+              </CustomStyledBox>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12} mt={3}>
+          <Typography fontWeight={600}>Monthly Supply Quantity</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={7}>
+              <CustomStyledBox>
+                <Typography color="primary" pl={2}>
+                  Quantity
+                </Typography>
+                <TextField
+                  size="small"
+                  sx={{
+                    boxShadow: "none",
+                    ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  }}
+                  placeholder="0000"
+                  fullWidth
+                  inputProps={{ style: { fontWeight: "bold" } }}
+                ></TextField>
+              </CustomStyledBox>
+            </Grid>
+            <Grid item xs={5}>
+              <CustomStyledBox height={85}>
+                <Typography color="primary" pl={2} mb={1}>
+                  Quantity unit
+                </Typography>
+                <FormControl fullWidth>
+                  <Select
+                    id="demo-simple-select"
+                    value={unit}
+                    sx={{
+                      boxShadow: "none",
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 30,
+                    }}
+                    onChange={(e) => setUnit(e.target.value)}
+                  >
+                    <MenuItem value={10}>kg</MenuItem>
+                    <MenuItem value={20}>gram</MenuItem>
+                  </Select>
+                </FormControl>
+              </CustomStyledBox>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12} mt={3}>
+          <Typography fontWeight={600}>
+            Monthly Order Quantity (If any)
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={7}>
+              <CustomStyledBox>
+                <Typography color="primary" pl={2}>
+                  Quantity
+                </Typography>
+                <TextField
+                  size="small"
+                  sx={{
+                    boxShadow: "none",
+                    ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  }}
+                  placeholder="0000"
+                  fullWidth
+                  inputProps={{ style: { fontWeight: "bold" } }}
+                ></TextField>
+              </CustomStyledBox>
+            </Grid>
+            <Grid item xs={5}>
+              <CustomStyledBox height={85}>
+                <Typography color="primary" pl={2} mb={1}>
+                  Quantity unit
+                </Typography>
+                <FormControl fullWidth>
+                  <Select
+                    id="demo-simple-select"
+                    value={unit}
+                    sx={{
+                      boxShadow: "none",
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 30,
+                    }}
+                    onChange={(e) => setUnit(e.target.value)}
+                  >
+                    <MenuItem value={10}>kg</MenuItem>
+                    <MenuItem value={20}>gram</MenuItem>
+                  </Select>
+                </FormControl>
+              </CustomStyledBox>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12} mt={3}>
+          <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
+            SupplyFrequency?
+          </Typography>
+          <Divider sx={{ mb: 3 }} />
+          <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              value={supplyFrequency.toString()}
+              onChange={handleFrequencyChange}
+              name="radio-buttons-group"
+            >
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography variant="h5">Monthly</Typography>
+                </Grid>
+                <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                  <FormControlLabel
+                    value="true"
+                    control={<Radio />}
+                    labelPlacement="start"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="h5">Custom</Typography>
+                </Grid>
+                <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                  <FormControlLabel
+                    value="false"
+                    control={<Radio />}
+                    labelPlacement="start"
+                  />
+                </Grid>
+              </Grid>
+            </RadioGroup>
+          </FormControl>
+          {!supplyFrequency && (
+            <>
+              <Typography fontWeight={700} mt={2} mb={2}>
+                Select a moth range
+              </Typography>
+            </>
+          )}
+          <Divider sx={{ mt: 3 }} />
+        </Grid>
+
+        <Grid item xs={12} mt={3}>
+          <Typography fontWeight={700} mt={2} mb={2}>
+            Other Product Details
+          </Typography>
+          <Typography fontSize={"13px"} mt={1} mb={1}>
+            (Any additional relevant details about the product, such as
+            expiration details, packaging sizes, etc)
+          </Typography>
+          <TextField
+            fullWidth
+            InputProps={{ sx: { borderRadius: 3 } }}
+            multiline
+            rows={7}
+            maxRows={7}
+          ></TextField>
         </Grid>
         <Grid item xs={12}>
           <Button
