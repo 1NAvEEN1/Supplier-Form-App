@@ -13,8 +13,8 @@ import AddProducts from "./AddProducts";
 
 const ProductDetails = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width:600px)");
-  const isDesktop = useMediaQuery("(min-width:1024px)");
+  const isMobile = useMediaQuery("(max-width:768px)");
+  const isDesktop = useMediaQuery("(min-width:769px)");
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -74,7 +74,7 @@ const ProductDetails = () => {
             onClose={() => setIsDrawerOpen(false)}
             aria-labelledby="add-product-modal"
             fullWidth
-            maxWidth="lg"
+            maxWidth="md"
           >
             <DialogContent>
               <Box
