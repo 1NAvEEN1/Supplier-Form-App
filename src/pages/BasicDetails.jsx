@@ -8,8 +8,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
+
+const langs = {
+  en: {nativeName: "English"},
+  snh: {nativeName: "Sinhala"},
+}
 
 const BasicDetails = () => {
+  const { t, i18n } = useTranslation();
   const [province, setProvince] = useState(10);
 
   const handleChange = (e) => {
@@ -17,11 +24,16 @@ const BasicDetails = () => {
   };
 
   return (
-    <div >
+    <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        Basic Details
+        {t('translation:heading')}
       </Typography>
       <Divider sx={{ mb: 3 }} />
+      <Box>
+        {Object.keys(langs).map((lang=>(
+          <button type="submit" key={lang} onClick={()=>i18n.changeLanguage(lang)}>{langs[lang].nativeName}</button>
+        )))}
+      </Box>
       <Box
         sx={{
           boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",

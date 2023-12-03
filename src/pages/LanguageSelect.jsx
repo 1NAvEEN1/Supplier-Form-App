@@ -9,20 +9,27 @@ import {
   Grid,
 } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const LanguageSelect = () => {
+  const { i18n } = useTranslation();
+
+  const handleLanguageChange = (language) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
         Please select language
       </Typography>
       <Divider sx={{ mb: 3 }} />
-      <FormControl fullWidth sx={{pl:2,pr:2}}>
+      <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
           defaultValue="English"
           name="radio-buttons-group"
-          
+          onChange={(e) => handleLanguageChange(e.target.value)}
         >
           <Grid container>
             <Grid item xs={6}>
@@ -30,7 +37,7 @@ const LanguageSelect = () => {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="English"
+                value="en"
                 control={<Radio />}
                 labelPlacement="start"
               />
@@ -40,7 +47,7 @@ const LanguageSelect = () => {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="Sinhala"
+                value="snh"
                 control={<Radio />}
                 labelPlacement="start"
               />
@@ -50,7 +57,7 @@ const LanguageSelect = () => {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="Tamil"
+                value="Tml"
                 control={<Radio />}
                 labelPlacement="start"
               />
@@ -63,3 +70,4 @@ const LanguageSelect = () => {
 };
 
 export default LanguageSelect;
+
