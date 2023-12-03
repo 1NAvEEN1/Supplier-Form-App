@@ -48,15 +48,9 @@ const BasicDetails = () => {
             }}
             onChange={(e) => handleChange(e.target.value)}
           >
-            <MenuItem value={10}>
-              <b>Western</b>
-            </MenuItem>
-            <MenuItem value={20}>
-              <b>Southern</b>
-            </MenuItem>
-            <MenuItem value={30}>
-              <b>Central</b>
-            </MenuItem>
+            <MenuItem value={10}>Western</MenuItem>
+            <MenuItem value={20}>Southern</MenuItem>
+            <MenuItem value={30}>Central</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -86,15 +80,9 @@ const BasicDetails = () => {
             }}
             onChange={(e) => handleChange(e.target.value)}
           >
-            <MenuItem value={10}>
-              <b>Gampaha</b>
-            </MenuItem>
-            <MenuItem value={20}>
-              <b>Southern</b>
-            </MenuItem>
-            <MenuItem value={30}>
-              <b>Central</b>
-            </MenuItem>
+            <MenuItem value={10}>Gampaha</MenuItem>
+            <MenuItem value={20}>Southern</MenuItem>
+            <MenuItem value={30}>Central</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -124,15 +112,9 @@ const BasicDetails = () => {
             }}
             onChange={(e) => handleChange(e.target.value)}
           >
-            <MenuItem value={10}>
-              <b>Wattala</b>
-            </MenuItem>
-            <MenuItem value={20}>
-              <b>Southern</b>
-            </MenuItem>
-            <MenuItem value={30}>
-              <b>Central</b>
-            </MenuItem>
+            <MenuItem value={10}>Wattala</MenuItem>
+            <MenuItem value={20}>Southern</MenuItem>
+            <MenuItem value={30}>Central</MenuItem>
           </Select>
         </FormControl>
       </Box>

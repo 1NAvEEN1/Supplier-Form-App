@@ -12,8 +12,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSelect = () => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
   };
@@ -21,7 +20,7 @@ const LanguageSelect = () => {
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        Please select language
+        {t("translation:LanguageSelect:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -33,7 +32,9 @@ const LanguageSelect = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h6">English</Typography>
+              <Typography variant="h6">
+                {t("translation:LanguageSelect:English")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
@@ -43,7 +44,9 @@ const LanguageSelect = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h6">Sinhala</Typography>
+              <Typography variant="h6">
+                {t("translation:LanguageSelect:Sinhala")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
@@ -53,11 +56,13 @@ const LanguageSelect = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h6">Tamil</Typography>
+              <Typography variant="h6">
+                {t("translation:LanguageSelect:Tamil")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="Tml"
+                value="tml"
                 control={<Radio />}
                 labelPlacement="start"
               />
@@ -70,4 +75,3 @@ const LanguageSelect = () => {
 };
 
 export default LanguageSelect;
-

@@ -9,8 +9,10 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ExportingDetails = () => {
+  const { t } = useTranslation();
   const [exporting, setExporting] = useState(true);
 
   const handleRegistrationChange = (event) => {
@@ -20,7 +22,7 @@ const ExportingDetails = () => {
   return (
     <div>
       <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-        Are you presently exporting your product?
+        {t("translation:ExportingDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -32,7 +34,7 @@ const ExportingDetails = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h5">Yes</Typography>
+              <Typography variant="h5">{t("translation:ExportingDetails:yes")}</Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -42,7 +44,7 @@ const ExportingDetails = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h5">No</Typography>
+              <Typography variant="h5">{t("translation:ExportingDetails:no")}</Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -57,7 +59,7 @@ const ExportingDetails = () => {
       {exporting && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-            If Yes, which countries are you exporting to?
+          {t("translation:ExportingDetails:note")}
           </Typography>
           <TextField
             fullWidth

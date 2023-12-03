@@ -1,7 +1,9 @@
 import { Typography, Box } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const FinalPage = () => {
+  const { t } = useTranslation();
   return (
     <div>
       <Box
@@ -16,10 +18,10 @@ const FinalPage = () => {
       >
         <Box>
           <Typography variant="h4" textAlign="center">
-            Thank you for submitting
+            {t("translation:FinalPage:heading1")}
           </Typography>
           <Typography variant="h4" textAlign="center">
-            your application!
+            {t("translation:FinalPage:heading2")}
           </Typography>
 
           <Typography
@@ -33,16 +35,7 @@ const FinalPage = () => {
               },
             }}
           >
-            Our Ceylon Exports Hub Supply Management Team
-            <br />
-            will contact you after reviewing your details.
-            <br />
-            <br />
-            For further assistance, feel free to reach out to us via
-            <br />
-            email at info.cehub@gmail.lk or contact us on WhatsApp at
-            <br />
-            0702300325.
+            {t("translation:FinalPage:text")}
           </Typography>
         </Box>
       </Box>

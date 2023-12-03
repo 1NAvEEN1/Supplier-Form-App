@@ -9,8 +9,10 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const CertificatesDetails = () => {
+  const { t } = useTranslation();
   const [certificates, setCertificates] = useState(true);
 
   const handleRegistrationChange = (event) => {
@@ -20,7 +22,7 @@ const CertificatesDetails = () => {
   return (
     <div>
       <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-        Do you have any quality certificates?
+      {t("translation:CertificatesDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -32,7 +34,7 @@ const CertificatesDetails = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h5">Yes</Typography>
+              <Typography variant="h5">{t("translation:CertificatesDetails:yes")}</Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -42,7 +44,7 @@ const CertificatesDetails = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h5">No</Typography>
+              <Typography variant="h5">{t("translation:CertificatesDetails:no")}</Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -57,7 +59,7 @@ const CertificatesDetails = () => {
       {certificates && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-            If Yes, please note them here
+          {t("translation:CertificatesDetails:note")}
           </Typography>
           <TextField
             fullWidth

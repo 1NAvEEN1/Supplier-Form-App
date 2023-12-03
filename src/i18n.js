@@ -16,6 +16,14 @@ i18next
     resources: {
       en: {
         translation: {
+          LanguageSelect: {
+            heading: "Please select language",
+            English: "English",
+            Sinhala: "සිංහල",
+            Tamil: "தமிழ்",
+            Continue: "Continue",
+            Back: "Back",
+          },
           BasicDetails: {
             heading: "Basic Details",
             province: "Province",
@@ -58,10 +66,41 @@ i18next
             solo: "Solo Proprietor",
             name: "Please mention your business name",
           },
+          CertificatesDetails: {
+            heading: "Do you have any quality certificates?",
+            yes: "Yes",
+            no: "No",
+            note: "If Yes, please note them here",
+          },
+          ExportingDetails: {
+            heading: "Are you presently exporting your product?",
+            yes: "Yes",
+            no: "No",
+            note: "If Yes, which countries are you exporting to?",
+          },
+          AskForExport: {
+            heading:
+              "Would you be open to supplying your product for us to handle the export?",
+            yes: "Yes",
+            no: "No",
+          },
+          FinalPage: {
+            heading1: "Thank you for submitting",
+            heading2: "your application!",
+            text: "Our Ceylon Exports Hub Supply Management Team<br />will contact you after reviewing your details.<br /><br />For further assistance, feel free to reach out to us via<br />email at info.cehub@gmail.lk or contact us on WhatsApp at<br />0702300325.",
+          },
         },
       },
       snh: {
         translation: {
+          LanguageSelect: {
+            heading: "කරුණාකර භාෂාව තෝරන්න",
+            English: "English",
+            Sinhala: "සිංහල",
+            Tamil: "தமிழ்",
+            Continue: "ඉදිරියට",
+            Back: "ආපසු",
+          },
           BasicDetails: {
             heading: "නිෂ්පාදන විස්තර",
             province: "පළාත",
@@ -103,6 +142,105 @@ i18next
             partnership: "හවුල්ව්‍යාපාරයක්",
             solo: "තනි පුද්ගල ව්‍යාපාරයක්",
             name: "කරුණාකර ඔබේ ව්‍යාපාරයේ නම සඳහන් කරන්න",
+          },
+          CertificatesDetails: {
+            heading: "ඔබගේ ව්‍යාපාරය ලියාපදිංචි කර තිබේද?",
+            yes: "ඔව්",
+            no: "නැත",
+            note: "ඔව් නම්, තත්ත්ව සහතික පහතින් සඳහන් කරන්න.",
+          },
+          ExportingDetails: {
+            heading: "ඔබ දැනටත් ඔබේ නිෂ්පාදනය අපනයනය කරනවාද?",
+            yes: "ඔව්",
+            no: "නැත",
+            note: "ඔව් නම් කුමන රටවල් වලටද?",
+          },
+          AskForExport: {
+            heading: "ඔබේ නිෂ්පාදනය අප ආයතනය හරහා අපනයනය කිරීමට කැමතිද?",
+            yes: "ඔව්",
+            no: "නැත",
+          },
+          FinalPage: {
+            heading1: "ඔබගේ අයදුම්පත ඉදිරිපත් කිරීම ගැන",
+            heading2: "ඔබට ස්තුතියි!",
+            text: "ඔබගේ අයදුම්පත විශ්ලේෂණය කිරීමෙන් පසුව<br /> Exports Hub සැපයුම් කළමනාකරණ කණ්ඩායම<br />ඔබ හා සම්බන්ධ වනු ඇත. ඔබට අමතර සහාය අවශ්‍ය නම්,<br />කරුණාකර info.cehub@gmail.lk විද්‍යුත් තැපෑලෙන්<br />හෝ 0702300325 WhatsApp හරහා<br />අප හා සම්බන්ධ වන්න",
+          },
+        },
+      },
+      tml: {
+        translation: {
+          LanguageSelect: {
+            heading: "மொழியைத் தேர்ந்தெடுக்கவும்",
+            English: "English",
+            Sinhala: "සිංහල",
+            Tamil: "தமிழ்",
+            Continue: "Continue",
+            Back: "Back",
+          },
+          BasicDetails: {
+            heading: "அடிப்படை விவரங்கள்",
+            province: "மாகாணம்",
+            district: "மாவட்டம்",
+            city: "நகரம்",
+            name: "உங்கள் பெயர்",
+            number: "தொடர்பு எண்",
+            email: "மின்னஞ்சல் (விரும்பினால்)",
+          },
+          ProductDetails: {
+            heading: "பொருள் விவரங்கள்",
+            clickText: "உங்கள் பொருளை சேர்க்க கீழே உள்ள பட்டனை அழுத்துங்கள்",
+            button: "பொருள் சேர்க்க",
+          },
+          AddProduct: {
+            heading: "புதிய பொருள் சேர்க்க",
+            category: "பொருள் வகை",
+            subCategory: "பொருள் துணை வகை",
+            name: "பொருள் பெயர்",
+            pricing: "விலை வரம்பு",
+            text1:
+              "விலையை சேர்க்கும்போது அளவுகளை தேர்ந்தெடுக்கவும். <br /> (உதாரணம்: ஒரு கிலோவுக்கு, ஒரு லிட்டருக்கு, ஒரு கிராமுக்கு, ஒரு காய்கறி, போன்றவை)",
+            supplyQuantity: "மாதாந்திர வழங்கும் அளவு",
+            orderQuantity: "மாதாந்திர ஆர்டர் அளவு (இருந்தால்)",
+            supplyFrequency: "வழங்கும் அளவுகள்?",
+            otherDetails: "பிற பொருள் விவரங்கள்",
+            monthRange: "ஒரு மாதம் இடம் தேர்வு செய்க",
+            text2:
+              "(கடந்துப்போக விவரங்கள், உறைந்த அளவுகள் போன்றவை போல பிற செய்திகள்)",
+            monthly: "மாதாந்திர",
+            custom: "கஸ்டம்",
+          },
+          BusinessDetails: {
+            heading: "உங்கள் வணிகத்தை பதிவு செய்துள்ளீர்களா?",
+            yes: "ஆம்",
+            no: "இல்லை",
+            type: "ஆம் என்றால், உங்கள் வணிக வகை என்ன?",
+            pvt: "தனிப்பட்ட கம்பெனி",
+            partnership: "இணையம்",
+            solo: "தனியார் சொந்தம்",
+            name: "உங்கள் வணிக பெயரை குறிப்பிடுக",
+          },
+          CertificatesDetails: {
+            heading: "உங்களிடம் அதிகார சான்றிதழ்கள் உள்ளனவா?",
+            yes: "ஆம்",
+            no: "இல்லை",
+            note: "ஆம் என்றால், அவைகளை இங்கே குறிக்கவும்",
+          },
+          ExportingDetails: {
+            heading:
+              "உங்கள் தற்போதைய உற்பத்தியை ஏதேனும் நாடுகளுக்கு வழங்குகின்றீர்களா?",
+            yes: "ஆம்",
+            no: "இல்லை",
+            note: "ஆம் என்றால், நீங்கள் எந்த நாடுகளுக்கு வழங்குகிறீர்கள்?",
+          },
+          AskForExport: {
+            heading: "உங்கள் பொருளை நாங்கள் வர்த்தகம் செய்வது ஏன்?",
+            yes: "ஆம்",
+            no: "இல்லை",
+          },
+          FinalPage: {
+            heading1: "சமர்ப்பிக்கும் முடிவுகள் க்கு நன்றி",
+            heading2: "உங்கள் விண்ணப்பை!",
+            text: "எங்கள் சீலன் எக்ஸ்போர்ட்ஸ் ஹப் வழங்கும் பொருள் மேலாண்மை குழு<br />உங்கள் விவரங்களை பராமரித்துப் பிறகு உங்களை தொடர்பு கொள்ளும்.<br /><br />மேலும் உதவி தேவைப்பட்டால், நீங்கள் எங்களுடைய மின்னஞ்சலில்<br />info.cehub@gmail.lk இல் அல்லது வாட்ஸ்அப்பில் 0702300325 எண்ணில் தொடர்பு கொள்ளலாம்.",
           },
         },
       },

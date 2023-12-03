@@ -7,7 +7,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
-import { grey } from "@mui/material/colors";
+import { useTranslation } from "react-i18next";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -23,6 +23,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 const FormLayout = () => {
+  const { t } = useTranslation();
   let navigate = useNavigate();
 
   const pages = [
@@ -77,7 +78,7 @@ const FormLayout = () => {
       width={"100vw"}
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <Box height={"100svh"} minHeight={700} maxWidth={700} bgcolor={"#F9FAFB"}>
+      <Box height={"100svh"} minHeight={600} maxWidth={700} bgcolor={"#F9FAFB"}>
         <Box ref={ref}></Box>
         <Grid container p={2} display="flex">
           <Grid
@@ -159,7 +160,7 @@ const FormLayout = () => {
               onClick={navigateToPreviousPage}
             >
               <Typography textTransform="capitalize" variant="h6">
-                Back
+                {t("translation:LanguageSelect:Back")}
               </Typography>
             </Button>
             <Button
@@ -178,7 +179,7 @@ const FormLayout = () => {
               onClick={navigateToNextPage}
             >
               <Typography textTransform="capitalize" variant="h6">
-                Continue
+                {t("translation:LanguageSelect:Continue")}
               </Typography>
             </Button>
           </Grid>
