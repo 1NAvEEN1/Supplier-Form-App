@@ -132,7 +132,7 @@ const AddProducts = ({ closeDrawer }) => {
             (For example: per kg, per liter, per gram, per one piece, etc.)
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={7}>
+            <Grid item xs={6.5}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Price (Rupees)
@@ -149,7 +149,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5.5}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
@@ -178,7 +178,7 @@ const AddProducts = ({ closeDrawer }) => {
         <Grid item xs={12} mt={3}>
           <Typography fontWeight={600}>Monthly Supply Quantity</Typography>
           <Grid container spacing={2}>
-            <Grid item xs={7}>
+            <Grid item xs={6.5}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -195,7 +195,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5.5}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
@@ -226,7 +226,7 @@ const AddProducts = ({ closeDrawer }) => {
             Monthly Order Quantity (If any)
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={7}>
+            <Grid item xs={6.5}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -243,7 +243,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5.5}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit

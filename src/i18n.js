@@ -14,17 +14,33 @@ i18next
     //   loadPath: "/locales/{{lng}}/translation.json",
     // },
     resources: {
-        en: {
-          translation: {
+      en: {
+        translation: {
+          BasicDetails: {
             heading: "Basic Details",
-          },
-        },
-        snh: {
-          translation: {
-            heading: "මූලික විස්තර",
+            province: "Province",
+            district:"District",
+            city:"City",
+            name:"Your Name",
+            number:"Contact Number",
+            email:"Email (Optional)"
           },
         },
       },
+      snh: {
+        translation: {
+          BasicDetails: {
+            heading: "මූලික විස්තර",
+            province: "පළාත",
+            district:"දිස්ත්‍රික්කය",
+            city:"නගරය",
+            name:"නම",
+            number:"ඇමතුම් අංකය",
+            email:"Email ලිපිනය (Optional)"
+          },
+        },
+      },
+    },
   });
 
 export default i18next;

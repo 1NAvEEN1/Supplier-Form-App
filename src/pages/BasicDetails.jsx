@@ -8,12 +8,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useTranslation, Trans } from "react-i18next";
-
-const langs = {
-  en: {nativeName: "English"},
-  snh: {nativeName: "Sinhala"},
-}
+import { useTranslation } from "react-i18next";
 
 const BasicDetails = () => {
   const { t, i18n } = useTranslation();
@@ -26,14 +21,9 @@ const BasicDetails = () => {
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        {t('translation:heading')}
+        {t("translation:BasicDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
-      <Box>
-        {Object.keys(langs).map((lang=>(
-          <button type="submit" key={lang} onClick={()=>i18n.changeLanguage(lang)}>{langs[lang].nativeName}</button>
-        )))}
-      </Box>
       <Box
         sx={{
           boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
@@ -44,7 +34,7 @@ const BasicDetails = () => {
         }}
       >
         <Typography variant="b1" fontWeight={600} color="primary" pl={2}>
-          Province
+          {t("translation:BasicDetails:province")}
         </Typography>
         <FormControl fullWidth>
           <Select
@@ -82,7 +72,7 @@ const BasicDetails = () => {
         }}
       >
         <Typography variant="b1" fontWeight={600} color="primary" pl={2}>
-          District
+          {t("translation:BasicDetails:district")}
         </Typography>
         <FormControl fullWidth>
           <Select
@@ -120,7 +110,7 @@ const BasicDetails = () => {
         }}
       >
         <Typography variant="b1" fontWeight={600} color="primary" pl={2}>
-          City
+          {t("translation:BasicDetails:city")}
         </Typography>
         <FormControl fullWidth>
           <Select
@@ -150,17 +140,17 @@ const BasicDetails = () => {
       <TextField
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
-        placeholder="Your Name"
+        placeholder={t("translation:BasicDetails:name")}
       />
       <TextField
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
-        placeholder="Contact Number"
+        placeholder={t("translation:BasicDetails:number")}
       />
       <TextField
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
-        placeholder="Email (Optional)"
+        placeholder={t("translation:BasicDetails:email")}
       />
     </div>
   );
