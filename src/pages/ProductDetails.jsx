@@ -10,8 +10,10 @@ import {
   DialogContent,
 } from "@mui/material";
 import AddProducts from "./AddProducts";
+import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
+  const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isDesktop = useMediaQuery("(min-width:769px)");
@@ -37,11 +39,11 @@ const ProductDetails = () => {
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        Product Details
+        {t("translation:ProductDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <Typography textAlign="center">
-        Click the button below to add your product
+        {t("translation:ProductDetails:clickText")}
       </Typography>
       <Box display="flex" justifyContent="center" mt={2}>
         <Button

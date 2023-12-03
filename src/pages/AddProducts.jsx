@@ -14,6 +14,7 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@mui/material";
+import { Trans, useTranslation } from "react-i18next";
 
 const CustomStyledBox = ({ children, ...rest }) => (
   <Box
@@ -32,6 +33,7 @@ const CustomStyledBox = ({ children, ...rest }) => (
 );
 
 const AddProducts = ({ closeDrawer }) => {
+  const { t } = useTranslation();
   const [category, setCategory] = useState(10);
   const [subCategory, setSubCategory] = useState(10);
 
@@ -63,11 +65,11 @@ const AddProducts = ({ closeDrawer }) => {
       >
         <Grid item xs={12}>
           <Typography textAlign="center" fontWeight={600}>
-            Add new product
+            {t("translation:AddProduct:heading")}
           </Typography>
           <CustomStyledBox>
             <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
-              Product category
+              {t("translation:AddProduct:category")}
             </Typography>
             <FormControl fullWidth>
               <Select
@@ -89,7 +91,7 @@ const AddProducts = ({ closeDrawer }) => {
           </CustomStyledBox>
           <CustomStyledBox>
             <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
-              Product sub category
+              {t("translation:AddProduct:subCategory")}
             </Typography>
             <FormControl fullWidth>
               <Select
@@ -111,7 +113,7 @@ const AddProducts = ({ closeDrawer }) => {
           </CustomStyledBox>
           <CustomStyledBox>
             <Typography color="primary" pl={2}>
-              Product name
+              {t("translation:AddProduct:name")}
             </Typography>
             <TextField
               size="small"
@@ -126,10 +128,14 @@ const AddProducts = ({ closeDrawer }) => {
         </Grid>
 
         <Grid item xs={12} mt={3}>
-          <Typography fontWeight={600}>Pricing range</Typography>
+          <Typography fontWeight={600}>
+            {t("translation:AddProduct:pricing")}
+          </Typography>
           <Typography fontSize={"13px"} mt={1}>
-            Please select the units of quantity when adding price. <br />
-            (For example: per kg, per liter, per gram, per one piece, etc.)
+            <Trans i18nKey="AddProduct.text1">
+              Please select the units of quantity when adding price. <br />
+              (For example: per kg, per liter, per gram, per one piece, etc.)
+            </Trans>
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6.5}>
@@ -176,7 +182,9 @@ const AddProducts = ({ closeDrawer }) => {
         </Grid>
 
         <Grid item xs={12} mt={3}>
-          <Typography fontWeight={600}>Monthly Supply Quantity</Typography>
+          <Typography fontWeight={600}>
+            {t("translation:AddProduct:supplyQuantity")}
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6.5}>
               <CustomStyledBox>
@@ -223,7 +231,7 @@ const AddProducts = ({ closeDrawer }) => {
 
         <Grid item xs={12} mt={3}>
           <Typography fontWeight={600}>
-            Monthly Order Quantity (If any)
+            {t("translation:AddProduct:orderQuantity")}
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6.5}>
@@ -271,7 +279,7 @@ const AddProducts = ({ closeDrawer }) => {
 
         <Grid item xs={12} mt={3}>
           <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-            SupplyFrequency?
+            {t("translation:AddProduct:supplyFrequency")}
           </Typography>
           <Divider sx={{ mb: 3 }} />
           <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -282,20 +290,24 @@ const AddProducts = ({ closeDrawer }) => {
               name="radio-buttons-group"
             >
               <Grid container>
-                <Grid item xs={6}>
-                  <Typography variant="h5">Monthly</Typography>
+                <Grid item xs={9}>
+                  <Typography variant="h5">
+                    {t("translation:AddProduct:monthly")}
+                  </Typography>
                 </Grid>
-                <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                <Grid item xs={3} display="flex" justifyContent="end" mb={2}>
                   <FormControlLabel
                     value="true"
                     control={<Radio />}
                     labelPlacement="start"
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="h5">Custom</Typography>
+                <Grid item xs={9}>
+                  <Typography variant="h5">
+                    {t("translation:AddProduct:custom")}
+                  </Typography>
                 </Grid>
-                <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                <Grid item xs={3} display="flex" justifyContent="end" mb={2}>
                   <FormControlLabel
                     value="false"
                     control={<Radio />}
@@ -308,7 +320,7 @@ const AddProducts = ({ closeDrawer }) => {
           {!supplyFrequency && (
             <>
               <Typography fontWeight={700} mt={2} mb={2}>
-                Select a moth range
+                {t("translation:AddProduct:monthRange")}
               </Typography>
             </>
           )}
@@ -317,11 +329,10 @@ const AddProducts = ({ closeDrawer }) => {
 
         <Grid item xs={12} mt={3}>
           <Typography fontWeight={700} mt={2} mb={2}>
-            Other Product Details
+            {t("translation:AddProduct:otherDetails")}
           </Typography>
           <Typography fontSize={"13px"} mt={1} mb={1}>
-            (Any additional relevant details about the product, such as
-            expiration details, packaging sizes, etc)
+            {t("translation:AddProduct:text2")}
           </Typography>
           <TextField
             fullWidth

@@ -10,8 +10,10 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const BusinessDetails = () => {
+  const { t } = useTranslation();
   const [businessType, setBusinessType] = useState("pvt");
   const [registeredBusiness, setRegisteredBusiness] = useState(true);
 
@@ -22,7 +24,7 @@ const BusinessDetails = () => {
   return (
     <div>
       <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-        Have you registered your business?
+        {t("translation:BusinessDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -34,7 +36,9 @@ const BusinessDetails = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h5">Yes</Typography>
+              <Typography variant="h5">
+                {t("translation:BusinessDetails:yes")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -44,7 +48,9 @@ const BusinessDetails = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h5">No</Typography>
+              <Typography variant="h5">
+                {t("translation:BusinessDetails:no")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -59,7 +65,7 @@ const BusinessDetails = () => {
       {registeredBusiness && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-            If Yes, what is the type of your business?
+            {t("translation:BusinessDetails:type")}
           </Typography>
           <Box
             sx={{
@@ -75,7 +81,9 @@ const BusinessDetails = () => {
             }}
             onClick={() => setBusinessType("pvt")}
           >
-            <Typography fontWeight={500}>Private Limited Company</Typography>
+            <Typography fontWeight={500}>
+              {t("translation:BusinessDetails:pvt")}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -93,7 +101,9 @@ const BusinessDetails = () => {
             }}
             onClick={() => setBusinessType("partnership")}
           >
-            <Typography fontWeight={500}>Partnership</Typography>
+            <Typography fontWeight={500}>
+              {t("translation:BusinessDetails:partnership")}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -108,10 +118,12 @@ const BusinessDetails = () => {
             }}
             onClick={() => setBusinessType("solo")}
           >
-            <Typography fontWeight={500}>Solo Proprietor</Typography>
+            <Typography fontWeight={500}>
+              {t("translation:BusinessDetails:solo")}
+            </Typography>
           </Box>
           <Typography fontWeight={700} mt={4} mb={2}>
-            Please mention your business name
+            {t("translation:BusinessDetails:name")}
           </Typography>
           <TextField
             fullWidth
