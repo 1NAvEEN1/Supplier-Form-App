@@ -3,9 +3,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const FinalPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
-    <div>
+    <div style={{ whiteSpace: "pre-line" }}>
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -17,15 +17,26 @@ const FinalPage = () => {
         }}
       >
         <Box>
-          <Typography variant="h4" textAlign="center">
+          <Typography
+            variant="h4"
+            textAlign="center"
+            fontFamily={i18n.language === "si" ? "Noto Sans Sinhala" : "Nunito"}
+            fontSize="18px"
+          >
             {t("translation:FinalPage:heading1")}
           </Typography>
-          <Typography variant="h4" textAlign="center">
+          <Typography
+            variant="h4"
+            textAlign="center"
+            fontFamily={i18n.language === "si" ? "Noto Sans Sinhala" : "Nunito"}
+            fontSize="18px"
+          >
             {t("translation:FinalPage:heading2")}
           </Typography>
 
           <Typography
             textAlign="center"
+            fontFamily={i18n.language === "si" ? "Noto Sans Sinhala" : "Nunito"}
             mt={6}
             sx={{
               fontSize: {

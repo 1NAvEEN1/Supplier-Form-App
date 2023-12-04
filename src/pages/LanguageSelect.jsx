@@ -12,7 +12,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSelect = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
   };
@@ -50,7 +50,7 @@ const LanguageSelect = () => {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="snh"
+                value="si"
                 control={<Radio />}
                 labelPlacement="start"
               />
@@ -62,7 +62,7 @@ const LanguageSelect = () => {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={3}>
               <FormControlLabel
-                value="tml"
+                value="ta"
                 control={<Radio />}
                 labelPlacement="start"
               />
