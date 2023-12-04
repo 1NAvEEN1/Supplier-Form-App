@@ -26,7 +26,7 @@ const LanguageSelect = () => {
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="en"
+          defaultValue={i18n.language}
           name="radio-buttons-group"
           onChange={(e) => handleLanguageChange(e.target.value)}
         >
