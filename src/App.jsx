@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./layout";
 import FormLayout from "./layout/FormLayout";
 import ThemeProvider from "./theme";
+import { Provider } from "react-redux";
+import store from "./app/store";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
 const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
@@ -72,9 +74,11 @@ function App() {
     },
   ]);
   return (
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
   );
 }
 
