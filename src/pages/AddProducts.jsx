@@ -15,6 +15,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { Trans, useTranslation } from "react-i18next";
+import { Tune } from "@mui/icons-material";
 
 const CustomStyledBox = ({ children, ...rest }) => (
   <Box
@@ -36,6 +37,7 @@ const AddProducts = ({ closeDrawer }) => {
   const { t } = useTranslation();
   const [category, setCategory] = useState(10);
   const [subCategory, setSubCategory] = useState(10);
+  const [productOrRaw, setProductOrRaw] = useState(true);
 
   const [unit, setUnit] = useState(10);
 
@@ -44,6 +46,59 @@ const AddProducts = ({ closeDrawer }) => {
 
   const handleFrequencyChange = (event) => {
     setSupplyFrequency(event.target.value === "true");
+  };
+
+  const [selectedMonths, setSelectedMonths] = useState([]);
+
+  // Function to toggle selection of a month
+  const handleMonthSelection = (month) => {
+    const isSelected = selectedMonths.includes(month);
+    if (isSelected) {
+      setSelectedMonths(selectedMonths.filter((m) => m !== month));
+    } else {
+      setSelectedMonths([...selectedMonths, month]);
+    }
+  };
+
+  const renderMonthSelection = () => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return (
+      <Grid container spacing={2}>
+        {months.map((month, index) => (
+          <Grid
+            key={index}
+            item
+            xs={3}
+            display={"flex"}
+            justifyContent={"center"}
+          >
+            <Box
+              bgcolor={selectedMonths.includes(month) ? "#F47621" : "#D5D8DC"}
+              onClick={() => handleMonthSelection(month)}
+              sx={{ borderRadius: 2, width: 60, height: 40 }}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Typography textAlign={"center"}>{month}</Typography>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    );
   };
   return (
     <Box
@@ -64,53 +119,103 @@ const AddProducts = ({ closeDrawer }) => {
         }}
       >
         <Grid item xs={12}>
-          <Typography textAlign="center" fontWeight={600}>
+          <Typography textAlign="center" fontWeight={600} mb={2}>
             {t("translation:AddProduct:heading")}
           </Typography>
-          <CustomStyledBox>
-            <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
-              {t("translation:AddProduct:category")}
-            </Typography>
-            <FormControl fullWidth>
-              <Select
-                id="demo-simple-select"
-                value={category}
-                sx={{
-                  boxShadow: "none",
-                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                  borderRadius: 3,
-                  height: 30,
-                }}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <MenuItem value={10}>Spices</MenuItem>
-                <MenuItem value={20}>Oils</MenuItem>
-                <MenuItem value={30}>condiments</MenuItem>
-              </Select>
-            </FormControl>
-          </CustomStyledBox>
-          <CustomStyledBox>
-            <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
-              {t("translation:AddProduct:subCategory")}
-            </Typography>
-            <FormControl fullWidth>
-              <Select
-                id="demo-simple-select"
-                value={subCategory}
-                sx={{
-                  boxShadow: "none",
-                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                  borderRadius: 3,
-                  height: 30,
-                }}
-                onChange={(e) => setSubCategory(e.target.value)}
-              >
-                <MenuItem value={10}>Cinnamon</MenuItem>
-                <MenuItem value={20}>Turmeric</MenuItem>
-                <MenuItem value={30}>Pepper</MenuItem>
-              </Select>
-            </FormControl>
-          </CustomStyledBox>
+          <Divider style={{ width: "100%", marginBottom: 25 }} />
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            value={productOrRaw}
+            onChange={(e) => setProductOrRaw(e.target.value === "true")}
+            name="radio-buttons-group"
+          >
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  {t("translation:AddProduct:product")}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                <FormControlLabel
+                  value="true"
+                  control={<Radio />}
+                  labelPlacement="start"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  {t("translation:AddProduct:rawMaterial")}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
+                <FormControlLabel
+                  value="false"
+                  control={<Radio />}
+                  labelPlacement="start"
+                />
+              </Grid>
+            </Grid>
+          </RadioGroup>
+          {productOrRaw && (
+            <>
+              {" "}
+              <CustomStyledBox>
+                <Typography
+                  variant="b1"
+                  fontWeight={500}
+                  color="primary"
+                  pl={2}
+                >
+                  {t("translation:AddProduct:category")}
+                </Typography>
+                <FormControl fullWidth>
+                  <Select
+                    id="demo-simple-select"
+                    value={category}
+                    sx={{
+                      boxShadow: "none",
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 30,
+                    }}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <MenuItem value={10}>Spices</MenuItem>
+                    <MenuItem value={20}>Oils</MenuItem>
+                    <MenuItem value={30}>condiments</MenuItem>
+                  </Select>
+                </FormControl>
+              </CustomStyledBox>
+              <CustomStyledBox>
+                <Typography
+                  variant="b1"
+                  fontWeight={500}
+                  color="primary"
+                  pl={2}
+                >
+                  {t("translation:AddProduct:subCategory")}
+                </Typography>
+                <FormControl fullWidth>
+                  <Select
+                    id="demo-simple-select"
+                    value={subCategory}
+                    sx={{
+                      boxShadow: "none",
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 30,
+                    }}
+                    onChange={(e) => setSubCategory(e.target.value)}
+                  >
+                    <MenuItem value={10}>Cinnamon</MenuItem>
+                    <MenuItem value={20}>Turmeric</MenuItem>
+                    <MenuItem value={30}>Pepper</MenuItem>
+                  </Select>
+                </FormControl>
+              </CustomStyledBox>
+            </>
+          )}
+
           <CustomStyledBox>
             <Typography color="primary" pl={2}>
               {t("translation:AddProduct:name")}
@@ -160,22 +265,38 @@ const AddProducts = ({ closeDrawer }) => {
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
                 </Typography>
-                <FormControl fullWidth>
-                  <Select
-                    id="demo-simple-select"
-                    value={unit}
-                    sx={{
-                      boxShadow: "none",
-                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                      borderRadius: 3,
-                      height: 30,
-                    }}
-                    onChange={(e) => setUnit(e.target.value)}
-                  >
-                    <MenuItem value={10}>kg</MenuItem>
-                    <MenuItem value={20}>gram</MenuItem>
-                  </Select>
-                </FormControl>
+                <Grid container>
+                  <Grid item xs={6} mb={3}>
+                    <TextField
+                      size="small"
+                      sx={{
+                        boxShadow: "none",
+                        ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      }}
+                      placeholder="000"
+                      fullWidth
+                      inputProps={{ style: { fontWeight: "bold" } }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6} mt={0.5}>
+                    <FormControl fullWidth>
+                      <Select
+                        id="demo-simple-select"
+                        value={unit}
+                        sx={{
+                          boxShadow: "none",
+                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                          borderRadius: 3,
+                          height: 30,
+                        }}
+                        onChange={(e) => setUnit(e.target.value)}
+                      >
+                        <MenuItem value={10}>kg</MenuItem>
+                        <MenuItem value={20}>gram</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </CustomStyledBox>
             </Grid>
           </Grid>
@@ -205,25 +326,41 @@ const AddProducts = ({ closeDrawer }) => {
             </Grid>
             <Grid item xs={5.5}>
               <CustomStyledBox height={85}>
-                <Typography color="primary" pl={2} mb={1}>
+                <Typography color="primary" pl={2} mb={0}>
                   Quantity unit
                 </Typography>
-                <FormControl fullWidth>
-                  <Select
-                    id="demo-simple-select"
-                    value={unit}
-                    sx={{
-                      boxShadow: "none",
-                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                      borderRadius: 3,
-                      height: 30,
-                    }}
-                    onChange={(e) => setUnit(e.target.value)}
-                  >
-                    <MenuItem value={10}>kg</MenuItem>
-                    <MenuItem value={20}>gram</MenuItem>
-                  </Select>
-                </FormControl>
+                <Grid container>
+                  <Grid item xs={6} mb={3}>
+                    <TextField
+                      size="small"
+                      sx={{
+                        boxShadow: "none",
+                        ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      }}
+                      placeholder="000"
+                      fullWidth
+                      inputProps={{ style: { fontWeight: "bold" } }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6} mt={0.5}>
+                    <FormControl fullWidth>
+                      <Select
+                        id="demo-simple-select"
+                        value={unit}
+                        sx={{
+                          boxShadow: "none",
+                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                          borderRadius: 3,
+                          height: 30,
+                        }}
+                        onChange={(e) => setUnit(e.target.value)}
+                      >
+                        <MenuItem value={10}>kg</MenuItem>
+                        <MenuItem value={20}>gram</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </CustomStyledBox>
             </Grid>
           </Grid>
@@ -256,22 +393,38 @@ const AddProducts = ({ closeDrawer }) => {
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
                 </Typography>
-                <FormControl fullWidth>
-                  <Select
-                    id="demo-simple-select"
-                    value={unit}
-                    sx={{
-                      boxShadow: "none",
-                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                      borderRadius: 3,
-                      height: 30,
-                    }}
-                    onChange={(e) => setUnit(e.target.value)}
-                  >
-                    <MenuItem value={10}>kg</MenuItem>
-                    <MenuItem value={20}>gram</MenuItem>
-                  </Select>
-                </FormControl>
+                <Grid container>
+                  <Grid item xs={6} mb={3}>
+                    <TextField
+                      size="small"
+                      sx={{
+                        boxShadow: "none",
+                        ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      }}
+                      placeholder="000"
+                      fullWidth
+                      inputProps={{ style: { fontWeight: "bold" } }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6} mt={0.5}>
+                    <FormControl fullWidth>
+                      <Select
+                        id="demo-simple-select"
+                        value={unit}
+                        sx={{
+                          boxShadow: "none",
+                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                          borderRadius: 3,
+                          height: 30,
+                        }}
+                        onChange={(e) => setUnit(e.target.value)}
+                      >
+                        <MenuItem value={10}>kg</MenuItem>
+                        <MenuItem value={20}>gram</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </CustomStyledBox>
             </Grid>
           </Grid>
@@ -322,6 +475,7 @@ const AddProducts = ({ closeDrawer }) => {
               <Typography fontWeight={700} mt={2} mb={2}>
                 {t("translation:AddProduct:monthRange")}
               </Typography>
+              {renderMonthSelection()}
             </>
           )}
           <Divider sx={{ mt: 3 }} />

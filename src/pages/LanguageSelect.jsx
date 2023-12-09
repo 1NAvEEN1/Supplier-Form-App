@@ -10,10 +10,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { setFormData } from "../reducers/formSlice";
 
 const LanguageSelect = () => {
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const handleLanguageChange = (language) => {
+    dispatch(
+      setFormData({
+        FormData: { SessionThrough: language },
+      })
+    );
     i18n.changeLanguage(language);
   };
 

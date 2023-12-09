@@ -3,18 +3,9 @@ import React from "react";
 import HomeLogo from "../assets/HomeLogo.svg";
 import Carousel from "../components/Carousel/Carousel";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setFormData } from "../reducers/formSlice";
 
 const Home = () => {
-  const dispatch = useDispatch();
   let navigate = useNavigate();
-
-  dispatch(
-    setFormData({
-      FormData: { SessionThrough: true },
-    })
-  );
 
   return (
     <Grid

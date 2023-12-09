@@ -39,6 +39,8 @@ i18next.use(initReactI18next).init({
         },
         AddProduct: {
           heading: "Add new product",
+          product: "Product",
+          rawMaterial: "Raw Material",
           category: "Product category",
           subCategory: "Product sub category",
           name: "Product name",

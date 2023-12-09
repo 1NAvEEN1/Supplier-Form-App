@@ -4,7 +4,7 @@ const formSlice = createSlice({
   name: "form",
   initialState: {
     FormData: {
-      SessionThrough: false,
+      language: "en",
     },
   },
   reducers: {
