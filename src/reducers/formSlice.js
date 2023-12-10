@@ -4,6 +4,7 @@ const formSlice = createSlice({
   name: "form",
   initialState: {
     currentPage: 1,
+    initialRender: 0,
     formData: {
       language: "en",
       basicDetails: {
@@ -32,10 +33,13 @@ const formSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setInitialRender:(state,action)=> {
+      state.initialRender = action.payload;
+    }
   },
 });
 
 
-export const { setFormData, setCurrentPage } = formSlice.actions;
+export const { setFormData, setCurrentPage,setInitialRender } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -41,6 +41,8 @@ const BasicDetails = () => {
         sx={{
           boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
           borderRadius: 3,
+          border: 2,
+          borderColor: "#d32f2f",
           pt: 1,
           pr: 2,
           pb: 1,

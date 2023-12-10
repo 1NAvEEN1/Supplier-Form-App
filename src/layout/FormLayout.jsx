@@ -8,7 +8,9 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import store from "../app/store";
+import validation from "../validations";
+import { useDispatch } from "react-redux";
+import { setErrorsBasicDetails } from "../reducers/errorMessages";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -25,7 +27,8 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 const FormLayout = () => {
   const { t } = useTranslation();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const pages = [
     "",
@@ -41,12 +44,19 @@ const FormLayout = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
   const navigateToNextPage = () => {
-    const nextPageIndex = currentPageIndex + 1;
-    if (nextPageIndex < pages.length) {
-      setCurrentPageIndex(nextPageIndex);
-      navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
-    } else {
-      navigate("/Supplier-Form-App/FinalPage");
+    let validate = validation(
+      currentPageIndex,
+      dispatch,
+      setErrorsBasicDetails
+    );
+    if (validate) {
+      const nextPageIndex = currentPageIndex + 1;
+      if (nextPageIndex < pages.length) {
+        setCurrentPageIndex(nextPageIndex);
+        navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
+      } else {
+        navigate("/Supplier-Form-App/FinalPage");
+      }
     }
   };
 
