@@ -15,6 +15,7 @@ const formSlice = createSlice({
         contactNo: "",
         email: "",
       },
+      productDetails: [],
     },
   },
   reducers: {
@@ -22,24 +23,31 @@ const formSlice = createSlice({
       const { province, district, city, name, phone, email } = action.payload;
       state.formData.basicDetails = {
         ...state.formData.basicDetails,
-        province: province !== undefined ? province : state.formData.basicDetails.province,
-        district: district !== undefined ? district : state.formData.basicDetails.district,
+        province:
+          province !== undefined
+            ? province
+            : state.formData.basicDetails.province,
+        district:
+          district !== undefined
+            ? district
+            : state.formData.basicDetails.district,
         city: city !== undefined ? city : state.formData.basicDetails.city,
         name: name !== undefined ? name : state.formData.basicDetails.name,
-        contactNo: phone !== undefined ? phone : state.formData.basicDetails.contactNo,
+        contactNo:
+          phone !== undefined ? phone : state.formData.basicDetails.contactNo,
         email: email !== undefined ? email : state.formData.basicDetails.email,
       };
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
-    setInitialRender:(state,action)=> {
-      state.initialRender = action.payload;
-    }
+    setProductDetails: (state, action) => {
+      state.formData.productDetails = action.payload;
+    },
   },
 });
 
-
-export const { setFormData, setCurrentPage,setInitialRender } = formSlice.actions;
+export const { setFormData, setCurrentPage, setProductDetails } =
+  formSlice.actions;
 
 export default formSlice.reducer;

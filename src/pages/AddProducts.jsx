@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Typography,
   Button,
-  SwipeableDrawer,
   Divider,
   Box,
   FormControl,
@@ -15,8 +14,8 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { Trans, useTranslation } from "react-i18next";
-import { Tune } from "@mui/icons-material";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setProductDetails } from "../reducers/formSlice";
 
 const CustomStyledBox = ({ children, ...rest }) => (
   <Box
@@ -35,40 +34,54 @@ const CustomStyledBox = ({ children, ...rest }) => (
 );
 
 const AddProducts = ({ closeDrawer }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const formData = useSelector((state) => state.form.formData);
 
   const [product, setProduct] = useState({
-    category: 10,
-    subCategory: 10,
     productOrRaw: true,
-    unit: 10,
+    category: 0,
+    subCategory: 0,
+    name: "",
+    pricing: {
+      price: "",
+      priceQtyUnitValue: "",
+      priceQtyUnit: 10,
+    },
+    supply: {
+      supplyQty: "",
+      supplyQtyUnitValue: "",
+      supplyQtyUnit: 10,
+    },
+    order: {
+      orderQty: "",
+      orderQtyUnitValue: "",
+      orderQtyUnit: 10,
+    },
     supplyFrequency: true,
     selectedMonths: [],
+    otherDetails: "",
   });
 
-  const [category, setCategory] = useState(10);
-  const [subCategory, setSubCategory] = useState(10);
-  const [productOrRaw, setProductOrRaw] = useState(true);
-
-  const [unit, setUnit] = useState(10);
-
-  const [supplyFrequency, setSupplyFrequency] = useState(true);
-  const [mothRange, setMothRange] = useState();
-
-  const handleFrequencyChange = (event) => {
-    setSupplyFrequency(event.target.value === "true");
+  const handleChange = (key, value, subKey = null) => {
+    if (subKey) {
+      setProduct({
+        ...product,
+        [key]: { ...product[key], [subKey]: value },
+      });
+    } else {
+      setProduct({ ...product, [key]: value });
+    }
   };
-
-  const [selectedMonths, setSelectedMonths] = useState([]);
 
   // Function to toggle selection of a month
   const handleMonthSelection = (month) => {
-    const isSelected = selectedMonths.includes(month);
-    if (isSelected) {
-      setSelectedMonths(selectedMonths.filter((m) => m !== month));
-    } else {
-      setSelectedMonths([...selectedMonths, month]);
-    }
+    const isSelected = product.selectedMonths.includes(month);
+    const updatedMonths = isSelected
+      ? product.selectedMonths.filter((m) => m !== month)
+      : [...product.selectedMonths, month];
+
+    handleChange("selectedMonths", updatedMonths);
   };
 
   const renderMonthSelection = () => {
@@ -97,9 +110,19 @@ const AddProducts = ({ closeDrawer }) => {
             justifyContent={"center"}
           >
             <Box
-              bgcolor={selectedMonths.includes(month) ? "#F47621" : "#D5D8DC"}
+              bgcolor={
+                product.selectedMonths.includes(month) ? "#F47621" : "#D5D8DC"
+              }
               onClick={() => handleMonthSelection(month)}
-              sx={{ borderRadius: 2, width: 60, height: 40 }}
+              sx={{
+                borderRadius: 2,
+                width: 60,
+                height: 40,
+                "&:hover": {
+                  cursor: "pointer",
+                  border: "2px solid #F47621",
+                },
+              }}
               display={"flex"}
               justifyContent={"center"}
               alignItems={"center"}
@@ -110,6 +133,13 @@ const AddProducts = ({ closeDrawer }) => {
         ))}
       </Grid>
     );
+  };
+
+  const save = () => {
+    console.log(product);
+    const updatedProductDetails = [...formData.productDetails, product];
+    dispatch(setProductDetails(updatedProductDetails));
+    closeDrawer();
   };
   return (
     <Box
@@ -136,8 +166,10 @@ const AddProducts = ({ closeDrawer }) => {
           <Divider style={{ width: "100%", marginBottom: 25 }} />
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            value={productOrRaw}
-            onChange={(e) => setProductOrRaw(e.target.value === "true")}
+            value={product.productOrRaw.toString()}
+            onChange={(e) =>
+              handleChange("productOrRaw", e.target.value === "true")
+            }
             name="radio-buttons-group"
           >
             <Grid container>
@@ -167,7 +199,7 @@ const AddProducts = ({ closeDrawer }) => {
               </Grid>
             </Grid>
           </RadioGroup>
-          {productOrRaw && (
+          {product.productOrRaw && (
             <>
               {" "}
               <CustomStyledBox>
@@ -182,15 +214,16 @@ const AddProducts = ({ closeDrawer }) => {
                 <FormControl fullWidth>
                   <Select
                     id="demo-simple-select"
-                    value={category}
+                    value={product.category}
                     sx={{
                       boxShadow: "none",
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       borderRadius: 3,
                       height: 30,
                     }}
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={(e) => handleChange("category", e.target.value)}
                   >
+                    <MenuItem value={0}>Select a product category</MenuItem>
                     <MenuItem value={10}>Spices</MenuItem>
                     <MenuItem value={20}>Oils</MenuItem>
                     <MenuItem value={30}>condiments</MenuItem>
@@ -209,15 +242,18 @@ const AddProducts = ({ closeDrawer }) => {
                 <FormControl fullWidth>
                   <Select
                     id="demo-simple-select"
-                    value={subCategory}
+                    value={product.subCategory}
                     sx={{
                       boxShadow: "none",
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       borderRadius: 3,
                       height: 30,
                     }}
-                    onChange={(e) => setSubCategory(e.target.value)}
+                    onChange={(e) =>
+                      handleChange("subCategory", e.target.value)
+                    }
                   >
+                    <MenuItem value={0}>Select a product sub category</MenuItem>
                     <MenuItem value={10}>Cinnamon</MenuItem>
                     <MenuItem value={20}>Turmeric</MenuItem>
                     <MenuItem value={30}>Pepper</MenuItem>
@@ -239,6 +275,8 @@ const AddProducts = ({ closeDrawer }) => {
               }}
               placeholder="Product Name ABC"
               fullWidth
+              value={product.name}
+              onChange={(e) => handleChange("name", e.target.value)}
             ></TextField>
           </CustomStyledBox>
         </Grid>
@@ -268,6 +306,10 @@ const AddProducts = ({ closeDrawer }) => {
                   placeholder="0000"
                   fullWidth
                   inputProps={{ style: { fontWeight: "bold" } }}
+                  value={product.pricing.price}
+                  onChange={(e) =>
+                    handleChange("pricing", e.target.value, "price")
+                  }
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -287,20 +329,34 @@ const AddProducts = ({ closeDrawer }) => {
                       placeholder="000"
                       fullWidth
                       inputProps={{ style: { fontWeight: "bold" } }}
+                      value={product.pricing.priceQtyUnitValue}
+                      onChange={(e) =>
+                        handleChange(
+                          "pricing",
+                          e.target.value,
+                          "priceQtyUnitValue"
+                        )
+                      }
                     ></TextField>
                   </Grid>
                   <Grid item xs={6} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
-                        value={unit}
                         sx={{
                           boxShadow: "none",
                           ".MuiOutlinedInput-notchedOutline": { border: 0 },
                           borderRadius: 3,
                           height: 30,
                         }}
-                        onChange={(e) => setUnit(e.target.value)}
+                        value={product.pricing.priceQtyUnit}
+                        onChange={(e) =>
+                          handleChange(
+                            "pricing",
+                            e.target.value,
+                            "priceQtyUnit"
+                          )
+                        }
                       >
                         <MenuItem value={10}>kg</MenuItem>
                         <MenuItem value={20}>gram</MenuItem>
@@ -332,6 +388,10 @@ const AddProducts = ({ closeDrawer }) => {
                   placeholder="0000"
                   fullWidth
                   inputProps={{ style: { fontWeight: "bold" } }}
+                  value={product.supply.supplyQty}
+                  onChange={(e) =>
+                    handleChange("supply", e.target.value, "supplyQty")
+                  }
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -351,20 +411,34 @@ const AddProducts = ({ closeDrawer }) => {
                       placeholder="000"
                       fullWidth
                       inputProps={{ style: { fontWeight: "bold" } }}
+                      value={product.supply.supplyQtyUnitValue}
+                      onChange={(e) =>
+                        handleChange(
+                          "supply",
+                          e.target.value,
+                          "supplyQtyUnitValue"
+                        )
+                      }
                     ></TextField>
                   </Grid>
                   <Grid item xs={6} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
-                        value={unit}
                         sx={{
                           boxShadow: "none",
                           ".MuiOutlinedInput-notchedOutline": { border: 0 },
                           borderRadius: 3,
                           height: 30,
                         }}
-                        onChange={(e) => setUnit(e.target.value)}
+                        value={product.supply.supplyQtyUnit}
+                        onChange={(e) =>
+                          handleChange(
+                            "supply",
+                            e.target.value,
+                            "supplyQtyUnit"
+                          )
+                        }
                       >
                         <MenuItem value={10}>kg</MenuItem>
                         <MenuItem value={20}>gram</MenuItem>
@@ -396,6 +470,10 @@ const AddProducts = ({ closeDrawer }) => {
                   placeholder="0000"
                   fullWidth
                   inputProps={{ style: { fontWeight: "bold" } }}
+                  value={product.order.orderQty}
+                  onChange={(e) =>
+                    handleChange("order", e.target.value, "orderQty")
+                  }
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -415,20 +493,30 @@ const AddProducts = ({ closeDrawer }) => {
                       placeholder="000"
                       fullWidth
                       inputProps={{ style: { fontWeight: "bold" } }}
+                      value={product.order.orderQtyUnitValue}
+                      onChange={(e) =>
+                        handleChange(
+                          "order",
+                          e.target.value,
+                          "orderQtyUnitValue"
+                        )
+                      }
                     ></TextField>
                   </Grid>
                   <Grid item xs={6} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
-                        value={unit}
                         sx={{
                           boxShadow: "none",
                           ".MuiOutlinedInput-notchedOutline": { border: 0 },
                           borderRadius: 3,
                           height: 30,
                         }}
-                        onChange={(e) => setUnit(e.target.value)}
+                        value={product.order.orderQtyUnit}
+                        onChange={(e) =>
+                          handleChange("order", e.target.value, "orderQtyUnit")
+                        }
                       >
                         <MenuItem value={10}>kg</MenuItem>
                         <MenuItem value={20}>gram</MenuItem>
@@ -449,8 +537,10 @@ const AddProducts = ({ closeDrawer }) => {
           <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              value={supplyFrequency.toString()}
-              onChange={handleFrequencyChange}
+              value={product.supplyFrequency.toString()}
+              onChange={(e) =>
+                handleChange("supplyFrequency", e.target.value === "true")
+              }
               name="radio-buttons-group"
             >
               <Grid container>
@@ -481,7 +571,7 @@ const AddProducts = ({ closeDrawer }) => {
               </Grid>
             </RadioGroup>
           </FormControl>
-          {!supplyFrequency && (
+          {!product.supplyFrequency && (
             <>
               <Typography fontWeight={700} mt={2} mb={2}>
                 {t("translation:AddProduct:monthRange")}
@@ -504,7 +594,8 @@ const AddProducts = ({ closeDrawer }) => {
             InputProps={{ sx: { borderRadius: 3 } }}
             multiline
             rows={7}
-            maxRows={7}
+            value={product.otherDetails}
+            onChange={(e) => handleChange("otherDetails", e.target.value)}
           ></TextField>
         </Grid>
         <Grid item xs={12}>
@@ -518,7 +609,7 @@ const AddProducts = ({ closeDrawer }) => {
               color: "white",
               mt: 2,
             }}
-            onClick={() => closeDrawer()} // Update this line
+            onClick={() => save()} // Update this line
           >
             <Typography textTransform="capitalize" variant="h6">
               Save Product

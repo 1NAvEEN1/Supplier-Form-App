@@ -7,9 +7,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import NavButton from "../components/NavigationButtons";
 import store from "../app/store";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../reducers/formSlice";
