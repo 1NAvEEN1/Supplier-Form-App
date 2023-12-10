@@ -39,6 +39,7 @@ const FormLayout = () => {
     "CertificatesDetails",
     "ExportingDetails",
     "AskForExport",
+    "Summary",
   ];
 
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
@@ -120,7 +121,7 @@ const FormLayout = () => {
           >
             <BorderLinearProgress
               variant="determinate"
-              value={(currentPageIndex / 7) * 100}
+              value={(currentPageIndex / 8) * 100}
             />
           </Grid>
           <Grid
@@ -191,7 +192,11 @@ const FormLayout = () => {
               onClick={navigateToNextPage}
             >
               <Typography textTransform="capitalize" variant="h6">
-                {t("translation:LanguageSelect:Continue")}
+                {currentPageIndex == 8 ? (
+                  <>Submit</>
+                ) : (
+                  <>{t("translation:LanguageSelect:Continue")}</>
+                )}
               </Typography>
             </Button>
           </Grid>

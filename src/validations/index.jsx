@@ -1,3 +1,4 @@
+import { showAlertMessage } from "../app/alertMessageController";
 import store from "../app/store";
 
 const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
@@ -44,6 +45,13 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
     console.log(errors);
 
     dispatch(setErrorsBasicDetails({ errors }));
+
+    if (!isValidate) {
+      showAlertMessage({
+        message: "Please fill the correct data",
+        type: "error",
+      });
+    }
   }
 
   return isValidate;

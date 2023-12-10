@@ -24,7 +24,7 @@ const CustomStyledBox = ({ children, ...rest }) => (
       borderRadius: 3,
       mt: 3,
       pt: 1,
-      pr: 2,
+      pr: 0,
       pb: 1,
       ...rest, // Apply additional styles passed as props
     }}
@@ -292,7 +292,7 @@ const AddProducts = ({ closeDrawer }) => {
             </Trans>
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6.5}>
+            <Grid item xs={6}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Price (Rupees)
@@ -313,13 +313,13 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5.5}>
+            <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
                 </Typography>
                 <Grid container>
-                  <Grid item xs={6} mb={3}>
+                  <Grid item xs={5} mb={3}>
                     <TextField
                       size="small"
                       sx={{
@@ -339,7 +339,7 @@ const AddProducts = ({ closeDrawer }) => {
                       }
                     ></TextField>
                   </Grid>
-                  <Grid item xs={6} mt={0.5}>
+                  <Grid item xs={7} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
@@ -349,6 +349,7 @@ const AddProducts = ({ closeDrawer }) => {
                           borderRadius: 3,
                           height: 30,
                         }}
+                        fullWidth
                         value={product.pricing.priceQtyUnit}
                         onChange={(e) =>
                           handleChange(
@@ -374,7 +375,7 @@ const AddProducts = ({ closeDrawer }) => {
             {t("translation:AddProduct:supplyQuantity")}
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6.5}>
+            <Grid item xs={6}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -395,13 +396,13 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5.5}>
+            <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={0}>
                   Quantity unit
                 </Typography>
                 <Grid container>
-                  <Grid item xs={6} mb={3}>
+                  <Grid item xs={5} mb={3}>
                     <TextField
                       size="small"
                       sx={{
@@ -421,7 +422,7 @@ const AddProducts = ({ closeDrawer }) => {
                       }
                     ></TextField>
                   </Grid>
-                  <Grid item xs={6} mt={0.5}>
+                  <Grid item xs={7} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
@@ -456,7 +457,7 @@ const AddProducts = ({ closeDrawer }) => {
             {t("translation:AddProduct:orderQuantity")}
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6.5}>
+            <Grid item xs={6}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -477,13 +478,13 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={5.5}>
+            <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
                 </Typography>
                 <Grid container>
-                  <Grid item xs={6} mb={3}>
+                  <Grid item xs={5} mb={3}>
                     <TextField
                       size="small"
                       sx={{
@@ -503,7 +504,7 @@ const AddProducts = ({ closeDrawer }) => {
                       }
                     ></TextField>
                   </Grid>
-                  <Grid item xs={6} mt={0.5}>
+                  <Grid item xs={7} mt={0.5}>
                     <FormControl fullWidth>
                       <Select
                         id="demo-simple-select"
