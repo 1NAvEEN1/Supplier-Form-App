@@ -17,6 +17,7 @@ import {
 import { Trans, useTranslation } from "react-i18next";
 import { Tune } from "@mui/icons-material";
 
+
 const CustomStyledBox = ({ children, ...rest }) => (
   <Box
     sx={{
@@ -35,6 +36,16 @@ const CustomStyledBox = ({ children, ...rest }) => (
 
 const AddProducts = ({ closeDrawer }) => {
   const { t } = useTranslation();
+
+  const [product, setProduct] = useState({
+    category: 10,
+    subCategory: 10,
+    productOrRaw: true,
+    unit: 10,
+    supplyFrequency: true,
+    selectedMonths: [],
+  });
+
   const [category, setCategory] = useState(10);
   const [subCategory, setSubCategory] = useState(10);
   const [productOrRaw, setProductOrRaw] = useState(true);

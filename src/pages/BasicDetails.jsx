@@ -7,15 +7,28 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import NavButton from "../components/NavigationButtons";
+import store from "../app/store";
+import { useDispatch } from "react-redux";
+import { setFormData } from "../reducers/formSlice";
 
 const BasicDetails = () => {
   const { t, i18n } = useTranslation();
-  const [province, setProvince] = useState(10);
+  const dispatch = useDispatch();
+  const [details, setDetails] = useState({
+    province: store.getState().form.formData.basicDetails.province,
+    district: store.getState().form.formData.basicDetails.district,
+    city: store.getState().form.formData.basicDetails.city,
+    name: store.getState().form.formData.basicDetails.name,
+    phone: store.getState().form.formData.basicDetails.contactNo,
+    email: store.getState().form.formData.basicDetails.email,
+  });
 
-  const handleChange = (e) => {
-    setProvince(e);
+  const handleChange = (key, value) => {
+    setDetails({ ...details, [key]: value });
+    dispatch(setFormData({ [key]: value }));
   };
 
   return (
@@ -39,15 +52,16 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             id="demo-simple-select"
-            value={province}
+            value={details.province}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => handleChange("province", e.target.value)}
           >
+            <MenuItem value={0}>Select a Province</MenuItem>
             <MenuItem value={10}>Western</MenuItem>
             <MenuItem value={20}>Southern</MenuItem>
             <MenuItem value={30}>Central</MenuItem>
@@ -71,15 +85,16 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             id="demo-simple-select"
-            value={province}
+            value={details.district}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => handleChange("district", e.target.value)}
           >
+            <MenuItem value={0}>Select a District</MenuItem>
             <MenuItem value={10}>Gampaha</MenuItem>
             <MenuItem value={20}>Southern</MenuItem>
             <MenuItem value={30}>Central</MenuItem>
@@ -103,15 +118,16 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             id="demo-simple-select"
-            value={province}
+            value={details.city}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => handleChange("city", e.target.value)}
           >
+            <MenuItem value={0}>Select a City</MenuItem>
             <MenuItem value={10}>Wattala</MenuItem>
             <MenuItem value={20}>Southern</MenuItem>
             <MenuItem value={30}>Central</MenuItem>
@@ -123,16 +139,22 @@ const BasicDetails = () => {
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
         placeholder={t("translation:BasicDetails:name")}
+        value={details.name}
+        onChange={(e) => handleChange("name", e.target.value)}
       />
       <TextField
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
         placeholder={t("translation:BasicDetails:number")}
+        value={details.phone}
+        onChange={(e) => handleChange("phone", e.target.value)}
       />
       <TextField
         fullWidth
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
         placeholder={t("translation:BasicDetails:email")}
+        value={details.email}
+        onChange={(e) => handleChange("email", e.target.value)}
       />
     </div>
   );

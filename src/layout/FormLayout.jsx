@@ -8,6 +8,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import store from "../app/store";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -36,6 +37,7 @@ const FormLayout = () => {
     "ExportingDetails",
     "AskForExport",
   ];
+
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
   const navigateToNextPage = () => {

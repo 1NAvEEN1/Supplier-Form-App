@@ -118,6 +118,8 @@ i18next.use(initReactI18next).init({
         },
         AddProduct: {
           heading: "නිෂ්පාදනයක් එකතු කරන්න",
+          product: "නිෂ්පාදනය",
+          rawMaterial: "අමුද්‍රව්‍ය",
           category: "නිෂ්පාදන කාණ්ඩය",
           subCategory: "නිෂ්පාදන උප කාණ්ඩය",
           name: "නිෂ්පාදනයේ නම",
@@ -195,6 +197,8 @@ i18next.use(initReactI18next).init({
         AddProduct: {
           heading: "புதிய பொருள் சேர்க்க",
           category: "பொருள் வகை",
+          product: "தயாரிப்பு",
+          rawMaterial: "மூல பொருட்கள்",
           subCategory: "பொருள் துணை வகை",
           name: "பொருள் பெயர்",
           pricing: "விலை வரம்பு",
