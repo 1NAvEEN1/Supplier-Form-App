@@ -73,7 +73,7 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             value={details.province}
-            onChange={(e) => handleProvinceChange(e.target.value)}
+            onChange={(e) => handleChange("province", e.target.value)}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },

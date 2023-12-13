@@ -18,9 +18,7 @@ const AskForExport = () => {
   let data = store.getState().form.formData.askForExporting;
   const dispatch = useDispatch(0);
   const { t } = useTranslation();
-  const [exporting, setExporting] = useState(
-    data.askForExporting === 0 ? false : true
-  );
+  const [exporting, setExporting] = useState(data === 0 ? false : true);
 
   const handleRegistrationChange = (event) => {
     setExporting(event.target.value === "true");
