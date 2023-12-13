@@ -88,7 +88,7 @@ const FormLayout = () => {
   return (
     <Box
       bgcolor={"#F9FAFB"}
-      width={"100vw"}
+      width={"98dvw"}
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Box height={"100svh"} minHeight={600} maxWidth={700} bgcolor={"#F9FAFB"}>

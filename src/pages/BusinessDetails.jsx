@@ -11,14 +11,37 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import store from "../app/store";
+import { useDispatch } from "react-redux";
+import { setBusinessRegDetails } from "../reducers/formSlice";
 
 const BusinessDetails = () => {
+  const dispatch = useDispatch();
+  const data = store.getState().form.formData?.businessRegDetails;
+  console.log(data);
   const { t } = useTranslation();
-  const [businessType, setBusinessType] = useState("pvt");
-  const [registeredBusiness, setRegisteredBusiness] = useState(true);
+  const [businessType, setBusinessType] = useState(data.businessType);
+  const [registeredBusiness, setRegisteredBusiness] = useState(
+    data.registered === 0 ? false : true
+  );
+  const [businessName, setBusinessName] = useState(data.businessName);
 
   const handleRegistrationChange = (event) => {
     setRegisteredBusiness(event.target.value === "true");
+    dispatch(
+      setBusinessRegDetails({
+        registered: event.target.value === "true" ? 1 : 0,
+      })
+    );
+  };
+
+  const handleBusinessTypeChange = (data) => {
+    setBusinessType(data);
+    dispatch(
+      setBusinessRegDetails({
+        businessType: data,
+      })
+    );
   };
 
   return (
@@ -79,7 +102,7 @@ const BusinessDetails = () => {
                 cursor: "pointer",
               },
             }}
-            onClick={() => setBusinessType("pvt")}
+            onClick={() => handleBusinessTypeChange("pvt")}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:pvt")}
@@ -99,7 +122,7 @@ const BusinessDetails = () => {
                 cursor: "pointer",
               },
             }}
-            onClick={() => setBusinessType("partnership")}
+            onClick={() => handleBusinessTypeChange("partnership")}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:partnership")}
@@ -116,7 +139,7 @@ const BusinessDetails = () => {
                 cursor: "pointer",
               },
             }}
-            onClick={() => setBusinessType("solo")}
+            onClick={() => handleBusinessTypeChange("solo")}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:solo")}
@@ -130,8 +153,13 @@ const BusinessDetails = () => {
             InputProps={{ sx: { borderRadius: 3 } }}
             placeholder="ABC Private Limited"
             multiline
+            value={businessName}
             rows={4}
             maxRows={4}
+            onChange={(e) => {
+              setBusinessName(e.target.value);
+              dispatch(setBusinessRegDetails({ businessName: e.target.value }));
+            }}
           ></TextField>
         </>
       )}

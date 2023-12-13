@@ -1,0 +1,215 @@
+{
+    "Western": {
+      "Colombo": {
+        "Colombo": {},
+        "Sri Jayawardenepura Kotte": {},
+        "Dehiwala-Mount Lavinia": {},
+        "Moratuwa": {},
+        "Negombo": {}
+
+      },
+      "Gampaha": {
+        "Gampaha": {},
+        "Negombo": {},
+        "Kelaniya": {},
+        "Kadawatha": {},
+        "Gampaha": {}
+
+      },
+      "Kalutara": {
+        "Kalutara": {},
+        "Panadura": {},
+        "Horana": {},
+        "Beruwala": {},
+        "Matugama": {}
+
+      }
+
+    },
+    "Central": {
+      "Kandy": {
+        "Kandy": {},
+        "Peradeniya": {},
+        "Gampola": {},
+        "Katugastota": {},
+        "Akurana": {}
+   
+      },
+      "Matale": {
+        "Matale": {},
+        "Dambulla": {},
+        "Kurunegala": {},
+        "Galewela": {},
+        "Yatawatta": {}
+    
+      },
+      "Nuwara Eliya": {
+        "Nuwara Eliya": {},
+        "Hatton": {},
+        "Kotmale": {},
+        "Maskeliya": {},
+        "Nuwara Eliya": {}
+  
+      }
+
+    },
+    "Southern": {
+      "Galle": {
+        "Galle": {},
+        "Ambalangoda": {},
+        "Hikkaduwa": {},
+        "Elpitiya": {},
+        "Balapitiya": {}
+    
+      },
+      "Matara": {
+        "Matara": {},
+        "Weligama": {},
+        "Hambantota": {},
+        "Dickwella": {},
+        "Hakmana": {}
+
+      },
+      "Hambantota": {
+        "Hambantota": {},
+        "Tangalle": {},
+        "Ambalantota": {},
+        "Beliatte": {},
+        "Sooriyawewa": {}
+
+      }
+ 
+    },
+    "Northern": {
+      "Jaffna": {
+        "Jaffna": {},
+        "Point Pedro": {},
+        "Chavakachcheri": {},
+        "Kilinochchi": {},
+        "Vavuniya": {}
+  
+      },
+      "Kilinochchi": {
+        "Kilinochchi": {},
+        "Poonakary": {},
+        "Mullaitivu": {},
+        "Manthai East": {},
+        "Karachchi": {}
+
+      },
+      "Mannar": {
+        "Mannar": {},
+        "Madhu": {},
+        "Nanaddan": {},
+        "Musali": {},
+        "Manthai West": {}
+
+      }
+  
+    },
+    "Eastern": {
+      "Trincomalee": {
+        "Trincomalee": {},
+        "Kinniya": {},
+        "Muttur": {},
+        "Seruvila": {},
+        "Gomarankadawala": {}
+
+      },
+      "Batticaloa": {
+        "Batticaloa": {},
+        "Kattankudy": {},
+        "Eravur": {},
+        "Kalmunai": {},
+        "Valaichchenai": {}
+   
+      },
+      "Ampara": {
+        "Ampara": {},
+        "Pottuvil": {},
+        "Sammanthurai": {},
+        "Kalmunai": {},
+        "Akkaraipattu": {}
+     
+      }
+ 
+    },
+    "North Central": {
+      "Anuradhapura": {
+        "Anuradhapura": {},
+        "Medawachchiya": {},
+        "Nochchiyagama": {},
+        "Tambuttegama": {},
+        "Kahatagasdigiliya": {}
+      
+      },
+      "Polonnaruwa": {
+        "Polonnaruwa": {},
+        "Hingurakgoda": {},
+        "Medirigiriya": {},
+        "Kaduruwela": {},
+        "Elahera": {}
+       
+      }
+    
+    },
+    "North Western": {
+      "Kurunegala": {
+        "Kurunegala": {},
+        "Kuliyapitiya": {},
+        "Narammala": {},
+        "Nikaweratiya": {},
+        "Wariyapola": {}
+     
+      },
+      "Puttalam": {
+        "Puttalam": {},
+        "Chilaw": {},
+        "Wennappuwa": {},
+        "Nattandiya": {},
+        "Marawila": {}
+       
+      }
+
+    },
+    "Sabaragamuwa": {
+      "Ratnapura": {
+        "Ratnapura": {},
+        "Embilipitiya": {},
+        "Balangoda": {},
+        "Kuruwita": {},
+        "Eheliyagoda": {}
+     
+      },
+      "Kegalle": {
+        "Kegalle": {},
+        "Mawanella": {},
+        "Dehiowita": {},
+        "Rambukkana": {},
+        "Bulathkohupitiya": {}
+
+      }
+
+    },
+    "Uva": {
+      "Badulla": {
+        "Badulla": {},
+        "Bandarawela": {},
+        "Haputale": {},
+        "Welimada": {},
+        "Mahiyangana": {}
+ 
+      },
+      "Monaragala": {
+        "Monaragala": {},
+        "Bibile": {},
+        "Wellawaya": {},
+        "Kataragama": {},
+        "Buttala": {}
+  
+      }
+
+    }
+    
+  }
+  

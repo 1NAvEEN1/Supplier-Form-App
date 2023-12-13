@@ -54,6 +54,20 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
     }
   }
 
+  if (currentPageIndex === 3) {
+    let data = store.getState().form.formData.productDetails;
+
+    if (data.length === 0) {
+      isValidate = 0;
+      showAlertMessage({
+        message: "Add a product first",
+        type: "error",
+      });
+    } else {
+      isValidate = 1;
+    }
+  }
+
   return isValidate;
 };
 

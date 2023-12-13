@@ -10,13 +10,26 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import store from "../app/store";
+import { useDispatch } from "react-redux";
+import { setExportingDetails } from "../reducers/formSlice";
 
 const ExportingDetails = () => {
+  let data = store.getState().form.formData.exportingDetails;
+  const dispatch = useDispatch(0);
   const { t } = useTranslation();
-  const [exporting, setExporting] = useState(true);
+  const [exporting, setExporting] = useState(
+    data.exporting === 0 ? false : true
+  );
+  const [countries, setCountries] = useState(data.countries);
 
   const handleRegistrationChange = (event) => {
     setExporting(event.target.value === "true");
+    dispatch(
+      setExportingDetails({
+        exporting: event.target.value === "true" ? 1 : 0,
+      })
+    );
   };
 
   return (
@@ -34,7 +47,9 @@ const ExportingDetails = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h5">{t("translation:ExportingDetails:yes")}</Typography>
+              <Typography variant="h5">
+                {t("translation:ExportingDetails:yes")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -44,7 +59,9 @@ const ExportingDetails = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h5">{t("translation:ExportingDetails:no")}</Typography>
+              <Typography variant="h5">
+                {t("translation:ExportingDetails:no")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -59,7 +76,7 @@ const ExportingDetails = () => {
       {exporting && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-          {t("translation:ExportingDetails:note")}
+            {t("translation:ExportingDetails:note")}
           </Typography>
           <TextField
             fullWidth
@@ -67,7 +84,15 @@ const ExportingDetails = () => {
             placeholder="USA, UK ,Canada, Japan , India"
             multiline
             rows={7}
-            maxRows={7}
+            value={countries}
+            onChange={(e) => {
+              setCountries(e.target.value);
+              dispatch(
+                setExportingDetails({
+                  countries: e.target.value,
+                })
+              );
+            }}
           ></TextField>
         </>
       )}

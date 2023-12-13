@@ -10,19 +10,36 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import store from "../app/store";
+import { useDispatch } from "react-redux";
+import { setCertificatesDetails } from "../reducers/formSlice";
 
 const CertificatesDetails = () => {
+  let data = store.getState().form.formData.certificatesDetails;
+  const dispatch = useDispatch(0);
+
   const { t } = useTranslation();
-  const [certificates, setCertificates] = useState(true);
+  const [certificates, setCertificates] = useState(
+    data.certificates === 0 ? false : true
+  );
+
+  const [certificatesNames, setCertificatesNames] = useState(
+    data.certificatesNames
+  );
 
   const handleRegistrationChange = (event) => {
     setCertificates(event.target.value === "true");
+    dispatch(
+      setCertificatesDetails({
+        certificates: event.target.value === "true" ? 1 : 0,
+      })
+    );
   };
 
   return (
     <div>
       <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
-      {t("translation:CertificatesDetails:heading")}
+        {t("translation:CertificatesDetails:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
@@ -34,7 +51,9 @@ const CertificatesDetails = () => {
         >
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="h5">{t("translation:CertificatesDetails:yes")}</Typography>
+              <Typography variant="h5">
+                {t("translation:CertificatesDetails:yes")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -44,7 +63,9 @@ const CertificatesDetails = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h5">{t("translation:CertificatesDetails:no")}</Typography>
+              <Typography variant="h5">
+                {t("translation:CertificatesDetails:no")}
+              </Typography>
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="end" mb={2}>
               <FormControlLabel
@@ -59,7 +80,7 @@ const CertificatesDetails = () => {
       {certificates && (
         <>
           <Typography fontWeight={700} mt={2} mb={2}>
-          {t("translation:CertificatesDetails:note")}
+            {t("translation:CertificatesDetails:note")}
           </Typography>
           <TextField
             fullWidth
@@ -67,7 +88,15 @@ const CertificatesDetails = () => {
             placeholder="GMP | HAPPC | SLS | HALAL"
             multiline
             rows={7}
-            maxRows={7}
+            value={certificatesNames}
+            onChange={(e) => {
+              setCertificatesNames(e.target.value);
+              dispatch(
+                setCertificatesDetails({
+                  certificatesNames: e.target.value,
+                })
+              );
+            }}
           ></TextField>
         </>
       )}

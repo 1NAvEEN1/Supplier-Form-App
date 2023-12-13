@@ -10,13 +10,21 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import store from "../app/store";
+import { useDispatch } from "react-redux";
+import { setAskForExporting } from "../reducers/formSlice";
 
 const AskForExport = () => {
+  let data = store.getState().form.formData.askForExporting;
+  const dispatch = useDispatch(0);
   const { t } = useTranslation();
-  const [exporting, setExporting] = useState(true);
+  const [exporting, setExporting] = useState(
+    data.askForExporting === 0 ? false : true
+  );
 
   const handleRegistrationChange = (event) => {
     setExporting(event.target.value === "true");
+    dispatch(setAskForExporting(event.target.value === "true" ? 1 : 0));
   };
 
   return (

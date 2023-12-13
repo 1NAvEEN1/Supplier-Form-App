@@ -30,6 +30,26 @@ const BasicDetails = () => {
     dispatch(setFormData({ [key]: value }));
   };
 
+  const provinceDistrictCityMapping = {
+    Western: {
+      Colombo: ["Colombo City", "Dehiwala", "Mount Lavinia"],
+      Gampaha: ["Gampaha", "Negombo", "Kadawatha"],
+      Kalutara: ["Kalutara", "Panadura", "Horana"],
+      // ...Other districts and cities in the Western province
+    },
+    Central: {
+      Kandy: ["Kandy", "Peradeniya", "Gampola"],
+      Matale: ["Matale", "Dambulla", "Galewela"],
+      "Nuwara Eliya": ["Nuwara Eliya", "Hatton", "Maskeliya"],
+      // ...Other districts and cities in the Central province
+    },
+    // ...Other provinces and their districts and cities
+  };
+
+  const handleProvinceChange = (value) => {
+    setDetails({ ...details, province: value, district: "0" });
+  };
+
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
@@ -52,20 +72,22 @@ const BasicDetails = () => {
         </Typography>
         <FormControl fullWidth>
           <Select
-            id="demo-simple-select"
             value={details.province}
+            onChange={(e) => handleProvinceChange(e.target.value)}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange("province", e.target.value)}
+            placeholder="Select a Province"
           >
-            <MenuItem value={0}>Select a Province</MenuItem>
-            <MenuItem value={10}>Western</MenuItem>
-            <MenuItem value={20}>Southern</MenuItem>
-            <MenuItem value={30}>Central</MenuItem>
+            <MenuItem value={"0"}>Select a Province</MenuItem>
+            {Object.keys(provinceDistrictCityMapping).map((province) => (
+              <MenuItem key={province} value={province}>
+                {province}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -85,20 +107,25 @@ const BasicDetails = () => {
         </Typography>
         <FormControl fullWidth>
           <Select
-            id="demo-simple-select"
             value={details.district}
+            onChange={(e) => handleChange("district", e.target.value)}
+            disabled={details.province === "0"}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange("district", e.target.value)}
           >
-            <MenuItem value={0}>Select a District</MenuItem>
-            <MenuItem value={10}>Gampaha</MenuItem>
-            <MenuItem value={20}>Southern</MenuItem>
-            <MenuItem value={30}>Central</MenuItem>
+            <MenuItem value={"0"}>Select a District</MenuItem>
+            {details.province !== "0" &&
+              Object.keys(
+                provinceDistrictCityMapping[details.province] || {}
+              ).map((district) => (
+                <MenuItem key={district} value={district}>
+                  {district}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </Box>
@@ -118,20 +145,30 @@ const BasicDetails = () => {
         </Typography>
         <FormControl fullWidth>
           <Select
-            id="demo-simple-select"
             value={details.city}
+            onChange={(e) => handleChange("city", e.target.value)}
+            disabled={details.district === "0"}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
               borderRadius: 3,
               height: 30,
             }}
-            onChange={(e) => handleChange("city", e.target.value)}
           >
-            <MenuItem value={0}>Select a City</MenuItem>
-            <MenuItem value={10}>Wattala</MenuItem>
-            <MenuItem value={20}>Southern</MenuItem>
-            <MenuItem value={30}>Central</MenuItem>
+            <MenuItem value={"0"}>Select a City</MenuItem>
+            {details.district !== "0" &&
+              Array.isArray(
+                provinceDistrictCityMapping[details.province]?.[
+                  details.district
+                ]
+              ) &&
+              provinceDistrictCityMapping[details.province]?.[
+                details.district
+              ]?.map((city) => (
+                <MenuItem key={city} value={city}>
+                  {city}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </Box>
