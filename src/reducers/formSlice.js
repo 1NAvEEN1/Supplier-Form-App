@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const formSlice = createSlice({
   name: "form",
   initialState: {
-    currentPage: 1,
+    navigateToPage: 99,
     initialRender: 0,
     selectedProductIndex: 99,
     formData: {
@@ -53,8 +53,8 @@ const formSlice = createSlice({
         email: email !== undefined ? email : state.formData.basicDetails.email,
       };
     },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
+    setNavigateToPage: (state, action) => {
+      state.navigateToPage = action.payload;
     },
     setProductDetails: (state, action) => {
       state.formData.productDetails = action.payload;
@@ -119,13 +119,13 @@ const formSlice = createSlice({
 
 export const {
   setFormData,
-  setCurrentPage,
   setProductDetails,
   setBusinessRegDetails,
   setCertificatesDetails,
   setExportingDetails,
   setAskForExporting,
   setSelectedProductIndex,
+  setNavigateToPage,
 } = formSlice.actions;
 
 export default formSlice.reducer;

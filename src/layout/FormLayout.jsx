@@ -9,8 +9,10 @@ import LinearProgress, {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import validation from "../validations";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
+import { setNavigateToPage } from "../reducers/formSlice";
+import store from "../app/store";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -82,9 +84,20 @@ const FormLayout = () => {
     const scrollToTop = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
-
     scrollToTop();
   }, [currentPageIndex]);
+
+  const navigateToPage = useSelector((state) => state.form.navigateToPage);
+  useEffect(() => {
+    console.log(navigateToPage);
+    if (navigateToPage !== 99) {
+      console.log("sdfd", navigateToPage);
+      setCurrentPageIndex(navigateToPage + 1);
+      navigate(`/Supplier-Form-App/${pages[navigateToPage + 1]}`);
+      dispatch(setNavigateToPage(99));
+    }
+  }, [navigateToPage]);
+
   return (
     <Box
       bgcolor={"#F9FAFB"}

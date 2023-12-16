@@ -15,8 +15,11 @@ import AddProducts from "./AddProducts";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useDispatch } from "react-redux";
+import { setNavigateToPage } from "../reducers/formSlice";
 
 const Summary = () => {
+  const dispatch = useDispatch();
   const basicDetails = store.getState().form.formData.basicDetails;
   const productDetails = store.getState().form.formData.productDetails;
   const businessRegDetails = store.getState().form.formData.businessRegDetails;
@@ -24,6 +27,11 @@ const Summary = () => {
     store.getState().form.formData.certificatesDetails;
   const exportingDetails = store.getState().form.formData.exportingDetails;
   const askForExporting = store.getState().form.formData.askForExporting;
+
+  const handleEdit = (page) => {
+    console.log(page);
+    dispatch(setNavigateToPage(page));
+  };
 
   return (
     <div>
@@ -46,7 +54,7 @@ const Summary = () => {
           <Typography fontWeight={600}>Basic Details</Typography>
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(1)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>
@@ -102,7 +110,7 @@ const Summary = () => {
           <Typography fontWeight={600}>Product Details</Typography>
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(2)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>
@@ -158,7 +166,7 @@ const Summary = () => {
           {businessRegDetails.registered === 0 ? "No" : "Yes"}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(3)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>{" "}
@@ -207,7 +215,7 @@ const Summary = () => {
           {certificatesDetails.certificates === 0 ? "No" : "Yes"}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(4)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>{" "}
@@ -250,7 +258,7 @@ const Summary = () => {
           {exportingDetails.exporting === 0 ? "No" : "Yes"}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(5)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>{" "}
@@ -294,7 +302,7 @@ const Summary = () => {
           {askForExporting === 0 ? "No" : "Yes"}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
-          <IconButton>
+          <IconButton onClick={() => handleEdit(6)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>
