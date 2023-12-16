@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Typography,
   Button,
-  SwipeableDrawer,
+  Drawer,
   Divider,
   Box,
   useMediaQuery,
@@ -15,8 +15,13 @@ import AddProducts from "./AddProducts";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useDispatch } from "react-redux";
+import { setSelectedProductIndex } from "../reducers/formSlice";
 
 const ProductDetails = () => {
+  const dialogContentRef = useRef(null);
+  const drawerContentRef = useRef(null);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:768px)");
@@ -41,6 +46,21 @@ const ProductDetails = () => {
     </>
   );
 
+  const handleEditClick = (index) => {
+    dispatch(setSelectedProductIndex(index));
+    setIsDrawerOpen(true);
+  };
+
+  useEffect(() => {
+    if (isDrawerOpen && dialogContentRef.current) {
+      dialogContentRef.current.scrollTop =
+        dialogContentRef.current.scrollHeight;
+    }
+    if (isDrawerOpen && drawerContentRef.current) {
+      drawerContentRef.current.scrollTop =
+        drawerContentRef.current.scrollHeight;
+    }
+  }, [isDrawerOpen]);
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
@@ -66,9 +86,15 @@ const ProductDetails = () => {
                 <Typography fontWeight={600}>{product.name}</Typography>
                 <Typography>{product.name}</Typography>
               </Grid>
-              <Grid item xs={5} display={"flex"} justifyContent={"end"}>
-                <IconButton>
-                  <BorderColorIcon />
+              <Grid
+                item
+                xs={5}
+                display={"flex"}
+                justifyContent={"end"}
+                alignItems={"center"}
+              >
+                <IconButton size="small" onClick={() => handleEditClick(index)}>
+                  <BorderColorIcon fontSize="small" />
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
@@ -104,18 +130,23 @@ const ProductDetails = () => {
           onClick={toggleDrawer(true)}
         >
           <Typography textTransform="capitalize" variant="b1">
-            Add Product
+            {!products.length > 0 ? "Add Product" : "Add Another Product"}
           </Typography>
         </Button>
 
         {isMobile && (
-          <SwipeableDrawer
+          <Drawer
             anchor="bottom"
             open={isDrawerOpen}
             onClose={toggleDrawer(false)}
           >
-            {drawerContent}
-          </SwipeableDrawer>
+            <div
+              ref={drawerContentRef}
+              style={{ overflowY: "auto", height: "100%" }}
+            >
+              {drawerContent}
+            </div>
+          </Drawer>
         )}
         {isDesktop && (
           <Dialog
@@ -125,7 +156,7 @@ const ProductDetails = () => {
             fullWidth
             maxWidth="md"
           >
-            <DialogContent>
+            <DialogContent ref={dialogContentRef}>
               <Box
                 sx={{
                   bgcolor: "#F9FAFB",

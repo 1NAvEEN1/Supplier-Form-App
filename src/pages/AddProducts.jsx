@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Button,
@@ -15,7 +15,11 @@ import {
 } from "@mui/material";
 import { Trans, useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { setProductDetails } from "../reducers/formSlice";
+import {
+  setProductDetails,
+  setSelectedProductIndex,
+} from "../reducers/formSlice";
+import store from "../app/store";
 
 const CustomStyledBox = ({ children, ...rest }) => (
   <Box
@@ -37,8 +41,7 @@ const AddProducts = ({ closeDrawer }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const formData = useSelector((state) => state.form.formData);
-
-  const [product, setProduct] = useState({
+  const defaultValues = {
     productOrRaw: true,
     category: 0,
     subCategory: 0,
@@ -61,7 +64,18 @@ const AddProducts = ({ closeDrawer }) => {
     supplyFrequency: true,
     selectedMonths: [],
     otherDetails: "",
-  });
+  };
+
+  const [product, setProduct] = useState(defaultValues);
+
+  useEffect(() => {
+    const selectedProductIndex = store.getState().form.selectedProductIndex;
+    if (selectedProductIndex !== 99) {
+      setProduct(
+        store.getState().form.formData?.productDetails[selectedProductIndex]
+      );
+    }
+  }, [store.getState().form.selectedProductIndex]);
 
   const handleChange = (key, value, subKey = null) => {
     if (subKey) {
@@ -137,8 +151,24 @@ const AddProducts = ({ closeDrawer }) => {
 
   const save = () => {
     console.log(product);
-    const updatedProductDetails = [...formData.productDetails, product];
+    const updatedProductDetails = [...formData.productDetails];
+    if (store.getState().form.selectedProductIndex !== 99) {
+      // Update the existing object in the array
+      updatedProductDetails[store.getState().form.selectedProductIndex] =
+        product;
+    } else {
+      // Add a new object to the array
+      updatedProductDetails.push(product);
+    }
     dispatch(setProductDetails(updatedProductDetails));
+    setProduct(defaultValues);
+    dispatch(setSelectedProductIndex(99));
+    closeDrawer();
+  };
+
+  const Discard = () => {
+    setProduct(defaultValues);
+    dispatch(setSelectedProductIndex(99));
     closeDrawer();
   };
   return (
@@ -624,7 +654,7 @@ const AddProducts = ({ closeDrawer }) => {
               borderRadius: 3,
               color: "grey",
             }}
-            onClick={() => closeDrawer()} // Update this line
+            onClick={() => Discard()} // Update this line
           >
             <Typography textTransform="capitalize" variant="h6">
               Discard

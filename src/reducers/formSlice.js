@@ -5,6 +5,7 @@ const formSlice = createSlice({
   initialState: {
     currentPage: 1,
     initialRender: 0,
+    selectedProductIndex: 99,
     formData: {
       language: "en",
       basicDetails: {
@@ -57,6 +58,9 @@ const formSlice = createSlice({
     },
     setProductDetails: (state, action) => {
       state.formData.productDetails = action.payload;
+    },
+    setSelectedProductIndex: (state, action) => {
+      state.selectedProductIndex = action.payload;
     },
 
     setBusinessRegDetails: (state, action) => {
@@ -121,6 +125,7 @@ export const {
   setCertificatesDetails,
   setExportingDetails,
   setAskForExporting,
+  setSelectedProductIndex,
 } = formSlice.actions;
 
 export default formSlice.reducer;

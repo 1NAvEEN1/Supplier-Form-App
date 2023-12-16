@@ -257,7 +257,7 @@ const Summary = () => {
         {exportingDetails.exporting === 1 && (
           <>
             <Grid item xs={5} mt={2}>
-              Certificates
+              Countries
             </Grid>
             <Grid item xs={7} mt={2}>
               : {exportingDetails.countries}
