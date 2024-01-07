@@ -10,13 +10,18 @@ import {
   DialogContent,
   Grid,
   IconButton,
+  DialogTitle,
 } from "@mui/material";
 import AddProducts from "./AddProducts";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useDispatch } from "react-redux";
-import { setSelectedProductIndex } from "../reducers/formSlice";
+import {
+  setProductDetails,
+  setSelectedProductIndex,
+} from "../reducers/formSlice";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ProductDetails = () => {
   const dialogContentRef = useRef(null);
@@ -24,9 +29,11 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isDesktop = useMediaQuery("(min-width:769px)");
   const products = store.getState().form.formData.productDetails;
+  const [deleteIndex, setDeleteIndex] = useState(0);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -51,6 +58,15 @@ const ProductDetails = () => {
     setIsDrawerOpen(true);
   };
 
+  const handleDeleteClick = () => {
+    const updatedProductDetails = [...products];
+    updatedProductDetails.splice(deleteIndex, 1);
+
+    dispatch(setProductDetails(updatedProductDetails));
+
+    handleCloseDelete();
+  };
+
   useEffect(() => {
     if (isDrawerOpen && dialogContentRef.current) {
       dialogContentRef.current.scrollTop =
@@ -61,6 +77,16 @@ const ProductDetails = () => {
         drawerContentRef.current.scrollHeight;
     }
   }, [isDrawerOpen]);
+
+  const handleClickOpenDelete = (index) => {
+    setDeleteIndex(index);
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
@@ -92,7 +118,14 @@ const ProductDetails = () => {
                 display={"flex"}
                 justifyContent={"end"}
                 alignItems={"center"}
+                gap={3}
               >
+                <IconButton
+                  size="small"
+                  onClick={() => handleClickOpenDelete(index)}
+                >
+                  <DeleteForeverIcon fontSize="small" />
+                </IconButton>
                 <IconButton size="small" onClick={() => handleEditClick(index)}>
                   <BorderColorIcon fontSize="small" />
                 </IconButton>
@@ -170,6 +203,34 @@ const ProductDetails = () => {
           </Dialog>
         )}
       </Box>
+      <Dialog
+        open={openDelete}
+        onClose={() => handleCloseDelete(false)}
+        aria-labelledby="add-product-modal"
+        maxWidth="xs"
+      >
+        <DialogTitle>Are you sure to delete? </DialogTitle>
+        <DialogContent ref={dialogContentRef}>
+          <Box display={"flex"} justifyContent={"space-between"} pl={2} pr={2}>
+            <Button
+              variant="contained"
+              color="warning"
+              size="small"
+              onClick={() => handleCloseDelete(false)}
+            >
+              No
+            </Button>
+            <Button
+              size="small"
+              color="error"
+              variant="contained"
+              onClick={() => handleDeleteClick()}
+            >
+              Yes
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

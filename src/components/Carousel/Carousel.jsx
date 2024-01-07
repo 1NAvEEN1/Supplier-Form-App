@@ -21,10 +21,18 @@ const CarouselComponent = () => {
   return (
     <Carousel>
       {items.map((item, i) => (
-        <Box key={i}>
-          <Typography variant="h5">{item.name}</Typography>
+        <Box
+          key={i}
+          sx={{
+            height: { lg: 250, xs: "40svh" },
+          }}
+        >
+          <Typography variant="h5" textAlign={"center"}>
+            {item.name}
+          </Typography>
           <Typography
             mt={2}
+            textAlign={"center"}
             variant={item.language === "Sinh" ? "body1" : "h4"}
             fontFamily={
               item.language === "Sinh" ? "Noto Sans Sinhala" : "Nunito"
