@@ -147,7 +147,7 @@ i18next.use(initReactI18next).init({
           name: "කරුණාකර ඔබේ ව්‍යාපාරයේ නම සඳහන් කරන්න",
         },
         CertificatesDetails: {
-          heading: "ඔබගේ ව්‍යාපාරය ලියාපදිංචි කර තිබේද?",
+          heading: "ඔබට තත්ත්ව සහතික තිබේද?",
           yes: "ඔව්",
           no: "නැත",
           note: "ඔව් නම්, තත්ත්ව සහතික පහතින් සඳහන් කරන්න.",
@@ -177,8 +177,8 @@ i18next.use(initReactI18next).init({
           English: "English",
           Sinhala: "සිංහල",
           Tamil: "தமிழ்",
-          Continue: "Continue",
-          Back: "Back",
+          Continue: "தொடரவும்",
+          Back: "மீண்டும்",
         },
         BasicDetails: {
           heading: "அடிப்படை விவரங்கள்",

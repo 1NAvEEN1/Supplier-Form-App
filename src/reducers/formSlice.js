@@ -30,7 +30,7 @@ const formSlice = createSlice({
         exporting: 0,
         countries: "",
       },
-      askForExporting: 0,
+      askForExporting: 1,
     },
   },
   reducers: {

@@ -27,7 +27,7 @@ const AskForExport = () => {
 
   return (
     <div>
-      <Typography fontWeight={700} mt={2} mb={2}>
+      <Typography fontWeight={700} variant="h6" mt={2} mb={2}>
         {t("translation:AskForExport:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
