@@ -85,6 +85,11 @@ i18next.use(initReactI18next).init({
           yes: "Yes",
           no: "No",
         },
+        Summary: {
+          heading: "Summary",
+          BasicDetails: "BasicDetails",
+          no: "No",
+        },
         FinalPage: {
           heading1: "Thank you for submitting",
           heading2: "your application!",

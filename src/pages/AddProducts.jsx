@@ -53,13 +53,13 @@ const AddProducts = ({ closeDrawer }) => {
     },
     supply: {
       supplyQty: "",
-      supplyQtyUnitValue: "",
-      supplyQtyUnit: 10,
+      // supplyQtyUnitValue: "",
+      // supplyQtyUnit: 10,
     },
     order: {
       orderQty: "",
-      orderQtyUnitValue: "",
-      orderQtyUnit: 10,
+      // orderQtyUnitValue: "",
+      // orderQtyUnit: 10,
     },
     supplyFrequency: true,
     selectedMonths: [],
@@ -356,7 +356,7 @@ const AddProducts = ({ closeDrawer }) => {
                         boxShadow: "none",
                         ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       }}
-                      placeholder="000"
+                      placeholder="00"
                       fullWidth
                       inputProps={{ style: { fontWeight: "bold" } }}
                       value={product.pricing.priceQtyUnitValue}
@@ -405,7 +405,7 @@ const AddProducts = ({ closeDrawer }) => {
             {t("translation:AddProduct:supplyQuantity")}
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -426,7 +426,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={0}>
                   Quantity unit
@@ -478,7 +478,7 @@ const AddProducts = ({ closeDrawer }) => {
                   </Grid>
                 </Grid>
               </CustomStyledBox>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
 
@@ -487,7 +487,7 @@ const AddProducts = ({ closeDrawer }) => {
             {t("translation:AddProduct:orderQuantity")}
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <CustomStyledBox>
                 <Typography color="primary" pl={2}>
                   Quantity
@@ -508,7 +508,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
@@ -556,7 +556,7 @@ const AddProducts = ({ closeDrawer }) => {
                   </Grid>
                 </Grid>
               </CustomStyledBox>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
 

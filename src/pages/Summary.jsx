@@ -28,6 +28,8 @@ const Summary = () => {
   const exportingDetails = store.getState().form.formData.exportingDetails;
   const askForExporting = store.getState().form.formData.askForExporting;
 
+  const { t } = useTranslation();
+
   const handleEdit = (page) => {
     console.log(page);
     dispatch(setNavigateToPage(page));
@@ -36,12 +38,12 @@ const Summary = () => {
   return (
     <div>
       <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
-        {/* {t("translation:ProductDetails:heading")} */}
-        Summary
+        {t("translation:Summary:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <Grid
         container
+        gap={2}
         sx={{
           boxShadow: "1px 5px 8px 5px rgba(0, 0, 0, 0.05)",
           borderRadius: 3,
@@ -50,8 +52,10 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={10}>
-          <Typography fontWeight={600}>Basic Details</Typography>
+        <Grid item xs={9}>
+          <Typography fontWeight={600}>
+            {t("translation:BasicDetails:heading")}
+          </Typography>
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(1)}>
@@ -59,39 +63,39 @@ const Summary = () => {
           </IconButton>
         </Grid>
         <Grid item xs={4}>
-          Province
+          {t("translation:BasicDetails:province")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.province}
         </Grid>
         <Grid item xs={4}>
-          District
+          {t("translation:BasicDetails:district")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.district}
         </Grid>
         <Grid item xs={4}>
-          City
+          {t("translation:BasicDetails:city")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.city}
         </Grid>
         <Grid item xs={4}>
-          Name
+          {t("translation:BasicDetails:name")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.name}
         </Grid>
         <Grid item xs={4}>
-          ContactNo
+          {t("translation:BasicDetails:number")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.contactNo}
         </Grid>
         <Grid item xs={4}>
-          Email
+          {t("translation:BasicDetails:email")}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           : {basicDetails.email}
         </Grid>
       </Grid>
@@ -107,7 +111,9 @@ const Summary = () => {
         }}
       >
         <Grid item xs={10}>
-          <Typography fontWeight={600}>Product Details</Typography>
+          <Typography fontWeight={600}>
+            {t("translation:ProductDetails:heading")}
+          </Typography>
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(2)}>
@@ -151,7 +157,7 @@ const Summary = () => {
       >
         <Grid item xs={6}>
           <Typography fontWeight={600}>
-            Have you registered your business?
+            {t("translation:BusinessDetails:heading")}
           </Typography>
         </Grid>
         <Grid
@@ -163,7 +169,9 @@ const Summary = () => {
           fontWeight={600}
           color={"#F47621"}
         >
-          {businessRegDetails.registered === 0 ? "No" : "Yes"}
+          {businessRegDetails.registered === 0
+            ? t("translation:BusinessDetails:no")
+            : t("translation:BusinessDetails:yes")}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(3)}>
@@ -173,13 +181,13 @@ const Summary = () => {
         {businessRegDetails.registered === 1 && (
           <>
             <Grid item xs={5} mt={2}>
-              Business Type
+              {t("translation:BusinessDetails:type")}
             </Grid>
             <Grid item xs={7} mt={2}>
               : {businessRegDetails.businessType}
             </Grid>
             <Grid item xs={5}>
-              Business Name
+              {t("translation:BusinessDetails:name")}
             </Grid>
             <Grid item xs={7} display={"flex"} alignItems={"center"}>
               : {businessRegDetails.businessName}
@@ -200,7 +208,7 @@ const Summary = () => {
       >
         <Grid item xs={6}>
           <Typography fontWeight={600}>
-            Do you have any quality certificates?
+            {t("translation:CertificatesDetails:heading")}
           </Typography>
         </Grid>
         <Grid
@@ -212,7 +220,9 @@ const Summary = () => {
           fontWeight={600}
           color={"#F47621"}
         >
-          {certificatesDetails.certificates === 0 ? "No" : "Yes"}
+          {certificatesDetails.certificates === 0
+            ? t("translation:BusinessDetails:no")
+            : t("translation:BusinessDetails:yes")}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(4)}>
@@ -243,7 +253,7 @@ const Summary = () => {
       >
         <Grid item xs={6}>
           <Typography fontWeight={600}>
-            Are you presently exporting your product?
+            {t("translation:ExportingDetails:heading")}
           </Typography>
         </Grid>
         <Grid
@@ -255,7 +265,9 @@ const Summary = () => {
           fontWeight={600}
           color={"#F47621"}
         >
-          {exportingDetails.exporting === 0 ? "No" : "Yes"}
+          {exportingDetails.exporting === 0
+            ? t("translation:BusinessDetails:no")
+            : t("translation:BusinessDetails:yes")}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(5)}>
@@ -286,8 +298,7 @@ const Summary = () => {
       >
         <Grid item xs={6}>
           <Typography fontWeight={600}>
-            Would you be open to supplying your product for us to handle the
-            export process?
+            {t("translation:AskForExport:heading")}
           </Typography>
         </Grid>
         <Grid
@@ -299,7 +310,9 @@ const Summary = () => {
           fontWeight={600}
           color={"#F47621"}
         >
-          {askForExporting === 0 ? "No" : "Yes"}
+          {askForExporting === 0
+            ? t("translation:BusinessDetails:no")
+            : t("translation:BusinessDetails:yes")}
         </Grid>
         <Grid item xs={2} display={"flex"} justifyContent={"end"}>
           <IconButton onClick={() => handleEdit(6)}>
