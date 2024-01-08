@@ -104,13 +104,27 @@ const ProductDetails = () => {
               mt: 2,
               p: 3,
               bgcolor: "#FFFFFF",
-              // Add other styles as needed
             }}
           >
             <Grid container>
               <Grid item xs={7}>
-                <Typography fontWeight={600}>{product.name}</Typography>
-                <Typography>{product.name}</Typography>
+                <Typography fontWeight={600} variant="h6">
+                  {product.name}
+                </Typography>
+                {product.productOrRaw ? (
+                  <>
+                    <Typography>
+                      {/* {product.category + " - " + product.subCategory} */}
+                      Spices - Cinnamon
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography>
+                      {t("translation:AddProduct:rawMaterial")}
+                    </Typography>
+                  </>
+                )}
               </Grid>
               <Grid
                 item
@@ -124,19 +138,21 @@ const ProductDetails = () => {
                   size="small"
                   onClick={() => handleClickOpenDelete(index)}
                 >
-                  <DeleteForeverIcon fontSize="small" />
+                  <DeleteForeverIcon fontSize="medium" />
                 </IconButton>
                 <IconButton size="small" onClick={() => handleEditClick(index)}>
                   <BorderColorIcon fontSize="small" />
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography fontWeight={600} mt={4}>
-                  Product Details
-                </Typography>
-                <Typography>
-                  Grade A 1kg Rs.2,500 Grade B 1kg Rs.2,000 can supply 100kg per
-                  week. packaging can be done any size. we do not deliver.{" "}
+                <Typography mt={2}>
+                  {product.pricing.priceQtyUnitValue +
+                    (product.pricing.priceQtyUnit == 10 ? "Kg" : "gram") +
+                    " at Rs." +
+                    product.pricing.price +
+                    " can supply " +
+                    product.supplyQty +
+                    " units monthly."}
                 </Typography>
               </Grid>
             </Grid>

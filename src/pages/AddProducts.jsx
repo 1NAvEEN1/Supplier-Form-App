@@ -51,16 +51,18 @@ const AddProducts = ({ closeDrawer }) => {
       priceQtyUnitValue: "",
       priceQtyUnit: 10,
     },
-    supply: {
-      supplyQty: "",
-      // supplyQtyUnitValue: "",
-      // supplyQtyUnit: 10,
-    },
-    order: {
-      orderQty: "",
-      // orderQtyUnitValue: "",
-      // orderQtyUnit: 10,
-    },
+    supplyQty: "",
+    orderQty: "",
+    // supply: {
+    //   supplyQty: "",
+    //   supplyQtyUnitValue: "",
+    //   supplyQtyUnit: 10,
+    // },
+    // order: {
+    //   orderQty: "",
+    //   orderQtyUnitValue: "",
+    //   orderQtyUnit: 10,
+    // },
     supplyFrequency: true,
     selectedMonths: [],
     otherDetails: "",
@@ -419,10 +421,8 @@ const AddProducts = ({ closeDrawer }) => {
                   placeholder="0000"
                   fullWidth
                   inputProps={{ style: { fontWeight: "bold" } }}
-                  value={product.supply.supplyQty}
-                  onChange={(e) =>
-                    handleChange("supply", e.target.value, "supplyQty")
-                  }
+                  value={product.supplyQty}
+                  onChange={(e) => handleChange("supplyQty", e.target.value)}
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -501,10 +501,8 @@ const AddProducts = ({ closeDrawer }) => {
                   placeholder="0000"
                   fullWidth
                   inputProps={{ style: { fontWeight: "bold" } }}
-                  value={product.order.orderQty}
-                  onChange={(e) =>
-                    handleChange("order", e.target.value, "orderQty")
-                  }
+                  value={product.orderQty}
+                  onChange={(e) => handleChange("orderQty", e.target.value)}
                 ></TextField>
               </CustomStyledBox>
             </Grid>
