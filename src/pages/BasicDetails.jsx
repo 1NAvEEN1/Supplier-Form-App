@@ -7,11 +7,12 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../reducers/formSlice";
+import { GetProvinces } from "../services/LocationService";
 
 const BasicDetails = () => {
   const { t, i18n } = useTranslation();
@@ -22,12 +23,15 @@ const BasicDetails = () => {
     city: store.getState().form.formData.basicDetails.city,
     name: store.getState().form.formData.basicDetails.name,
     phone: store.getState().form.formData.basicDetails.contactNo,
+    phone2: store.getState().form.formData.basicDetails.contactNo2,
     email: store.getState().form.formData.basicDetails.email,
   });
 
+  const [provinces, setProvinces] = useState();
+
   const handleChange = (key, value) => {
     setDetails({ ...details, [key]: value });
-    dispatch(setFormData({ [key]: value }));
+    dispatch(setFormData({ ...details, [key]: value }));
   };
 
   const provinceDistrictCityMapping = {
@@ -49,6 +53,16 @@ const BasicDetails = () => {
   const handleProvinceChange = (value) => {
     setDetails({ ...details, province: value, district: "0" });
   };
+
+  const getProvinces = async () => {
+    const provinces = await GetProvinces();
+    setProvinces(provinces);
+    console.log("provinces", provinces);
+  };
+
+  // useEffect(() => {
+  //   getProvinces();
+  // }, []);
 
   return (
     <div>
@@ -186,6 +200,13 @@ const BasicDetails = () => {
         placeholder={t("translation:BasicDetails:number")}
         value={details.phone}
         onChange={(e) => handleChange("phone", e.target.value)}
+      />
+      <TextField
+        fullWidth
+        InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
+        placeholder={t("translation:BasicDetails:number2")}
+        value={details.phone2}
+        onChange={(e) => handleChange("phone2", e.target.value)}
       />
       <TextField
         fullWidth

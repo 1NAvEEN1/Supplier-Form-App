@@ -37,7 +37,13 @@ const Summary = () => {
 
   return (
     <div>
-      <Typography variant="h4" fontWeight={700} mt={2} mb={2} textAlign={"center"}>
+      <Typography
+        variant="h4"
+        fontWeight={700}
+        mt={2}
+        mb={2}
+        textAlign={"center"}
+      >
         {t("translation:Summary:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
@@ -52,7 +58,7 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={9}>
+        <Grid item xs={9.5} sm={9.8}>
           <Typography fontWeight={600}>
             {t("translation:BasicDetails:heading")}
           </Typography>
@@ -95,6 +101,13 @@ const Summary = () => {
         </Grid>
         <Grid item xs={5} sm={7}>
           : {basicDetails.contactNo}
+        </Grid>
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={6} sm={4}>
+          {t("translation:BasicDetails:number2")}
+        </Grid>
+        <Grid item xs={5} sm={7}>
+          : {basicDetails.contactNo2}
         </Grid>
         <Divider sx={{ width: "100%" }} />
         <Grid item xs={11} sm={4}>

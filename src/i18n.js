@@ -30,6 +30,7 @@ i18next.use(initReactI18next).init({
           city: "City",
           name: "Your Name",
           number: "Contact Number",
+          number2: "Secondary Contact Number (Optional)",
           email: "Email (Optional)",
         },
         ProductDetails: {
@@ -114,6 +115,7 @@ i18next.use(initReactI18next).init({
           city: "නගරය",
           name: "නම",
           number: "ඇමතුම් අංකය",
+          number2: "දෙවැනි ඇමතුම් අංකය (Optional)",
           email: "Email ලිපිනය (Optional)",
         },
         ProductDetails: {
@@ -197,6 +199,7 @@ i18next.use(initReactI18next).init({
           city: "நகரம்",
           name: "உங்கள் பெயர்",
           number: "தொடர்பு எண்",
+          number2: "இரண்டாம் நிலை தொடர்பு எண் (Optional)",
           email: "மின்னஞ்சல் (விரும்பினால்)",
         },
         ProductDetails: {

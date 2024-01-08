@@ -14,6 +14,7 @@ const formSlice = createSlice({
         city: "0",
         name: "",
         contactNo: "",
+        contactNo2: "",
         email: "",
       },
       productDetails: [],
@@ -35,7 +36,8 @@ const formSlice = createSlice({
   },
   reducers: {
     setFormData: (state, action) => {
-      const { province, district, city, name, phone, email } = action.payload;
+      const { province, district, city, name, phone, phone2, email } =
+        action.payload;
       state.formData.basicDetails = {
         ...state.formData.basicDetails,
         province:
@@ -50,6 +52,8 @@ const formSlice = createSlice({
         name: name !== undefined ? name : state.formData.basicDetails.name,
         contactNo:
           phone !== undefined ? phone : state.formData.basicDetails.contactNo,
+        contactNo2:
+          phone2 !== undefined ? phone2 : state.formData.basicDetails.contactNo2,
         email: email !== undefined ? email : state.formData.basicDetails.email,
       };
     },
