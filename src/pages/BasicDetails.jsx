@@ -34,6 +34,15 @@ const BasicDetails = () => {
     dispatch(setFormData({ ...details, [key]: value }));
   };
 
+  const handlePhoneNumberChange = (key, value) => {
+    const numericValue = value.replace(/\D/g, "");
+
+    const limitedValue = numericValue.slice(0, 10);
+    console.log(limitedValue);
+    setDetails({ ...details, [key]: limitedValue });
+    dispatch(setFormData({ ...details, [key]: limitedValue }));
+  };
+
   const provinceDistrictCityMapping = {
     Western: {
       Colombo: ["Colombo City", "Dehiwala", "Mount Lavinia"],
@@ -196,17 +205,33 @@ const BasicDetails = () => {
       />
       <TextField
         fullWidth
-        InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
+        InputProps={{
+          sx: { borderRadius: 3, mt: 4 },
+          inputProps: {
+            inputMode: "numeric",
+            pattern: "[0-9]*", // Allow only numbers
+            maxLength: 10, // Limit to 10 characters
+          },
+        }}
+        plac
         placeholder={t("translation:BasicDetails:number")}
         value={details.phone}
-        onChange={(e) => handleChange("phone", e.target.value)}
+        onChange={(e) => handlePhoneNumberChange("phone", e.target.value)}
       />
       <TextField
         fullWidth
-        InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
+        InputProps={{
+          sx: { borderRadius: 3, mt: 4 },
+          inputProps: {
+            inputMode: "numeric",
+            pattern: "[0-9]*", // Allow only numbers
+            maxLength: 10, // Limit to 10 characters
+          },
+        }}
+        plac
         placeholder={t("translation:BasicDetails:number2")}
         value={details.phone2}
-        onChange={(e) => handleChange("phone2", e.target.value)}
+        onChange={(e) => handlePhoneNumberChange("phone2", e.target.value)}
       />
       <TextField
         fullWidth

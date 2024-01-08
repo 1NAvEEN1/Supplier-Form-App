@@ -12,6 +12,7 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
       city: "",
       name: "",
       phone: "",
+      phone2: "",
       email: "",
     };
     console.log(data);
@@ -34,14 +35,24 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
       isValidate = 0;
     }
 
-    if (data.phone === "") {
-      errors.phone = "select a phone";
+    if (data.contactNo === "") {
+      errors.contactNo = "Enter a phone number";
+      isValidate = 0;
+    } else if (data.contactNo.length !== 10 || !/^\d+$/.test(data.contactNo)) {
+      errors.phone = "Phone number should be a 10-digit number";
       isValidate = 0;
     }
-    // if (data.email === "") {
-    //   errors.email = "select a email";
-    //   isValidate = 0;
-    // }
+
+    if (data.contactNo2 === "") {
+      isValidate = 1;
+    } else if (
+      data.contactNo2.length !== 10 ||
+      !/^\d+$/.test(data.contactNo2)
+    ) {
+      errors.phone = "Phone number should be a 10-digit number";
+      isValidate = 0;
+    }
+
     console.log(errors);
 
     dispatch(setErrorsBasicDetails({ errors }));
