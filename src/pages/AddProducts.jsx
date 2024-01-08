@@ -20,18 +20,22 @@ import {
   setSelectedProductIndex,
 } from "../reducers/formSlice";
 import store from "../app/store";
+import { showAlertMessage } from "../app/alertMessageController";
 
-const CustomStyledBox = ({ children, ...rest }) => (
+const initialShadow = "1px 5px 8px 5px rgba(0, 0, 0, 0.05)";
+const errorShadow = "-1px 1px 8px 5px rgba(255, 0, 0, 0.3)";
+
+const CustomStyledBox = ({ children, sx = {}, ...rest }) => (
   <Box
     sx={{
-      boxShadow: "1px 5px 8px 5px rgba(0, 0, 0, 0.05)",
       borderRadius: 3,
       mt: 3,
       pt: 1,
       pr: 0,
       pb: 1,
-      ...rest, // Apply additional styles passed as props
+      ...sx, // Merge with additional styles passed through sx prop
     }}
+    {...rest}
   >
     {children}
   </Box>
@@ -69,6 +73,7 @@ const AddProducts = ({ closeDrawer }) => {
   };
 
   const [product, setProduct] = useState(defaultValues);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const selectedProductIndex = store.getState().form.selectedProductIndex;
@@ -80,6 +85,7 @@ const AddProducts = ({ closeDrawer }) => {
   }, [store.getState().form.selectedProductIndex]);
 
   const handleChange = (key, value, subKey = null) => {
+    setError("");
     if (subKey) {
       setProduct({
         ...product,
@@ -151,21 +157,88 @@ const AddProducts = ({ closeDrawer }) => {
     );
   };
 
+  const validation = () => {
+    if (product.productOrRaw) {
+      if (product.category == 0) {
+        showAlertMessage({
+          message: "Please select a product category !",
+          type: "error",
+        });
+        setError("category");
+        return 0;
+      } else if (product.subCategory == 0) {
+        showAlertMessage({
+          message: "Please select a product subcategory !",
+          type: "error",
+        });
+        setError("subCategory");
+        return 0;
+      }
+    }
+
+    if (product.name == "") {
+      showAlertMessage({
+        message: "Please enter the product name !",
+        type: "error",
+      });
+      setError("name");
+      return 0;
+    }
+
+    if (product.pricing.price == "") {
+      showAlertMessage({
+        message: "Please enter the product price !",
+        type: "error",
+      });
+      setError("price");
+      return 0;
+    } else if (product.pricing.priceQtyUnitValue == "") {
+      showAlertMessage({
+        message: "Please enter the price unit quantity!",
+        type: "error",
+      });
+      setError("unit");
+      return 0;
+    }
+
+    if (product.supplyQty == "") {
+      showAlertMessage({
+        message: "Please enter the monthly supply quantity !",
+        type: "error",
+      });
+      setError("supplyQty");
+      return 0;
+    }
+
+    if (!product.supplyFrequency && product.selectedMonths.length == 0) {
+      showAlertMessage({
+        message: "Please select the month range !",
+        type: "error",
+      });
+      return 0;
+    }
+
+    return 1;
+  };
+
   const save = () => {
     console.log(product);
-    const updatedProductDetails = [...formData.productDetails];
-    if (store.getState().form.selectedProductIndex !== 99) {
-      // Update the existing object in the array
-      updatedProductDetails[store.getState().form.selectedProductIndex] =
-        product;
-    } else {
-      // Add a new object to the array
-      updatedProductDetails.push(product);
+    const isValidate = validation();
+    if (isValidate) {
+      const updatedProductDetails = [...formData.productDetails];
+      if (store.getState().form.selectedProductIndex !== 99) {
+        // Update the existing object in the array
+        updatedProductDetails[store.getState().form.selectedProductIndex] =
+          product;
+      } else {
+        // Add a new object to the array
+        updatedProductDetails.push(product);
+      }
+      dispatch(setProductDetails(updatedProductDetails));
+      setProduct(defaultValues);
+      dispatch(setSelectedProductIndex(99));
+      closeDrawer();
     }
-    dispatch(setProductDetails(updatedProductDetails));
-    setProduct(defaultValues);
-    dispatch(setSelectedProductIndex(99));
-    closeDrawer();
   };
 
   const Discard = () => {
@@ -234,7 +307,11 @@ const AddProducts = ({ closeDrawer }) => {
           {product.productOrRaw && (
             <>
               {" "}
-              <CustomStyledBox>
+              <CustomStyledBox
+                sx={{
+                  boxShadow: error === "category" ? errorShadow : initialShadow,
+                }}
+              >
                 <Typography
                   variant="b1"
                   fontWeight={500}
@@ -262,7 +339,12 @@ const AddProducts = ({ closeDrawer }) => {
                   </Select>
                 </FormControl>
               </CustomStyledBox>
-              <CustomStyledBox>
+              <CustomStyledBox
+                sx={{
+                  boxShadow:
+                    error === "subCategory" ? errorShadow : initialShadow,
+                }}
+              >
                 <Typography
                   variant="b1"
                   fontWeight={500}
@@ -295,7 +377,11 @@ const AddProducts = ({ closeDrawer }) => {
             </>
           )}
 
-          <CustomStyledBox>
+          <CustomStyledBox
+            sx={{
+              boxShadow: error === "name" ? errorShadow : initialShadow,
+            }}
+          >
             <Typography color="primary" pl={2}>
               {t("translation:AddProduct:name")}
             </Typography>
@@ -325,7 +411,11 @@ const AddProducts = ({ closeDrawer }) => {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <CustomStyledBox>
+              <CustomStyledBox
+                sx={{
+                  boxShadow: error === "price" ? errorShadow : initialShadow,
+                }}
+              >
                 <Typography color="primary" pl={2}>
                   Price (Rupees)
                 </Typography>
@@ -337,6 +427,7 @@ const AddProducts = ({ closeDrawer }) => {
                   }}
                   placeholder="0000"
                   fullWidth
+                  type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.pricing.price}
                   onChange={(e) =>
@@ -346,7 +437,12 @@ const AddProducts = ({ closeDrawer }) => {
               </CustomStyledBox>
             </Grid>
             <Grid item xs={6}>
-              <CustomStyledBox height={85}>
+              <CustomStyledBox
+                height={85}
+                sx={{
+                  boxShadow: error === "unit" ? errorShadow : initialShadow,
+                }}
+              >
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
                 </Typography>
@@ -360,6 +456,7 @@ const AddProducts = ({ closeDrawer }) => {
                       }}
                       placeholder="00"
                       fullWidth
+                      type="number"
                       inputProps={{ style: { fontWeight: "bold" } }}
                       value={product.pricing.priceQtyUnitValue}
                       onChange={(e) =>
@@ -408,7 +505,12 @@ const AddProducts = ({ closeDrawer }) => {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CustomStyledBox>
+              <CustomStyledBox
+                sx={{
+                  boxShadow:
+                    error === "supplyQty" ? errorShadow : initialShadow,
+                }}
+              >
                 <Typography color="primary" pl={2}>
                   Quantity
                 </Typography>
@@ -420,6 +522,7 @@ const AddProducts = ({ closeDrawer }) => {
                   }}
                   placeholder="0000"
                   fullWidth
+                  type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.supplyQty}
                   onChange={(e) => handleChange("supplyQty", e.target.value)}
@@ -488,7 +591,11 @@ const AddProducts = ({ closeDrawer }) => {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CustomStyledBox>
+              <CustomStyledBox
+                sx={{
+                  boxShadow: initialShadow,
+                }}
+              >
                 <Typography color="primary" pl={2}>
                   Quantity
                 </Typography>
@@ -500,6 +607,7 @@ const AddProducts = ({ closeDrawer }) => {
                   }}
                   placeholder="0000"
                   fullWidth
+                  type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.orderQty}
                   onChange={(e) => handleChange("orderQty", e.target.value)}
@@ -638,7 +746,7 @@ const AddProducts = ({ closeDrawer }) => {
               color: "white",
               mt: 2,
             }}
-            onClick={() => save()} // Update this line
+            onClick={() => save()}
           >
             <Typography textTransform="capitalize" variant="h6">
               Save Product
@@ -651,8 +759,11 @@ const AddProducts = ({ closeDrawer }) => {
               height: 50,
               borderRadius: 3,
               color: "grey",
+              mt: 2,
             }}
-            onClick={() => Discard()} // Update this line
+            variant="outlined"
+            color="secondary"
+            onClick={() => Discard()}
           >
             <Typography textTransform="capitalize" variant="h6">
               Discard

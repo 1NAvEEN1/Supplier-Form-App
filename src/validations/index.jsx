@@ -44,12 +44,15 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
     }
 
     if (data.contactNo2 === "") {
-      isValidate = 1;
     } else if (
       data.contactNo2.length !== 10 ||
       !/^\d+$/.test(data.contactNo2)
     ) {
       errors.phone = "Phone number should be a 10-digit number";
+      showAlertMessage({
+        message: "Invalid Secondary Mobile Number",
+        type: "error",
+      });
       isValidate = 0;
     }
 
@@ -74,6 +77,54 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
         message: "Add a product first",
         type: "error",
       });
+    } else {
+      isValidate = 1;
+    }
+  }
+
+  if (currentPageIndex === 4) {
+    let data = store.getState().form.formData.businessRegDetails;
+
+    if (data.registered === 1) {
+      if (data.businessName == "") {
+        isValidate = 0;
+        showAlertMessage({
+          message: "Please enter the business name !",
+          type: "error",
+        });
+      }
+    } else {
+      isValidate = 1;
+    }
+  }
+
+  if (currentPageIndex === 5) {
+    let data = store.getState().form.formData.certificatesDetails;
+
+    if (data.certificates === 1) {
+      if (data.certificatesNames == "") {
+        isValidate = 0;
+        showAlertMessage({
+          message: "Please enter the certificates names !",
+          type: "error",
+        });
+      }
+    } else {
+      isValidate = 1;
+    }
+  }
+
+  if (currentPageIndex === 6) {
+    let data = store.getState().form.formData.exportingDetails;
+
+    if (data.exporting === 1) {
+      if (data.countries == "") {
+        isValidate = 0;
+        showAlertMessage({
+          message: "Please enter countries !",
+          type: "error",
+        });
+      }
     } else {
       isValidate = 1;
     }
