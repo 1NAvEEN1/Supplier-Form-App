@@ -37,13 +37,13 @@ const Summary = () => {
 
   return (
     <div>
-      <Typography variant="h4" fontWeight={700} mt={2} mb={2}>
+      <Typography variant="h4" fontWeight={700} mt={2} mb={2} textAlign={"center"}>
         {t("translation:Summary:heading")}
       </Typography>
       <Divider sx={{ mb: 3 }} />
       <Grid
         container
-        gap={2}
+        gap={1}
         sx={{
           boxShadow: "1px 5px 8px 5px rgba(0, 0, 0, 0.05)",
           borderRadius: 3,
@@ -62,42 +62,48 @@ const Summary = () => {
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5} sm={4}>
           {t("translation:BasicDetails:province")}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={6} sm={7}>
           : {basicDetails.province}
         </Grid>
-        <Grid item xs={4}>
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={5} sm={4}>
           {t("translation:BasicDetails:district")}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={6} sm={7}>
           : {basicDetails.district}
         </Grid>
-        <Grid item xs={4}>
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={5} sm={4}>
           {t("translation:BasicDetails:city")}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={6} sm={7}>
           : {basicDetails.city}
         </Grid>
-        <Grid item xs={4}>
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={11} sm={4}>
           {t("translation:BasicDetails:name")}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={11} sm={7}>
           : {basicDetails.name}
         </Grid>
-        <Grid item xs={4}>
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={6} sm={4}>
           {t("translation:BasicDetails:number")}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={5} sm={7}>
           : {basicDetails.contactNo}
         </Grid>
-        <Grid item xs={4}>
-          {t("translation:BasicDetails:email")}
+        <Divider sx={{ width: "100%" }} />
+        <Grid item xs={11} sm={4}>
+          Email
         </Grid>
-        <Grid item xs={7}>
-          : {basicDetails.email}
+        <Grid item xs={11} sm={7}>
+          : {basicDetails.email ? basicDetails.email : " "}
         </Grid>
+        <Divider sx={{ width: "100%" }} />
       </Grid>
 
       <Grid
@@ -155,14 +161,15 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography fontWeight={600}>
             {t("translation:BusinessDetails:heading")}
           </Typography>
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={10}
+          sm={4}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
@@ -178,22 +185,27 @@ const Summary = () => {
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>{" "}
-        {businessRegDetails.registered === 1 && (
-          <>
-            <Grid item xs={5} mt={2}>
-              {t("translation:BusinessDetails:type")}
-            </Grid>
-            <Grid item xs={7} mt={2}>
-              : {businessRegDetails.businessType}
-            </Grid>
-            <Grid item xs={5}>
-              {t("translation:BusinessDetails:name")}
-            </Grid>
-            <Grid item xs={7} display={"flex"} alignItems={"center"}>
-              : {businessRegDetails.businessName}
-            </Grid>
-          </>
-        )}
+        <Grid container gap={1}>
+          {businessRegDetails.registered === 1 && (
+            <>
+              <Divider sx={{ width: "100%", mt: 2 }} />
+              <Grid item xs={11} sm={7}>
+                {t("translation:BusinessDetails:type")}
+              </Grid>
+              <Grid item xs={11} sm={4}>
+                : {businessRegDetails.businessType}
+              </Grid>
+              <Divider sx={{ width: "100%" }} />
+              <Grid item xs={11} sm={7}>
+                {t("translation:BusinessDetails:name")}.
+              </Grid>
+              <Grid item xs={11} sm={4} display={"flex"} alignItems={"center"}>
+                : {businessRegDetails.businessName}
+              </Grid>
+              <Divider sx={{ width: "100%" }} />
+            </>
+          )}
+        </Grid>
       </Grid>
 
       <Grid
@@ -206,14 +218,15 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography fontWeight={600}>
             {t("translation:CertificatesDetails:heading")}
           </Typography>
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={10}
+          sm={4}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
@@ -228,17 +241,21 @@ const Summary = () => {
           <IconButton onClick={() => handleEdit(4)}>
             <BorderColorIcon fontSize="small" />
           </IconButton>
-        </Grid>{" "}
-        {certificatesDetails.certificates === 1 && (
-          <>
-            <Grid item xs={5} mt={2}>
-              Certificates
-            </Grid>
-            <Grid item xs={7} mt={2}>
-              : {certificatesDetails.certificatesNames}
-            </Grid>
-          </>
-        )}
+        </Grid>
+        <Grid container gap={1}>
+          {certificatesDetails.certificates === 1 && (
+            <>
+              <Divider sx={{ width: "100%", mt: 2 }} />
+              <Grid item xs={5}>
+                {t("translation:Summary:certificates")}
+              </Grid>
+              <Grid item xs={6}>
+                : {certificatesDetails.certificatesNames}
+              </Grid>
+              <Divider sx={{ width: "100%" }} />
+            </>
+          )}
+        </Grid>
       </Grid>
 
       <Grid
@@ -251,14 +268,15 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography fontWeight={600}>
             {t("translation:ExportingDetails:heading")}
           </Typography>
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={10}
+          sm={4}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
@@ -275,14 +293,16 @@ const Summary = () => {
           </IconButton>
         </Grid>{" "}
         {exportingDetails.exporting === 1 && (
-          <>
-            <Grid item xs={5} mt={2}>
-              Countries
+          <Grid container gap={1}>
+            <Divider sx={{ width: "100%", mt: 2 }} />
+            <Grid item xs={5}>
+              {t("translation:Summary:countries")}
             </Grid>
-            <Grid item xs={7} mt={2}>
+            <Grid item xs={6}>
               : {exportingDetails.countries}
             </Grid>
-          </>
+            <Divider sx={{ width: "100%" }} />
+          </Grid>
         )}
       </Grid>
 
@@ -296,14 +316,15 @@ const Summary = () => {
           bgcolor: "#FFFFFF",
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography fontWeight={600}>
             {t("translation:AskForExport:heading")}
           </Typography>
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={10}
+          sm={4}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}

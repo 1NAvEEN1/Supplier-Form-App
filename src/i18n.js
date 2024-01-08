@@ -87,8 +87,8 @@ i18next.use(initReactI18next).init({
         },
         Summary: {
           heading: "Summary",
-          BasicDetails: "BasicDetails",
-          no: "No",
+          certificates: "Certificates",
+          countries: "Countries",
         },
         FinalPage: {
           heading1: "Thank you for submitting",
@@ -168,6 +168,11 @@ i18next.use(initReactI18next).init({
           yes: "ඔව්",
           no: "නැත",
         },
+        Summary: {
+          heading: "සාරාංශය",
+          certificates: "සහතික",
+          countries: "රටවල්",
+        },
         FinalPage: {
           heading1: "ඔබගේ අයදුම්පත ඉදිරිපත් කිරීම ගැන",
           heading2: "ඔබට ස්තුතියි!",
@@ -246,6 +251,11 @@ i18next.use(initReactI18next).init({
           heading: "உங்கள் பொருளை நாங்கள் வர்த்தகம் செய்வது ஏன்?",
           yes: "ஆம்",
           no: "இல்லை",
+        },
+        Summary: {
+          heading: "சுருக்கம்",
+          certificates: "சான்றிதழ்கள்",
+          countries: "நாடுகள்",
         },
         FinalPage: {
           heading1: "சமர்ப்பிக்கும் முடிவுகள் க்கு நன்றி",
