@@ -12,7 +12,11 @@ import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData } from "../reducers/formSlice";
-import { GetProvinces } from "../services/LocationService";
+import {
+  GetCities,
+  GetDistricts,
+  GetProvinces,
+} from "../services/LocationService";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
 
 const initialShadow = "1px 5px 8px 5px rgba(0, 0, 0, 0.05)";
@@ -31,19 +35,18 @@ const BasicDetails = () => {
     email: store.getState().form.formData.basicDetails.email,
   });
 
-  const [provinces, setProvinces] = useState();
-  // const [error, setError] = useState(
-  //   store.getState().errors.basicDetails.error
-  // );
   let error = useSelector((state) => state.errors.basicDetails.error);
-  // useEffect(() => {
-  //   error = store.getState().errors.basicDetails.error;
-  //   console.log(error);
-  // }, [store.getState().errors.basicDetails.error]);
 
   const handleChange = (key, value) => {
+    console.log(key + " , " + value);
+    if (key === "province") {
+      setDetails({ ...details, province: value, district: "0", city: "0" });
+    } else if (key === "district") {
+      setDetails({ ...details, [key]: value, city: "0" });
+    } else {
+      setDetails({ ...details, [key]: value });
+    }
     dispatch(setErrorsBasicDetails({}));
-    setDetails({ ...details, [key]: value });
     dispatch(setFormData({ ...details, [key]: value }));
   };
 
@@ -55,35 +58,54 @@ const BasicDetails = () => {
     dispatch(setFormData({ ...details, [key]: limitedValue }));
   };
 
-  const provinceDistrictCityMapping = {
-    Western: {
-      Colombo: ["Colombo City", "Dehiwala", "Mount Lavinia"],
-      Gampaha: ["Gampaha", "Negombo", "Kadawatha"],
-      Kalutara: ["Kalutara", "Panadura", "Horana"],
-      // ...Other districts and cities in the Western province
-    },
-    Central: {
-      Kandy: ["Kandy", "Peradeniya", "Gampola"],
-      Matale: ["Matale", "Dambulla", "Galewela"],
-      "Nuwara Eliya": ["Nuwara Eliya", "Hatton", "Maskeliya"],
-      // ...Other districts and cities in the Central province
-    },
-    // ...Other provinces and their districts and cities
-  };
-
-  const handleProvinceChange = (value) => {
-    setDetails({ ...details, province: value, district: "0" });
-  };
+  const [provinces, setProvinces] = useState([]);
 
   const getProvinces = async () => {
-    const provinces = await GetProvinces();
-    setProvinces(provinces);
-    console.log("provinces", provinces);
+    try {
+      const response = await GetProvinces();
+      setProvinces(response.data);
+    } catch (error) {
+      console.error("Error fetching provinces:", error);
+    }
   };
 
-  // useEffect(() => {
-  //   getProvinces();
-  // }, []);
+  useEffect(() => {
+    getProvinces();
+  }, []);
+
+  const [districts, setDistricts] = useState([]);
+
+  const getDistricts = async () => {
+    try {
+      const response = await GetDistricts(details.province);
+      setDistricts(response.data);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!details.province == 0) {
+      getDistricts();
+    }
+  }, [details.province]);
+
+  const [cities, setCities] = useState([]);
+
+  const getCities = async () => {
+    try {
+      const response = await GetCities(details.district);
+      setCities(response.data);
+    } catch (error) {
+      console.error("Error fetching Cities:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!details.district == 0) {
+      getCities();
+    }
+  }, [details.district]);
 
   return (
     <div>
@@ -95,8 +117,6 @@ const BasicDetails = () => {
         sx={{
           boxShadow: error === "province" ? errorShadow : initialShadow,
           borderRadius: 3,
-          // border: 2,
-          // borderColor: "#d32f2f",
           pt: 1,
           pr: 2,
           pb: 1,
@@ -118,9 +138,9 @@ const BasicDetails = () => {
             placeholder="Select a Province"
           >
             <MenuItem value={"0"}>Select a Province</MenuItem>
-            {Object.keys(provinceDistrictCityMapping).map((province) => (
-              <MenuItem key={province} value={province}>
-                {province}
+            {provinces.map((province) => (
+              <MenuItem key={province.id} value={province.id}>
+                {province.provinceEnglish}
               </MenuItem>
             ))}
           </Select>
@@ -153,14 +173,11 @@ const BasicDetails = () => {
             }}
           >
             <MenuItem value={"0"}>Select a District</MenuItem>
-            {details.province !== "0" &&
-              Object.keys(
-                provinceDistrictCityMapping[details.province] || {}
-              ).map((district) => (
-                <MenuItem key={district} value={district}>
-                  {district}
-                </MenuItem>
-              ))}
+            {districts.map((district) => (
+              <MenuItem key={district.id} value={district.id}>
+                {district.districtEnglish}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -191,19 +208,11 @@ const BasicDetails = () => {
             }}
           >
             <MenuItem value={"0"}>Select a City</MenuItem>
-            {details.district !== "0" &&
-              Array.isArray(
-                provinceDistrictCityMapping[details.province]?.[
-                  details.district
-                ]
-              ) &&
-              provinceDistrictCityMapping[details.province]?.[
-                details.district
-              ]?.map((city) => (
-                <MenuItem key={city} value={city}>
-                  {city}
-                </MenuItem>
-              ))}
+            {cities.map((city) => (
+              <MenuItem key={city.id} value={city.id}>
+                {city.cityEnglish}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>

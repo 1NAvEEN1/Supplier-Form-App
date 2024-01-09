@@ -7,4 +7,18 @@ const GetProvinces = async () => {
   });
 };
 
-export { GetProvinces };
+const GetDistricts = async (id) => {
+  const path = `/Location/GetDistricts/${id}`;
+  return axios.get(`${import.meta.env.VITE_BASE_URL}${path}`).catch((error) => {
+    console.log(error);
+  });
+};
+
+const GetCities = async (id) => {
+  const path = `/Location/GetCities/${id}`;
+  return axios.get(`${import.meta.env.VITE_BASE_URL}${path}`).catch((error) => {
+    console.log(error);
+  });
+};
+
+export { GetProvinces, GetDistricts, GetCities };
