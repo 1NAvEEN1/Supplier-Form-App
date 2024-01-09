@@ -4,68 +4,102 @@ import store from "../app/store";
 const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
   let isValidate = 1;
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   if (currentPageIndex === 2) {
-    let data = store.getState().form.formData.basicDetails;
-    let errors = {
-      province: "",
-      district: "",
-      city: "",
-      name: "",
-      phone: "",
-      phone2: "",
-      email: "",
+    const data = store.getState().form.formData.basicDetails;
+    let error = "";
+
+    const validatePhoneNumber = (phoneNumber, errorMessage) => {
+      if (
+        phoneNumber &&
+        (phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber))
+      ) {
+        error = errorMessage;
+        showAlertMessage({
+          message: errorMessage,
+          type: "error",
+        });
+        isValidate = 0;
+      }
     };
+
     console.log(data);
-    if (data.province === 0) {
-      errors.province = "select a province";
-      isValidate = 0;
-    }
 
-    if (data.district === 0) {
-      errors.district = "select a district";
-      isValidate = 0;
-    }
-    if (data.city === 0) {
-      errors.city = "select a city";
-      isValidate = 0;
-    }
-
-    if (data.name === "") {
-      errors.name = "select a name";
-      isValidate = 0;
-    }
-
-    if (data.contactNo === "") {
-      errors.contactNo = "Enter a phone number";
-      isValidate = 0;
-    } else if (data.contactNo.length !== 10 || !/^\d+$/.test(data.contactNo)) {
-      errors.phone = "Phone number should be a 10-digit number";
-      isValidate = 0;
-    }
-
-    if (data.contactNo2 === "") {
-    } else if (
-      data.contactNo2.length !== 10 ||
-      !/^\d+$/.test(data.contactNo2)
+    if (
+      data.province == 0 &&
+      data.district == 0 &&
+      data.city == 0 &&
+      data.name == "" &&
+      data.contactNo == ""
     ) {
-      errors.phone = "Phone number should be a 10-digit number";
       showAlertMessage({
-        message: "Invalid Secondary Mobile Number",
+        message: "Please fill the form",
+        type: "error",
+      });
+      isValidate = 0;
+    } else if (data.province == 0) {
+      showAlertMessage({
+        message: "select a province",
+        type: "error",
+      });
+      error = "province";
+      isValidate = 0;
+    } else if (data.district == 0) {
+      error = "district";
+      showAlertMessage({
+        message: "Please select a district",
+        type: "error",
+      });
+      isValidate = 0;
+    } else if (data.city == 0) {
+      error = "city";
+      showAlertMessage({
+        message: "select a city",
+        type: "error",
+      });
+      isValidate = 0;
+    } else if (data.name == "") {
+      error = "name";
+      showAlertMessage({
+        message: "Please fill the name",
+        type: "error",
+      });
+      isValidate = 0;
+    } else if (data.contactNo == "") {
+      error = "number";
+      showAlertMessage({
+        message: "Please fill the contact number",
+        type: "error",
+      });
+      isValidate = 0;
+    } else {
+      validatePhoneNumber(data.contactNo, "Invalid Contact Number");
+      validatePhoneNumber(data.contactNo2, "Invalid Secondary Contact Number");
+    }
+
+    if (data.email == "") {
+    } else if (!validateEmail(data.email)) {
+      error = "email";
+      showAlertMessage({
+        message: "Please enter a valid email address",
         type: "error",
       });
       isValidate = 0;
     }
+    console.log(error);
 
-    console.log(errors);
+    dispatch(setErrorsBasicDetails({ error }));
 
-    dispatch(setErrorsBasicDetails({ errors }));
-
-    if (!isValidate) {
-      showAlertMessage({
-        message: "Please fill the correct data",
-        type: "error",
-      });
-    }
+    // if (!isValidate) {
+    //   showAlertMessage({
+    //     message: "Please fill in the correct data",
+    //     type: "error",
+    //   });
+    // }
   }
 
   if (currentPageIndex === 3) {

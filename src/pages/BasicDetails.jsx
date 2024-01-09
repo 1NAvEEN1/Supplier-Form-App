@@ -10,9 +10,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFormData } from "../reducers/formSlice";
 import { GetProvinces } from "../services/LocationService";
+import { setErrorsBasicDetails } from "../reducers/errorMessages";
+
+const initialShadow = "1px 5px 8px 5px rgba(0, 0, 0, 0.05)";
+const errorShadow = "-1px 1px 8px 5px rgba(255, 0, 0, 0.3)";
 
 const BasicDetails = () => {
   const { t, i18n } = useTranslation();
@@ -28,17 +32,25 @@ const BasicDetails = () => {
   });
 
   const [provinces, setProvinces] = useState();
+  // const [error, setError] = useState(
+  //   store.getState().errors.basicDetails.error
+  // );
+  let error = useSelector((state) => state.errors.basicDetails.error);
+  // useEffect(() => {
+  //   error = store.getState().errors.basicDetails.error;
+  //   console.log(error);
+  // }, [store.getState().errors.basicDetails.error]);
 
   const handleChange = (key, value) => {
+    dispatch(setErrorsBasicDetails({}));
     setDetails({ ...details, [key]: value });
     dispatch(setFormData({ ...details, [key]: value }));
   };
 
   const handlePhoneNumberChange = (key, value) => {
     const numericValue = value.replace(/\D/g, "");
-
     const limitedValue = numericValue.slice(0, 10);
-    console.log(limitedValue);
+    dispatch(setErrorsBasicDetails({}));
     setDetails({ ...details, [key]: limitedValue });
     dispatch(setFormData({ ...details, [key]: limitedValue }));
   };
@@ -81,7 +93,7 @@ const BasicDetails = () => {
       <Divider sx={{ mb: 3 }} />
       <Box
         sx={{
-          boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
+          boxShadow: error === "province" ? errorShadow : initialShadow,
           borderRadius: 3,
           // border: 2,
           // borderColor: "#d32f2f",
@@ -117,7 +129,7 @@ const BasicDetails = () => {
 
       <Box
         sx={{
-          boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
+          boxShadow: error === "district" ? errorShadow : initialShadow,
           borderRadius: 3,
           pt: 1,
           pr: 2,
@@ -155,7 +167,7 @@ const BasicDetails = () => {
 
       <Box
         sx={{
-          boxShadow: "0px 5px 8px 5px rgba(0, 0, 0, 0.03)",
+          boxShadow: error === "city" ? errorShadow : initialShadow,
           borderRadius: 3,
           mt: 3,
           pt: 1,
@@ -201,6 +213,7 @@ const BasicDetails = () => {
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
         placeholder={t("translation:BasicDetails:name")}
         value={details.name}
+        error={error === "name"}
         onChange={(e) => handleChange("name", e.target.value)}
       />
       <TextField
@@ -213,7 +226,7 @@ const BasicDetails = () => {
             maxLength: 10, // Limit to 10 characters
           },
         }}
-        plac
+        error={error === "number" || error === "Invalid Contact Number"}
         placeholder={t("translation:BasicDetails:number")}
         value={details.phone}
         onChange={(e) => handlePhoneNumberChange("phone", e.target.value)}
@@ -228,13 +241,14 @@ const BasicDetails = () => {
             maxLength: 10, // Limit to 10 characters
           },
         }}
-        plac
+        error={error === "Invalid Secondary Contact Number"}
         placeholder={t("translation:BasicDetails:number2")}
         value={details.phone2}
         onChange={(e) => handlePhoneNumberChange("phone2", e.target.value)}
       />
       <TextField
         fullWidth
+        error={error === "email"}
         InputProps={{ sx: { borderRadius: 3, mt: 4 } }}
         placeholder={t("translation:BasicDetails:email")}
         value={details.email}

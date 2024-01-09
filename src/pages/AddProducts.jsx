@@ -86,13 +86,19 @@ const AddProducts = ({ closeDrawer }) => {
 
   const handleChange = (key, value, subKey = null) => {
     setError("");
+
     if (subKey) {
-      setProduct({
-        ...product,
-        [key]: { ...product[key], [subKey]: value },
-      });
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [key]: { ...prevProduct[key], [subKey]: value },
+      }));
     } else {
-      setProduct({ ...product, [key]: value });
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [key]: value,
+        // Reset subCategory to 0 if key is "category"
+        ...(key === "category" && { subCategory: 0 }),
+      }));
     }
   };
 
@@ -363,6 +369,7 @@ const AddProducts = ({ closeDrawer }) => {
                       borderRadius: 3,
                       height: 30,
                     }}
+                    disabled={product.category == 0}
                     onChange={(e) =>
                       handleChange("subCategory", e.target.value)
                     }
