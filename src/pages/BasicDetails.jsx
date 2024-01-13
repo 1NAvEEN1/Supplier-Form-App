@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "../reducers/formSlice";
+import { setFormData, setLocationName } from "../reducers/formSlice";
 import {
   GetCities,
   GetDistricts,
@@ -128,7 +128,18 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             value={details.province}
-            onChange={(e) => handleChange("province", e.target.value)}
+            onChange={(e) => (
+              handleChange("province", e.target.value),
+              dispatch(
+                setLocationName({
+                  province: provinces.find(
+                    (province) => province.id === e.target.value
+                  ),
+                  district: undefined,
+                  city: undefined,
+                })
+              )
+            )}
             sx={{
               boxShadow: "none",
               ".MuiOutlinedInput-notchedOutline": { border: 0 },
@@ -137,10 +148,14 @@ const BasicDetails = () => {
             }}
             placeholder="Select a Province"
           >
-            <MenuItem value={"0"}>Select a Province</MenuItem>
+            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectProvince")}</MenuItem>
             {provinces.map((province) => (
               <MenuItem key={province.id} value={province.id}>
-                {province.provinceEnglish}
+                {i18n.language == "en"
+                  ? province.provinceEnglish
+                  : i18n.language == "si"
+                  ? province.provinceSinhala
+                  : province.provinceTamil}
               </MenuItem>
             ))}
           </Select>
@@ -163,7 +178,18 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             value={details.district}
-            onChange={(e) => handleChange("district", e.target.value)}
+            onChange={(e) => (
+              handleChange("district", e.target.value),
+              dispatch(
+                setLocationName({
+                  province: undefined,
+                  district: districts.find(
+                    (district) => district.id === e.target.value
+                  ),
+                  city: undefined,
+                })
+              )
+            )}
             disabled={details.province === "0"}
             sx={{
               boxShadow: "none",
@@ -172,10 +198,14 @@ const BasicDetails = () => {
               height: 30,
             }}
           >
-            <MenuItem value={"0"}>Select a District</MenuItem>
+            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectDistrict")}</MenuItem>
             {districts.map((district) => (
               <MenuItem key={district.id} value={district.id}>
-                {district.districtEnglish}
+                {i18n.language == "en"
+                  ? district.districtEnglish
+                  : i18n.language == "si"
+                  ? district.districtSinhala
+                  : district.districtTamil}
               </MenuItem>
             ))}
           </Select>
@@ -198,7 +228,16 @@ const BasicDetails = () => {
         <FormControl fullWidth>
           <Select
             value={details.city}
-            onChange={(e) => handleChange("city", e.target.value)}
+            onChange={(e) => (
+              handleChange("city", e.target.value),
+              dispatch(
+                setLocationName({
+                  province: undefined,
+                  district: undefined,
+                  city: cities.find((city) => city.id === e.target.value),
+                })
+              )
+            )}
             disabled={details.district === "0"}
             sx={{
               boxShadow: "none",
@@ -207,10 +246,14 @@ const BasicDetails = () => {
               height: 30,
             }}
           >
-            <MenuItem value={"0"}>Select a City</MenuItem>
+            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectCity")}</MenuItem>
             {cities.map((city) => (
               <MenuItem key={city.id} value={city.id}>
-                {city.cityEnglish}
+                {i18n.language == "en"
+                  ? city.cityEnglish
+                  : i18n.language == "si"
+                  ? city.citySinhala
+                  : city.cityTamil}
               </MenuItem>
             ))}
           </Select>

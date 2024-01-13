@@ -28,7 +28,8 @@ const Summary = () => {
   const exportingDetails = store.getState().form.formData.exportingDetails;
   const askForExporting = store.getState().form.formData.askForExporting;
 
-  const { t } = useTranslation();
+  const location = store.getState().form.locationName;
+  const { t, i18n } = useTranslation();
 
   const handleEdit = (page) => {
     console.log(page);
@@ -72,21 +73,36 @@ const Summary = () => {
           {t("translation:BasicDetails:province")}
         </Grid>
         <Grid item xs={6} sm={7}>
-          : {basicDetails.province}
+          :{" "}
+          {i18n.language == "en"
+            ? location.province.provinceEnglish
+            : i18n.language == "si"
+            ? location.province.provinceSinhala
+            : location.province.provinceTamil}
         </Grid>
         <Divider sx={{ width: "100%" }} />
         <Grid item xs={5} sm={4}>
           {t("translation:BasicDetails:district")}
         </Grid>
         <Grid item xs={6} sm={7}>
-          : {basicDetails.district}
+          :{" "}
+          {i18n.language == "en"
+            ? location.district.districtEnglish
+            : i18n.language == "si"
+            ? location.district.districtSinhala
+            : location.district.districtTamil}
         </Grid>
         <Divider sx={{ width: "100%" }} />
         <Grid item xs={5} sm={4}>
           {t("translation:BasicDetails:city")}
         </Grid>
         <Grid item xs={6} sm={7}>
-          : {basicDetails.city}
+          :{" "}
+          {i18n.language == "en"
+            ? location.city.cityEnglish
+            : i18n.language == "si"
+            ? location.city.citySinhala
+            : location.city.cityTamil}
         </Grid>
         <Divider sx={{ width: "100%" }} />
         <Grid item xs={11} sm={4}>

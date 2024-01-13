@@ -6,6 +6,11 @@ const formSlice = createSlice({
     navigateToPage: 99,
     initialRender: 0,
     selectedProductIndex: 99,
+    locationName: {
+      province: {},
+      district: {},
+      city: {},
+    },
     formData: {
       language: "en",
       basicDetails: {
@@ -53,7 +58,9 @@ const formSlice = createSlice({
         contactNo:
           phone !== undefined ? phone : state.formData.basicDetails.contactNo,
         contactNo2:
-          phone2 !== undefined ? phone2 : state.formData.basicDetails.contactNo2,
+          phone2 !== undefined
+            ? phone2
+            : state.formData.basicDetails.contactNo2,
         email: email !== undefined ? email : state.formData.basicDetails.email,
       };
     },
@@ -118,6 +125,18 @@ const formSlice = createSlice({
     setAskForExporting: (state, action) => {
       state.formData.askForExporting = action.payload;
     },
+
+    setLocationName: (state, action) => {
+      const { province, district, city } = action.payload;
+      state.locationName = {
+        ...state.locationName,
+        province:
+          province !== undefined ? province : state.locationName.province,
+        district:
+          district !== undefined ? district : state.locationName.district,
+        city: city !== undefined ? city : state.locationName.city,
+      };
+    },
   },
 });
 
@@ -130,6 +149,7 @@ export const {
   setAskForExporting,
   setSelectedProductIndex,
   setNavigateToPage,
+  setLocationName,
 } = formSlice.actions;
 
 export default formSlice.reducer;

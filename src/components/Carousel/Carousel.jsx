@@ -24,7 +24,7 @@ const CarouselComponent = () => {
         <Box
           key={i}
           sx={{
-            height: { lg: 250, xs: "40svh" },
+            height: { lg: "35svh", xs: "38svh" },
           }}
         >
           <Typography variant="h5" textAlign={"center"}>
