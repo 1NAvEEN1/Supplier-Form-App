@@ -16,11 +16,16 @@ import {
 import { Trans, useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setProductCategoryNames,
   setProductDetails,
   setSelectedProductIndex,
 } from "../reducers/formSlice";
 import store from "../app/store";
 import { showAlertMessage } from "../app/alertMessageController";
+import {
+  GetProductCategories,
+  GetProductSubCategories,
+} from "../services/CategoryService";
 
 const initialShadow = "1px 5px 8px 5px rgba(0, 0, 0, 0.05)";
 const errorShadow = "-1px 1px 8px 5px rgba(255, 0, 0, 0.3)";
@@ -43,8 +48,9 @@ const CustomStyledBox = ({ children, sx = {}, ...rest }) => (
 
 const AddProducts = ({ closeDrawer }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const formData = useSelector((state) => state.form.formData);
+  const categoryNames = useSelector((state) => state.form.productCategoryNames);
   const defaultValues = {
     productOrRaw: true,
     category: 0,
@@ -74,6 +80,37 @@ const AddProducts = ({ closeDrawer }) => {
 
   const [product, setProduct] = useState(defaultValues);
   const [error, setError] = useState("");
+
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+
+  const getCategories = async () => {
+    try {
+      const response = await GetProductCategories();
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching Categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const getSubCategories = async () => {
+    try {
+      const response = await GetProductSubCategories(product.category);
+      setSubCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching Cities:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!product.category == 0) {
+      getSubCategories();
+    }
+  }, [product.category]);
 
   useEffect(() => {
     const selectedProductIndex = store.getState().form.selectedProductIndex;
@@ -232,15 +269,32 @@ const AddProducts = ({ closeDrawer }) => {
     const isValidate = validation();
     if (isValidate) {
       const updatedProductDetails = [...formData.productDetails];
+      const updatedProductCategoryNames = [...categoryNames];
+
+      const categoryNamesObject = {
+        category: categories.find(
+          (category) => category.id === product.category
+        ),
+        subCategory: subCategories.find(
+          (subCategory) => subCategory.id === product.subCategory
+        ),
+      };
+
       if (store.getState().form.selectedProductIndex !== 99) {
         // Update the existing object in the array
         updatedProductDetails[store.getState().form.selectedProductIndex] =
           product;
+
+        updatedProductCategoryNames[
+          store.getState().form.selectedProductIndex
+        ] = categoryNamesObject;
       } else {
         // Add a new object to the array
         updatedProductDetails.push(product);
+        updatedProductCategoryNames.push(categoryNamesObject);
       }
       dispatch(setProductDetails(updatedProductDetails));
+      dispatch(setProductCategoryNames(updatedProductCategoryNames));
       setProduct(defaultValues);
       dispatch(setSelectedProductIndex(99));
       closeDrawer();
@@ -338,10 +392,18 @@ const AddProducts = ({ closeDrawer }) => {
                     }}
                     onChange={(e) => handleChange("category", e.target.value)}
                   >
-                    <MenuItem value={0}>Select a product category</MenuItem>
-                    <MenuItem value={10}>Spices</MenuItem>
-                    <MenuItem value={20}>Oils</MenuItem>
-                    <MenuItem value={30}>condiments</MenuItem>
+                    <MenuItem value={0}>
+                      {t("translation:AddProduct:selectCategory")}
+                    </MenuItem>
+                    {categories.map((category) => (
+                      <MenuItem key={category.id} value={category.id}>
+                        {i18n.language == "en"
+                          ? category.nameEnglish
+                          : i18n.language == "si"
+                          ? category.nameSinhala
+                          : category.nameTamil}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </CustomStyledBox>
@@ -374,10 +436,18 @@ const AddProducts = ({ closeDrawer }) => {
                       handleChange("subCategory", e.target.value)
                     }
                   >
-                    <MenuItem value={0}>Select a product sub category</MenuItem>
-                    <MenuItem value={10}>Cinnamon</MenuItem>
-                    <MenuItem value={20}>Turmeric</MenuItem>
-                    <MenuItem value={30}>Pepper</MenuItem>
+                    <MenuItem value={0}>
+                      {t("translation:AddProduct:selectSubCategory")}
+                    </MenuItem>
+                    {subCategories.map((subCategory) => (
+                      <MenuItem key={subCategory.id} value={subCategory.id}>
+                        {i18n.language == "en"
+                          ? subCategory.nameEnglish
+                          : i18n.language == "si"
+                          ? subCategory.nameSinhala
+                          : subCategory.nameTamil}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </CustomStyledBox>
@@ -398,7 +468,7 @@ const AddProducts = ({ closeDrawer }) => {
                 boxShadow: "none",
                 ".MuiOutlinedInput-notchedOutline": { border: 0 },
               }}
-              placeholder="Product Name ABC"
+              placeholder={t("translation:AddProduct:productName")}
               fullWidth
               value={product.name}
               onChange={(e) => handleChange("name", e.target.value)}

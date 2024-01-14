@@ -27,12 +27,13 @@ const ProductDetails = () => {
   const dialogContentRef = useRef(null);
   const drawerContentRef = useRef(null);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isDesktop = useMediaQuery("(min-width:769px)");
   const products = store.getState().form.formData.productDetails;
+  const productsCategories = store.getState().form.productCategoryNames;
   const [deleteIndex, setDeleteIndex] = useState(0);
 
   const toggleDrawer = (open) => (event) => {
@@ -114,8 +115,17 @@ const ProductDetails = () => {
                 {product.productOrRaw ? (
                   <>
                     <Typography>
-                      {/* {product.category + " - " + product.subCategory} */}
-                      Spices - Cinnamon
+                      {i18n.language == "en"
+                        ? productsCategories[index].category.nameEnglish
+                        : i18n.language == "si"
+                        ? productsCategories[index].category.nameSinhala
+                        : productsCategories[index].category.nameTamil}
+                      {" - "}
+                      {i18n.language == "en"
+                        ? productsCategories[index].subCategory.nameEnglish
+                        : i18n.language == "si"
+                        ? productsCategories[index].subCategory.nameSinhala
+                        : productsCategories[index].subCategory.nameTamil}
                     </Typography>
                   </>
                 ) : (

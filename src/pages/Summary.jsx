@@ -29,6 +29,7 @@ const Summary = () => {
   const askForExporting = store.getState().form.formData.askForExporting;
 
   const location = store.getState().form.locationName;
+  const productsCategories = store.getState().form.productCategoryNames;
   const { t, i18n } = useTranslation();
 
   const handleEdit = (page) => {
@@ -168,11 +169,42 @@ const Summary = () => {
                   bgcolor: "#FFFFFF",
                 }}
               >
-                <Grid item xs={1}>
+                <Grid item xs={1} display={"flex"} alignItems={"center"}>
                   {index + 1}
                 </Grid>
-                <Grid item xs={11}>
-                  <Typography fontWeight={600}>{product.name}</Typography>
+                <Grid item xs={11} textAlign={"center"}>
+                  <Grid container>
+                    <Grid item xs={12} sm={7}>
+                      <Typography fontWeight={600}>{product.name}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={5} textAlign={"center"}>
+                      {product.productOrRaw ? (
+                        <>
+                          <Typography fontWeight={600}>
+                            {i18n.language == "en"
+                              ? productsCategories[index].category.nameEnglish
+                              : i18n.language == "si"
+                              ? productsCategories[index].category.nameSinhala
+                              : productsCategories[index].category.nameTamil}
+                            {" - "}
+                            {i18n.language == "en"
+                              ? productsCategories[index].subCategory
+                                  .nameEnglish
+                              : i18n.language == "si"
+                              ? productsCategories[index].subCategory
+                                  .nameSinhala
+                              : productsCategories[index].subCategory.nameTamil}
+                          </Typography>
+                        </>
+                      ) : (
+                        <>
+                          <Typography fontWeight={600}>
+                            {t("translation:AddProduct:rawMaterial")}
+                          </Typography>
+                        </>
+                      )}
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Box>

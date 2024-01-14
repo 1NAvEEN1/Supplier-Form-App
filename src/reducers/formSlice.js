@@ -11,6 +11,7 @@ const formSlice = createSlice({
       district: {},
       city: {},
     },
+    productCategoryNames: [],
     formData: {
       language: "en",
       basicDetails: {
@@ -70,6 +71,11 @@ const formSlice = createSlice({
     setProductDetails: (state, action) => {
       state.formData.productDetails = action.payload;
     },
+
+    setProductCategoryNames: (state, action) => {
+      state.productCategoryNames = action.payload;
+    },
+
     setSelectedProductIndex: (state, action) => {
       state.selectedProductIndex = action.payload;
     },
@@ -150,6 +156,7 @@ export const {
   setSelectedProductIndex,
   setNavigateToPage,
   setLocationName,
+  setProductCategoryNames,
 } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -60,6 +60,9 @@ i18next.use(initReactI18next).init({
             " (Any additional relevant details about the product, such as expiration details, packaging sizes, etc)",
           monthly: "Monthly",
           custom: "Custom",
+          selectCategory: "Select a product category",
+          selectSubCategory: "Select a product sub category",
+          productName: "Product Name ABC",
         },
         BusinessDetails: {
           heading: "Have you registered your business?",
@@ -148,6 +151,9 @@ i18next.use(initReactI18next).init({
             " (කල් ඉකුත් වීමේ විස්තර, ඇසුරුම් ප්‍රමාණයන් යනාදී නිෂ්පාදනය පිළිබඳ ඕනෑම අමතර අදාළ විස්තර)",
           monthly: "සෑම මසකම සැපයීමට හැක",
           custom: "මාස කිහිපයක පමණක් සැපයීමට හැක",
+          selectCategory: "නිෂ්පාදන කාණ්ඩය තෝරන්න",
+          selectSubCategory: "නිෂ්පාදන උප කාණ්ඩය තෝරන්න",
+          productName: "නිෂ්පාදනයේ නම",
         },
         BusinessDetails: {
           heading: "ඔබගේ ව්‍යාපාරය ලියාපදිංචි කර තිබේද?",
@@ -235,6 +241,9 @@ i18next.use(initReactI18next).init({
             "(கடந்துப்போக விவரங்கள், உறைந்த அளவுகள் போன்றவை போல பிற செய்திகள்)",
           monthly: "மாதாந்திர",
           custom: "கஸ்டம்",
+          selectCategory: "தயாரிப்பு வகை தேர்ந்தெடு",
+          selectSubCategory: "உப வகை தேர்ந்தெடு",
+          productName: "தயாரிப்பு பெயர் ABC",
         },
         BusinessDetails: {
           heading: "உங்கள் வணிகத்தை பதிவு செய்துள்ளீர்களா?",
