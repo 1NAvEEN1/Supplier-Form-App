@@ -6,6 +6,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  Autocomplete,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -126,39 +127,43 @@ const BasicDetails = () => {
           {t("translation:BasicDetails:province")}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            value={details.province}
-            onChange={(e) => (
-              handleChange("province", e.target.value),
+          <Autocomplete
+            size="small"
+            value={
+              provinces.find((option) => option.id === details.province) || null
+            }
+            options={provinces}
+            getOptionLabel={(option) =>
+              i18n.language === "en"
+                ? option.provinceEnglish
+                : i18n.language === "si"
+                ? option.provinceSinhala
+                : option.provinceTamil
+            }
+            onChange={(_, newValue) => {
+              handleChange("province", newValue ? newValue.id : "0");
               dispatch(
                 setLocationName({
-                  province: provinces.find(
-                    (province) => province.id === e.target.value
-                  ),
+                  province: newValue,
                   district: undefined,
                   city: undefined,
                 })
-              )
-            )}
-            sx={{
-              boxShadow: "none",
-              ".MuiOutlinedInput-notchedOutline": { border: 0 },
-              borderRadius: 3,
-              height: 30,
+              );
             }}
-            placeholder="Select a Province"
-          >
-            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectProvince")}</MenuItem>
-            {provinces.map((province) => (
-              <MenuItem key={province.id} value={province.id}>
-                {i18n.language == "en"
-                  ? province.provinceEnglish
-                  : i18n.language == "si"
-                  ? province.provinceSinhala
-                  : province.provinceTamil}
-              </MenuItem>
-            ))}
-          </Select>
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder={t("translation:BasicDetails:SelectProvince")}
+                sx={{
+                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  borderRadius: 3,
+                  height: 40,
+                  ml: 1,
+                  mr: -1,
+                }}
+              />
+            )}
+          />
         </FormControl>
       </Box>
 
@@ -176,39 +181,44 @@ const BasicDetails = () => {
           {t("translation:BasicDetails:district")}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            value={details.district}
-            onChange={(e) => (
-              handleChange("district", e.target.value),
+          <Autocomplete
+            value={
+              districts.find((option) => option.id === details.district) || null
+            }
+            options={districts}
+            size="small"
+            getOptionLabel={(option) =>
+              i18n.language === "en"
+                ? option.districtEnglish
+                : i18n.language === "si"
+                ? option.districtSinhala
+                : option.districtTamil
+            }
+            onChange={(_, newValue) => {
+              handleChange("district", newValue ? newValue.id : "0");
               dispatch(
                 setLocationName({
                   province: undefined,
-                  district: districts.find(
-                    (district) => district.id === e.target.value
-                  ),
+                  district: newValue,
                   city: undefined,
                 })
-              )
-            )}
-            disabled={details.province === "0"}
-            sx={{
-              boxShadow: "none",
-              ".MuiOutlinedInput-notchedOutline": { border: 0 },
-              borderRadius: 3,
-              height: 30,
+              );
             }}
-          >
-            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectDistrict")}</MenuItem>
-            {districts.map((district) => (
-              <MenuItem key={district.id} value={district.id}>
-                {i18n.language == "en"
-                  ? district.districtEnglish
-                  : i18n.language == "si"
-                  ? district.districtSinhala
-                  : district.districtTamil}
-              </MenuItem>
-            ))}
-          </Select>
+            disabled={details.province === "0"}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder={t("translation:BasicDetails:SelectDistrict")}
+                sx={{
+                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  borderRadius: 3,
+                  height: 40,
+                  ml: 1,
+                  mr: -1,
+                }}
+              />
+            )}
+          />
         </FormControl>
       </Box>
 
@@ -226,37 +236,42 @@ const BasicDetails = () => {
           {t("translation:BasicDetails:city")}
         </Typography>
         <FormControl fullWidth>
-          <Select
-            value={details.city}
-            onChange={(e) => (
-              handleChange("city", e.target.value),
+          <Autocomplete
+            value={cities.find((option) => option.id === details.city) || null}
+            options={cities}
+            size="small"
+            getOptionLabel={(option) =>
+              i18n.language === "en"
+                ? option.cityEnglish
+                : i18n.language === "si"
+                ? option.citySinhala
+                : option.cityTamil
+            }
+            onChange={(_, newValue) => {
+              handleChange("city", newValue ? newValue.id : "0");
               dispatch(
                 setLocationName({
                   province: undefined,
                   district: undefined,
-                  city: cities.find((city) => city.id === e.target.value),
+                  city: newValue,
                 })
-              )
-            )}
-            disabled={details.district === "0"}
-            sx={{
-              boxShadow: "none",
-              ".MuiOutlinedInput-notchedOutline": { border: 0 },
-              borderRadius: 3,
-              height: 30,
+              );
             }}
-          >
-            <MenuItem value={"0"}>{t("translation:BasicDetails:SelectCity")}</MenuItem>
-            {cities.map((city) => (
-              <MenuItem key={city.id} value={city.id}>
-                {i18n.language == "en"
-                  ? city.cityEnglish
-                  : i18n.language == "si"
-                  ? city.citySinhala
-                  : city.cityTamil}
-              </MenuItem>
-            ))}
-          </Select>
+            disabled={details.district === "0"}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder={t("translation:BasicDetails:SelectCity")}
+                sx={{
+                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  borderRadius: 3,
+                  height: 40,
+                  ml: 1,
+                  mr: -1,
+                }}
+              />
+            )}
+          />
         </FormControl>
       </Box>
 
