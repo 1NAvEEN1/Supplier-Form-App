@@ -12,7 +12,7 @@ import palette from "./palette";
 import typography from "./typography";
 import breakpoints from "./breakpoints";
 import componentsOverride from "./overrides";
-// import shadows, { customShadows } from "./shadows";
+import shadows, { customShadows } from "./shadows";
 
 ThemeProvider.propTypes = {
   children: PropTypes.node,
@@ -27,14 +27,14 @@ export default function ThemeProvider({ children }) {
       typography,
       breakpoints,
       // shape: { borderRadius: 8 },
-      shadows: 0,
-      // customShadows: isLight ? customShadows.light : customShadows.dark,
+      shadows: isLight ? shadows.light : shadows.dark,
+      customShadows: isLight ? customShadows.light : customShadows.dark,
     }),
     [isLight]
   );
 
   const theme = createTheme(themeOptions);
-  // theme.components = componentsOverride(theme);
+  theme.components = componentsOverride(theme);
 
   return (
     <StyledEngineProvider injectFirst>

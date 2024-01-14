@@ -198,6 +198,13 @@ const ProductDetails = () => {
             anchor="bottom"
             open={isDrawerOpen}
             onClose={toggleDrawer(false)}
+            slotProps={{
+              backdrop: {
+                sx: {
+                  background: "rgba(0,0,0,0.4)",
+                },
+              },
+            }}
           >
             <div
               ref={drawerContentRef}
@@ -214,6 +221,13 @@ const ProductDetails = () => {
             aria-labelledby="add-product-modal"
             fullWidth
             maxWidth="md"
+            slotProps={{
+              backdrop: {
+                sx: {
+                  background: "rgba(0,0,0,0.5)",
+                },
+              },
+            }}
           >
             <DialogContent ref={dialogContentRef}>
               <Box
@@ -234,13 +248,20 @@ const ProductDetails = () => {
         onClose={() => handleCloseDelete(false)}
         aria-labelledby="add-product-modal"
         maxWidth="xs"
+        slotProps={{
+          backdrop: {
+            sx: {
+              background: "rgba(0,0,0,0.7)",
+            },
+          },
+        }}
       >
         <DialogTitle>Are you sure to delete? </DialogTitle>
         <DialogContent ref={dialogContentRef}>
-          <Box display={"flex"} justifyContent={"space-between"} pl={2} pr={2}>
+          <Box display={"flex"} justifyContent={"space-between"} pt={2} pl={2} pr={2}>
             <Button
               variant="contained"
-              color="warning"
+              color="secondary"
               size="small"
               onClick={() => handleCloseDelete(false)}
             >
@@ -248,7 +269,7 @@ const ProductDetails = () => {
             </Button>
             <Button
               size="small"
-              color="error"
+              // color="error"
               variant="contained"
               onClick={() => handleDeleteClick()}
             >

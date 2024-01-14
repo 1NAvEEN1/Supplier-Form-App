@@ -1,3 +1,11 @@
+import { alpha } from "@mui/material/styles";
+
+// ----------------------------------------------------------------------
+
+function createGradient(color1, color2) {
+  return `linear-gradient(to bottom, ${color1}, ${color2})`;
+}
+
 // SETUP COLORS
 const PRIMARY = {
   lighter: "#F47621",
@@ -42,6 +50,14 @@ const ERROR = {
   darker: "#7A0C2E",
 };
 
+const GRADIENTS = {
+  primary: createGradient(PRIMARY.light, PRIMARY.main),
+  info: createGradient(INFO.light, INFO.main),
+  success: createGradient(SUCCESS.light, SUCCESS.main),
+  warning: createGradient(WARNING.light, WARNING.main),
+  error: createGradient(ERROR.light, ERROR.main),
+};
+
 const CHART_COLORS = {
   violet: ["#826AF9", "#9E86FF", "#D0AEFF", "#F7D2FF"],
   blue: ["#2D99FF", "#83CFFF", "#A5F3FF", "#CCFAFF"],
@@ -61,16 +77,61 @@ const GREY = {
   700: "#454F5B",
   800: "#212B36",
   900: "#161C24",
+  500_8: alpha("#919EAB", 0.08),
+  500_12: alpha("#919EAB", 0.12),
+  500_16: alpha("#919EAB", 0.16),
+  500_24: alpha("#919EAB", 0.24),
+  500_32: alpha("#919EAB", 0.32),
+  500_48: alpha("#919EAB", 0.48),
+  500_56: alpha("#919EAB", 0.56),
+  500_80: alpha("#919EAB", 0.8),
 };
 
+
 const COMMON = {
+  common: { black: "#000", white: "#fff" },
+  primary: { ...PRIMARY, contrastText: "#fff" },
+  secondary: { ...SECONDARY, contrastText: "#fff" },
+  info: { ...INFO, contrastText: "#fff" },
+  success: { ...SUCCESS, contrastText: GREY[800] },
+  warning: { ...WARNING, contrastText: GREY[800] },
+  error: { ...ERROR, contrastText: "#fff" },
   grey: GREY,
+  gradients: GRADIENTS,
+  chart: CHART_COLORS,
+  divider: GREY[500_24],
+  action: {
+    hover: GREY[500_8],
+    selected: GREY[500_16],
+    disabled: GREY[500_80],
+    disabledBackground: GREY[500_24],
+    focus: GREY[500_24],
+    hoverOpacity: 0.08,
+    disabledOpacity: 0.48,
+  },
 };
 
 const palette = {
   ...COMMON,
   primary: PRIMARY,
   secondary: SECONDARY,
+  info: { ...INFO, contrastText: "#fff" },
+  success: { ...SUCCESS, contrastText: GREY[800] },
+  warning: { ...WARNING, contrastText: GREY[800] },
+  error: { ...ERROR, contrastText: "#fff" },
+  grey: GREY,
+  gradients: GRADIENTS,
+  chart: CHART_COLORS,
+  divider: GREY[500_24],
+  action: {
+    hover: GREY[500_8],
+    selected: GREY[500_16],
+    disabled: GREY[500_80],
+    disabledBackground: GREY[500_24],
+    focus: GREY[500_24],
+    hoverOpacity: 0.08,
+    disabledOpacity: 0.48,
+  },
 };
 
 export default palette;
