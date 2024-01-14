@@ -12,6 +12,7 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Autocomplete,
 } from "@mui/material";
 import { Trans, useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -381,30 +382,37 @@ const AddProducts = ({ closeDrawer }) => {
                   {t("translation:AddProduct:category")}
                 </Typography>
                 <FormControl fullWidth>
-                  <Select
-                    id="demo-simple-select"
-                    value={product.category}
-                    sx={{
-                      boxShadow: "none",
-                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                      borderRadius: 3,
-                      height: 30,
+                  <Autocomplete
+                    value={
+                      categories.find(
+                        (category) => category.id === product.category
+                      ) || null
+                    }
+                    size="small"
+                    options={categories}
+                    getOptionLabel={(option) =>
+                      i18n.language === "en"
+                        ? option.nameEnglish
+                        : i18n.language === "si"
+                        ? option.nameSinhala
+                        : option.nameTamil
+                    }
+                    onChange={(_, newValue) => {
+                      handleChange("category", newValue ? newValue.id : 0);
+                      // Optionally update subcategories here if needed
                     }}
-                    onChange={(e) => handleChange("category", e.target.value)}
-                  >
-                    <MenuItem value={0}>
-                      {t("translation:AddProduct:selectCategory")}
-                    </MenuItem>
-                    {categories.map((category) => (
-                      <MenuItem key={category.id} value={category.id}>
-                        {i18n.language == "en"
-                          ? category.nameEnglish
-                          : i18n.language == "si"
-                          ? category.nameSinhala
-                          : category.nameTamil}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder={t("translation:AddProduct:selectCategory")}
+                        sx={{
+                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                          borderRadius: 3,
+                          height: 40,
+                        }}
+                      />
+                    )}
+                  />
                 </FormControl>
               </CustomStyledBox>
               <CustomStyledBox
@@ -422,33 +430,39 @@ const AddProducts = ({ closeDrawer }) => {
                   {t("translation:AddProduct:subCategory")}
                 </Typography>
                 <FormControl fullWidth>
-                  <Select
-                    id="demo-simple-select"
-                    value={product.subCategory}
-                    sx={{
-                      boxShadow: "none",
-                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                      borderRadius: 3,
-                      height: 30,
-                    }}
-                    disabled={product.category == 0}
-                    onChange={(e) =>
-                      handleChange("subCategory", e.target.value)
+                  <Autocomplete
+                    value={
+                      subCategories.find(
+                        (subCategory) => subCategory.id === product.subCategory
+                      ) || null
                     }
-                  >
-                    <MenuItem value={0}>
-                      {t("translation:AddProduct:selectSubCategory")}
-                    </MenuItem>
-                    {subCategories.map((subCategory) => (
-                      <MenuItem key={subCategory.id} value={subCategory.id}>
-                        {i18n.language == "en"
-                          ? subCategory.nameEnglish
-                          : i18n.language == "si"
-                          ? subCategory.nameSinhala
-                          : subCategory.nameTamil}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    size="small"
+                    options={subCategories}
+                    getOptionLabel={(option) =>
+                      i18n.language === "en"
+                        ? option.nameEnglish
+                        : i18n.language === "si"
+                        ? option.nameSinhala
+                        : option.nameTamil
+                    }
+                    onChange={(_, newValue) => {
+                      handleChange("subCategory", newValue ? newValue.id : 0);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder={t(
+                          "translation:AddProduct:selectSubCategory"
+                        )}
+                        sx={{
+                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                          borderRadius: 3,
+                          height: 40,
+                        }}
+                      />
+                    )}
+                    disabled={product.category === 0}
+                  />
                 </FormControl>
               </CustomStyledBox>
             </>
@@ -507,9 +521,10 @@ const AddProducts = ({ closeDrawer }) => {
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.pricing.price}
-                  onChange={(e) =>
-                    handleChange("pricing", e.target.value, "price")
-                  }
+                  onChange={(e) => {
+                    const value = Math.max(0, e.target.value);
+                    handleChange("pricing", value, "price");
+                  }}
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -536,13 +551,10 @@ const AddProducts = ({ closeDrawer }) => {
                       type="number"
                       inputProps={{ style: { fontWeight: "bold" } }}
                       value={product.pricing.priceQtyUnitValue}
-                      onChange={(e) =>
-                        handleChange(
-                          "pricing",
-                          e.target.value,
-                          "priceQtyUnitValue"
-                        )
-                      }
+                      onChange={(e) => {
+                        const value = Math.max(0, e.target.value);
+                        handleChange("pricing", value, "priceQtyUnitValue");
+                      }}
                     ></TextField>
                   </Grid>
                   <Grid item xs={7} mt={0.5}>
@@ -602,7 +614,10 @@ const AddProducts = ({ closeDrawer }) => {
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.supplyQty}
-                  onChange={(e) => handleChange("supplyQty", e.target.value)}
+                  onChange={(e) => {
+                    const value = Math.max(0, e.target.value); // Ensure non-negative value
+                    handleChange("supplyQty", value);
+                  }}
                 ></TextField>
               </CustomStyledBox>
             </Grid>
@@ -687,7 +702,10 @@ const AddProducts = ({ closeDrawer }) => {
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
                   value={product.orderQty}
-                  onChange={(e) => handleChange("orderQty", e.target.value)}
+                  onChange={(e) => {
+                    const value = Math.max(0, e.target.value);
+                    handleChange("orderQty", value);
+                  }}
                 ></TextField>
               </CustomStyledBox>
             </Grid>
