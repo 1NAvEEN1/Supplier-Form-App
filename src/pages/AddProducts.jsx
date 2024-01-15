@@ -60,7 +60,7 @@ const AddProducts = ({ closeDrawer }) => {
     pricing: {
       price: "",
       priceQtyUnitValue: "",
-      priceQtyUnit: 10,
+      priceQtyUnit: "kg",
     },
     supplyQty: "",
     orderQty: "",
@@ -501,7 +501,7 @@ const AddProducts = ({ closeDrawer }) => {
             </Trans>
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <CustomStyledBox
                 sx={{
                   boxShadow: error === "price" ? errorShadow : initialShadow,
@@ -515,6 +515,8 @@ const AddProducts = ({ closeDrawer }) => {
                   sx={{
                     boxShadow: "none",
                     ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                    pl: 2,
+                    pr: 2,
                   }}
                   placeholder="0000"
                   fullWidth
@@ -528,14 +530,14 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} mt={-2}>
               <CustomStyledBox
                 height={85}
                 sx={{
                   boxShadow: error === "unit" ? errorShadow : initialShadow,
                 }}
               >
-                <Typography color="primary" pl={2} mb={1}>
+                <Typography color="primary" pl={2} mb={0}>
                   Quantity unit
                 </Typography>
                 <Grid container>
@@ -545,11 +547,14 @@ const AddProducts = ({ closeDrawer }) => {
                       sx={{
                         boxShadow: "none",
                         ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                        pl: 2,
                       }}
                       placeholder="00"
                       fullWidth
                       type="number"
-                      inputProps={{ style: { fontWeight: "bold" } }}
+                      inputProps={{
+                        style: { fontWeight: "bold" },
+                      }}
                       value={product.pricing.priceQtyUnitValue}
                       onChange={(e) => {
                         const value = Math.max(0, e.target.value);
@@ -566,6 +571,8 @@ const AddProducts = ({ closeDrawer }) => {
                           ".MuiOutlinedInput-notchedOutline": { border: 0 },
                           borderRadius: 3,
                           height: 30,
+                          textAlign: "center",
+                          pl: 2,
                         }}
                         fullWidth
                         value={product.pricing.priceQtyUnit}
@@ -577,8 +584,12 @@ const AddProducts = ({ closeDrawer }) => {
                           )
                         }
                       >
-                        <MenuItem value={10}>kg</MenuItem>
-                        <MenuItem value={20}>gram</MenuItem>
+                        <MenuItem value={"kg"}>Kilogram (kg)</MenuItem>
+                        <MenuItem value={"g"}>Gram (g)</MenuItem>
+                        <MenuItem value={"ml"}>Milliliter (ml)</MenuItem>
+                        <MenuItem value={"l"}>Liter (l)</MenuItem>
+                        <MenuItem value={"Packet"}>Packet</MenuItem>
+                        <MenuItem value={"Unit"}>Unit</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -608,6 +619,8 @@ const AddProducts = ({ closeDrawer }) => {
                   sx={{
                     boxShadow: "none",
                     ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                    pl: 2,
+                    pr: 2,
                   }}
                   placeholder="0000"
                   fullWidth
@@ -696,6 +709,8 @@ const AddProducts = ({ closeDrawer }) => {
                   sx={{
                     boxShadow: "none",
                     ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                    pl: 2,
+                    pr: 2,
                   }}
                   placeholder="0000"
                   fullWidth

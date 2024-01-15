@@ -108,7 +108,7 @@ const ProductDetails = () => {
             }}
           >
             <Grid container>
-              <Grid item xs={7}>
+              <Grid item xs={9}>
                 <Typography fontWeight={600} variant="h6">
                   {product.name}
                 </Typography>
@@ -138,7 +138,7 @@ const ProductDetails = () => {
               </Grid>
               <Grid
                 item
-                xs={5}
+                xs={3}
                 display={"flex"}
                 justifyContent={"end"}
                 alignItems={"center"}
@@ -157,7 +157,7 @@ const ProductDetails = () => {
               <Grid item xs={12}>
                 <Typography mt={2}>
                   {product.pricing.priceQtyUnitValue +
-                    (product.pricing.priceQtyUnit == 10 ? "Kg" : "gram") +
+                    product.pricing.priceQtyUnit +
                     " at Rs." +
                     product.pricing.price +
                     " can supply " +
@@ -258,7 +258,13 @@ const ProductDetails = () => {
       >
         <DialogTitle>Are you sure to delete? </DialogTitle>
         <DialogContent ref={dialogContentRef}>
-          <Box display={"flex"} justifyContent={"space-between"} pt={2} pl={2} pr={2}>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            pt={2}
+            pl={2}
+            pr={2}
+          >
             <Button
               variant="contained"
               color="secondary"

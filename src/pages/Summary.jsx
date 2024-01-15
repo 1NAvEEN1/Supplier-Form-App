@@ -172,15 +172,29 @@ const Summary = () => {
                 <Grid item xs={1} display={"flex"} alignItems={"center"}>
                   {index + 1}
                 </Grid>
-                <Grid item xs={11} textAlign={"center"}>
+                <Grid item xs={11}>
                   <Grid container>
-                    <Grid item xs={12} sm={7}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={7}
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                    >
                       <Typography fontWeight={600}>{product.name}</Typography>
                     </Grid>
-                    <Grid item xs={12} sm={5} textAlign={"center"}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={5}
+                      justifyContent={"center"}
+                      display={"flex"}
+                      alignItems={"center"}
+                    >
                       {product.productOrRaw ? (
                         <>
-                          <Typography fontWeight={600}>
+                          <Typography fontWeight={600} textAlign={"center"}>
                             {i18n.language == "en"
                               ? productsCategories[index].category.nameEnglish
                               : i18n.language == "si"
