@@ -27,51 +27,51 @@ const FinalPage = Loadable(lazy(() => import("./pages/FinalPage")));
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/Supplier-Form-App",
+      path: "/",
       element: <Layout />,
       children: [
         {
-          path: "/Supplier-Form-App",
+          path: "/",
           element: <HomePage />,
         },
         {
-          path: "/Supplier-Form-App/FinalPage",
+          path: "/FinalPage",
           element: <FinalPage />,
         },
         {
-          path: "/Supplier-Form-App",
+          path: "",
           element: <FormLayout />,
           children: [
             {
-              path: "/Supplier-Form-App/LangSelect",
+              path: "/LangSelect",
               element: <LanguageSelect />,
             },
             {
-              path: "/Supplier-Form-App/BasicDetails",
+              path: "/BasicDetails",
               element: <BasicDetails />,
             },
             {
-              path: "/Supplier-Form-App/ProductDetails",
+              path: "/ProductDetails",
               element: <ProductDetails />,
             },
             {
-              path: "/Supplier-Form-App/BusinessDetails",
+              path: "/BusinessDetails",
               element: <BusinessDetails />,
             },
             {
-              path: "/Supplier-Form-App/CertificatesDetails",
+              path: "/CertificatesDetails",
               element: <CertificatesDetails />,
             },
             {
-              path: "/Supplier-Form-App/ExportingDetails",
+              path: "/ExportingDetails",
               element: <ExportingDetails />,
             },
             {
-              path: "/Supplier-Form-App/Summary",
+              path: "/Summary",
               element: <Summary />,
             },
             {
-              path: "/Supplier-Form-App/AskForExport",
+              path: "/AskForExport",
               element: <AskForExport />,
             },
           ],

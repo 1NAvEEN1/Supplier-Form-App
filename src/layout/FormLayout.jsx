@@ -9,7 +9,7 @@ import LinearProgress, {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import validation from "../validations";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
 import { setNavigateToPage } from "../reducers/formSlice";
 import store from "../app/store";
@@ -18,8 +18,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
   borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor:
-      "#D3D3D3",
+    backgroundColor: "#D3D3D3",
   },
   // [`& .${linearProgressClasses.bar}`]: {
   //   borderRadius: 5,
@@ -56,9 +55,9 @@ const FormLayout = () => {
       const nextPageIndex = currentPageIndex + 1;
       if (nextPageIndex < pages.length) {
         setCurrentPageIndex(nextPageIndex);
-        navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
+        navigate(`/${pages[nextPageIndex]}`);
       } else {
-        navigate("/Supplier-Form-App/FinalPage");
+        navigate("/FinalPage");
       }
     }
   };
@@ -67,7 +66,7 @@ const FormLayout = () => {
     const prevPageIndex = currentPageIndex - 1;
     if (prevPageIndex >= 0) {
       setCurrentPageIndex(prevPageIndex);
-      navigate(`/Supplier-Form-App/${pages[prevPageIndex]}`);
+      navigate(`/${pages[prevPageIndex]}`);
     } else {
       // Handle if trying to navigate back from the first page
     }
@@ -93,7 +92,7 @@ const FormLayout = () => {
     if (navigateToPage !== 99) {
       console.log("sdfd", navigateToPage);
       setCurrentPageIndex(navigateToPage + 1);
-      navigate(`/Supplier-Form-App/${pages[navigateToPage + 1]}`);
+      navigate(`/${pages[navigateToPage + 1]}`);
       dispatch(setNavigateToPage(99));
     }
   }, [navigateToPage]);
