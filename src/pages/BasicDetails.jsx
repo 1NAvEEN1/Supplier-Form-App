@@ -165,7 +165,7 @@ const BasicDetails = () => {
               <TextField
                 {...params}
                 placeholder={
-                  provinces.length == 0
+                  provinces.length == 0 && details.province != 0
                     ? "Loading..."
                     : t("translation:BasicDetails:SelectProvince")
                 }
@@ -227,7 +227,7 @@ const BasicDetails = () => {
               <TextField
                 {...params}
                 placeholder={
-                  districts.length == 0
+                  districts.length == 0 && details.district != 0
                     ? "Loading..."
                     : t("translation:BasicDetails:SelectDistrict")
                 }
@@ -286,7 +286,7 @@ const BasicDetails = () => {
               <TextField
                 {...params}
                 placeholder={
-                  cities.length == 0
+                  cities.length == 0 && details.city != 0
                     ? "Loading..."
                     : t("translation:BasicDetails:SelectCity")
                 }
