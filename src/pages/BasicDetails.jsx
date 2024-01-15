@@ -4,8 +4,6 @@ import {
   Divider,
   Box,
   TextField,
-  Select,
-  MenuItem,
   Autocomplete,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -60,6 +58,7 @@ const BasicDetails = () => {
   };
 
   const [provinces, setProvinces] = useState([]);
+  const [provincesLoading, setProvincesLoading] = useState(true); // Add loading state
 
   const getProvinces = async () => {
     try {
@@ -67,6 +66,8 @@ const BasicDetails = () => {
       setProvinces(response.data);
     } catch (error) {
       console.error("Error fetching provinces:", error);
+    } finally {
+      setProvincesLoading(false); // Set loading to false when done fetching
     }
   };
 
@@ -75,13 +76,17 @@ const BasicDetails = () => {
   }, []);
 
   const [districts, setDistricts] = useState([]);
+  const [districtsLoading, setDistrictsLoading] = useState(false); // Add loading state
 
   const getDistricts = async () => {
+    setDistrictsLoading(true); // Set loading to true before fetching
     try {
       const response = await GetDistricts(details.province);
       setDistricts(response.data);
     } catch (error) {
       console.error("Error fetching districts:", error);
+    } finally {
+      setDistrictsLoading(false); // Set loading to false when done fetching
     }
   };
 
@@ -92,13 +97,17 @@ const BasicDetails = () => {
   }, [details.province]);
 
   const [cities, setCities] = useState([]);
+  const [citiesLoading, setCitiesLoading] = useState(false); // Add loading state
 
   const getCities = async () => {
+    setCitiesLoading(true); // Set loading to true before fetching
     try {
       const response = await GetCities(details.district);
       setCities(response.data);
     } catch (error) {
       console.error("Error fetching Cities:", error);
+    } finally {
+      setCitiesLoading(false); // Set loading to false when done fetching
     }
   };
 
@@ -142,6 +151,8 @@ const BasicDetails = () => {
             }
             onChange={(_, newValue) => {
               handleChange("province", newValue ? newValue.id : "0");
+              setCities([]);
+              setDistricts([]);
               dispatch(
                 setLocationName({
                   province: newValue,
@@ -153,7 +164,11 @@ const BasicDetails = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                placeholder={t("translation:BasicDetails:SelectProvince")}
+                placeholder={
+                  provinces.length == 0
+                    ? "Loading..."
+                    : t("translation:BasicDetails:SelectProvince")
+                }
                 sx={{
                   ".MuiOutlinedInput-notchedOutline": { border: 0 },
                   borderRadius: 3,
@@ -163,6 +178,8 @@ const BasicDetails = () => {
                 }}
               />
             )}
+            isOptionEqualToValue={(option, value) => option.id === value.id} // Add this to fix the issue
+            loading={provincesLoading} // Use the loading prop
           />
         </FormControl>
       </Box>
@@ -196,6 +213,7 @@ const BasicDetails = () => {
             }
             onChange={(_, newValue) => {
               handleChange("district", newValue ? newValue.id : "0");
+              setCities([]);
               dispatch(
                 setLocationName({
                   province: undefined,
@@ -208,7 +226,11 @@ const BasicDetails = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                placeholder={t("translation:BasicDetails:SelectDistrict")}
+                placeholder={
+                  districts.length == 0
+                    ? "Loading..."
+                    : t("translation:BasicDetails:SelectDistrict")
+                }
                 sx={{
                   ".MuiOutlinedInput-notchedOutline": { border: 0 },
                   borderRadius: 3,
@@ -218,6 +240,8 @@ const BasicDetails = () => {
                 }}
               />
             )}
+            isOptionEqualToValue={(option, value) => option.id === value.id} // Add this to fix the issue
+            loading={districtsLoading} // Use the loading prop
           />
         </FormControl>
       </Box>
@@ -261,7 +285,11 @@ const BasicDetails = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                placeholder={t("translation:BasicDetails:SelectCity")}
+                placeholder={
+                  cities.length == 0
+                    ? "Loading..."
+                    : t("translation:BasicDetails:SelectCity")
+                }
                 sx={{
                   ".MuiOutlinedInput-notchedOutline": { border: 0 },
                   borderRadius: 3,
@@ -271,6 +299,8 @@ const BasicDetails = () => {
                 }}
               />
             )}
+            isOptionEqualToValue={(option, value) => option.id === value.id} // Add this to fix the issue
+            loading={citiesLoading} // Use the loading prop
           />
         </FormControl>
       </Box>

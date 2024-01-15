@@ -85,12 +85,18 @@ const AddProducts = ({ closeDrawer }) => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
 
+  const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [subCategoriesLoading, setSubCategoriesLoading] = useState(false);
+
   const getCategories = async () => {
     try {
+      setCategoriesLoading(true);
       const response = await GetProductCategories();
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching Categories:", error);
+    } finally {
+      setCategoriesLoading(false);
     }
   };
 
@@ -100,15 +106,18 @@ const AddProducts = ({ closeDrawer }) => {
 
   const getSubCategories = async () => {
     try {
+      setSubCategoriesLoading(true);
       const response = await GetProductSubCategories(product.category);
       setSubCategories(response.data);
     } catch (error) {
-      console.error("Error fetching Cities:", error);
+      console.error("Error fetching SubCategories:", error);
+    } finally {
+      setSubCategoriesLoading(false);
     }
   };
 
   useEffect(() => {
-    if (!product.category == 0) {
+    if (product.category !== 0) {
       getSubCategories();
     }
   }, [product.category]);
@@ -399,7 +408,7 @@ const AddProducts = ({ closeDrawer }) => {
                     }
                     onChange={(_, newValue) => {
                       handleChange("category", newValue ? newValue.id : 0);
-                      // Optionally update subcategories here if needed
+                      setSubCategories([]);
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -412,6 +421,7 @@ const AddProducts = ({ closeDrawer }) => {
                         }}
                       />
                     )}
+                    loading={categoriesLoading} // Add loading prop
                   />
                 </FormControl>
               </CustomStyledBox>
@@ -462,6 +472,7 @@ const AddProducts = ({ closeDrawer }) => {
                       />
                     )}
                     disabled={product.category === 0}
+                    loading={subCategoriesLoading} // Add loading prop
                   />
                 </FormControl>
               </CustomStyledBox>
