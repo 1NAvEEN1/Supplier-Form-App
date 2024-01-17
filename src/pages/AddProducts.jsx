@@ -211,15 +211,17 @@ const AddProducts = ({ closeDrawer }) => {
   };
 
   const validation = () => {
+    if (product.category == 0) {
+      showAlertMessage({
+        message: "Please select a product category !",
+        type: "error",
+      });
+      setError("category");
+      return 0;
+    }
+
     if (product.productOrRaw) {
-      if (product.category == 0) {
-        showAlertMessage({
-          message: "Please select a product category !",
-          type: "error",
-        });
-        setError("category");
-        return 0;
-      } else if (product.subCategory == 0) {
+      if (product.subCategory == 0) {
         showAlertMessage({
           message: "Please select a product subcategory !",
           type: "error",
@@ -374,57 +376,53 @@ const AddProducts = ({ closeDrawer }) => {
               </Grid>
             </Grid>
           </RadioGroup>
+
+          <CustomStyledBox
+            sx={{
+              boxShadow: error === "category" ? errorShadow : initialShadow,
+            }}
+          >
+            <Typography variant="b1" fontWeight={500} color="primary" pl={2}>
+              {t("translation:AddProduct:category")}
+            </Typography>
+            <FormControl fullWidth>
+              <Autocomplete
+                value={
+                  categories.find(
+                    (category) => category.id === product.category
+                  ) || null
+                }
+                size="small"
+                options={categories}
+                getOptionLabel={(option) =>
+                  i18n.language === "en"
+                    ? option.nameEnglish
+                    : i18n.language === "si"
+                    ? option.nameSinhala
+                    : option.nameTamil
+                }
+                onChange={(_, newValue) => {
+                  handleChange("category", newValue ? newValue.id : 0);
+                  setSubCategories([]);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder={t("translation:AddProduct:selectCategory")}
+                    sx={{
+                      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                      borderRadius: 3,
+                      height: 40,
+                    }}
+                  />
+                )}
+                loading={categoriesLoading} // Add loading prop
+              />
+            </FormControl>
+          </CustomStyledBox>
+
           {product.productOrRaw && (
             <>
-              {" "}
-              <CustomStyledBox
-                sx={{
-                  boxShadow: error === "category" ? errorShadow : initialShadow,
-                }}
-              >
-                <Typography
-                  variant="b1"
-                  fontWeight={500}
-                  color="primary"
-                  pl={2}
-                >
-                  {t("translation:AddProduct:category")}
-                </Typography>
-                <FormControl fullWidth>
-                  <Autocomplete
-                    value={
-                      categories.find(
-                        (category) => category.id === product.category
-                      ) || null
-                    }
-                    size="small"
-                    options={categories}
-                    getOptionLabel={(option) =>
-                      i18n.language === "en"
-                        ? option.nameEnglish
-                        : i18n.language === "si"
-                        ? option.nameSinhala
-                        : option.nameTamil
-                    }
-                    onChange={(_, newValue) => {
-                      handleChange("category", newValue ? newValue.id : 0);
-                      setSubCategories([]);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder={t("translation:AddProduct:selectCategory")}
-                        sx={{
-                          ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                          borderRadius: 3,
-                          height: 40,
-                        }}
-                      />
-                    )}
-                    loading={categoriesLoading} // Add loading prop
-                  />
-                </FormControl>
-              </CustomStyledBox>
               <CustomStyledBox
                 sx={{
                   boxShadow:

@@ -213,6 +213,12 @@ const Summary = () => {
                       ) : (
                         <>
                           <Typography fontWeight={600}>
+                            {i18n.language == "en"
+                              ? productsCategories[index].category.nameEnglish
+                              : i18n.language == "si"
+                              ? productsCategories[index].category.nameSinhala
+                              : productsCategories[index].category.nameTamil}
+                            {" - "}
                             {t("translation:AddProduct:rawMaterial")}
                           </Typography>
                         </>
