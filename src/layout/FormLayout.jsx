@@ -55,9 +55,9 @@ const FormLayout = () => {
       const nextPageIndex = currentPageIndex + 1;
       if (nextPageIndex < pages.length) {
         setCurrentPageIndex(nextPageIndex);
-        navigate(`/${pages[nextPageIndex]}`);
+        navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
       } else {
-        navigate("/FinalPage");
+        navigate("/Supplier-Form-App/FinalPage");
       }
     }
   };
@@ -66,7 +66,7 @@ const FormLayout = () => {
     const prevPageIndex = currentPageIndex - 1;
     if (prevPageIndex >= 0) {
       setCurrentPageIndex(prevPageIndex);
-      navigate(`/${pages[prevPageIndex]}`);
+      navigate(`/Supplier-Form-App/${pages[prevPageIndex]}`);
     } else {
       // Handle if trying to navigate back from the first page
     }
