@@ -31,6 +31,30 @@ const FormLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleSubmit = () => {
+    const formData = store.getState().form.formData;
+    console.log("formData", formData);
+    const data = {
+      provinceId: formData.basicDetails.province,
+      districtId: formData.basicDetails.district,
+      cityId: formData.basicDetails.city,
+      name: formData.basicDetails.name,
+      contactNumber1: formData.basicDetails.contactNo,
+      contactNumber2: formData.basicDetails.contactNo2,
+      email: formData.basicDetails.email,
+      isRegisteredBusiness: formData.businessRegDetails.registered,
+      businessType: formData.businessRegDetails.businessType,
+      businessName: formData.businessRegDetails.businessName,
+      isQualityCertified: formData.certificatesDetails.certificates,
+      qualityCertificates: formData.certificatesDetails.certificatesNames,
+      isExporting: formData.exportingDetails.exporting,
+      ExportingCountries: formData.exportingDetails.countries,
+      isReadyToExport: formData.askForExporting,
+      products: formData.productDetails,
+    };
+    console.log("Data", data);
+  };
+
   const pages = [
     "",
     "LangSelect",
@@ -46,19 +70,27 @@ const FormLayout = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
   const navigateToNextPage = () => {
-    let validate = validation(
-      currentPageIndex,
-      dispatch,
-      setErrorsBasicDetails
-    );
-    if (validate) {
-      const nextPageIndex = currentPageIndex + 1;
-      if (nextPageIndex < pages.length) {
-        setCurrentPageIndex(nextPageIndex);
-        navigate(`/${pages[nextPageIndex]}`);
-      } else {
-        navigate("/FinalPage");
+    try {
+      if (currentPageIndex == 8) {
+        handleSubmit();
       }
+
+      let validate = validation(
+        currentPageIndex,
+        dispatch,
+        setErrorsBasicDetails
+      );
+      if (validate) {
+        const nextPageIndex = currentPageIndex + 1;
+        if (nextPageIndex < pages.length) {
+          setCurrentPageIndex(nextPageIndex);
+          navigate(`/${pages[nextPageIndex]}`);
+        } else {
+          navigate("/FinalPage");
+        }
+      }
+    } catch (error) {
+    } finally {
     }
   };
 
