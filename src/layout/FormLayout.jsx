@@ -90,9 +90,8 @@ const FormLayout = () => {
   useEffect(() => {
     console.log(navigateToPage);
     if (navigateToPage !== 99) {
-      console.log("sdfd", navigateToPage);
       setCurrentPageIndex(navigateToPage + 1);
-      navigate(`/${pages[navigateToPage + 1]}`);
+      navigate(`/Supplier-Form-App/${pages[navigateToPage + 1]}`);
       dispatch(setNavigateToPage(99));
     }
   }, [navigateToPage]);

@@ -2,6 +2,7 @@
   "name": "supplier-form-app",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://1naveen1.github.io/Supplier-Form-App/",
   "type": "module",
   "scripts": {
     "start": "vite",
