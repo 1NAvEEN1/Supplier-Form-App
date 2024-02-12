@@ -13,6 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
 import { setNavigateToPage } from "../reducers/formSlice";
 import store from "../app/store";
+import { SubmitData } from "../services/SubmitService";
+import {
+  hideLoadingAnimation,
+  showLoadingAnimation,
+} from "../app/loadingAnimationController";
+import { showAlertMessage } from "../app/alertMessageController";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -31,28 +37,62 @@ const FormLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    const formData = store.getState().form.formData;
-    console.log("formData", formData);
-    const data = {
-      provinceId: formData.basicDetails.province,
-      districtId: formData.basicDetails.district,
-      cityId: formData.basicDetails.city,
-      name: formData.basicDetails.name,
-      contactNumber1: formData.basicDetails.contactNo,
-      contactNumber2: formData.basicDetails.contactNo2,
-      email: formData.basicDetails.email,
-      isRegisteredBusiness: formData.businessRegDetails.registered,
-      businessType: formData.businessRegDetails.businessType,
-      businessName: formData.businessRegDetails.businessName,
-      isQualityCertified: formData.certificatesDetails.certificates,
-      qualityCertificates: formData.certificatesDetails.certificatesNames,
-      isExporting: formData.exportingDetails.exporting,
-      ExportingCountries: formData.exportingDetails.countries,
-      isReadyToExport: formData.askForExporting,
-      products: formData.productDetails,
-    };
-    console.log("Data", data);
+  const handleSubmit = async () => {
+    try {
+      showLoadingAnimation({ message: "Saving data...." });
+      const formData = store.getState().form.formData;
+      console.log("formData", formData);
+      let products = formData.productDetails?.map((product, index) => ({
+        productCategoryId: product.productCategoryId,
+        productSubCategoryId: product.productSubCategoryId,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        supplyQuantity: product.supplyQuantity,
+        unitType: product.unitType,
+        monthlySupplyQuantity: product.monthlySupplyQuantity,
+        monthlyMinimumQuantity: product.monthlyMinimumQuantity,
+        supplyMonths: product.supplyMonths.toString(),
+        otherDetails: product.otherDetails,
+      }));
+
+      const data = {
+        provinceId: formData.basicDetails.province,
+        districtId: formData.basicDetails.district,
+        cityId: formData.basicDetails.city,
+        name: formData.basicDetails.name,
+        contactNumber1: formData.basicDetails.contactNo,
+        contactNumber2: formData.basicDetails.contactNo2,
+        email: formData.basicDetails.email,
+        isRegisteredBusiness: formData.businessRegDetails.registered,
+        businessType: formData.businessRegDetails.businessType,
+        businessName: formData.businessRegDetails.businessName,
+        isQualityCertified: formData.certificatesDetails.certificates,
+        qualityCertificates: formData.certificatesDetails.certificatesNames,
+        isExporting: formData.exportingDetails.exporting,
+        ExportingCountries: formData.exportingDetails.countries,
+        isReadyToExport: formData.askForExporting,
+        products: products,
+      };
+      console.log("Data", data);
+      const response = await SubmitData(data);
+      console.log("response", response);
+      if (response.status == 200) {
+        navigate("/FinalPage");
+      } else {
+        showAlertMessage({
+          message: "Error while saving data..!",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      showAlertMessage({
+        message: "Error while saving data..!",
+        type: "error",
+      });
+    } finally {
+      hideLoadingAnimation();
+    }
   };
 
   const pages = [
@@ -85,8 +125,6 @@ const FormLayout = () => {
         if (nextPageIndex < pages.length) {
           setCurrentPageIndex(nextPageIndex);
           navigate(`/${pages[nextPageIndex]}`);
-        } else {
-          navigate("/FinalPage");
         }
       }
     } catch (error) {

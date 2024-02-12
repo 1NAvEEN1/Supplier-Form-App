@@ -33,6 +33,16 @@ const BusinessDetails = () => {
         registered: event.target.value === "true" ? 1 : 0,
       })
     );
+    if (event.target.value === "false") {
+      dispatch(
+        setBusinessRegDetails({
+          businessType: "",
+          businessName: "",
+        })
+      );
+      setBusinessName("");
+      setBusinessType("");
+    }
   };
 
   const handleBusinessTypeChange = (data) => {
@@ -113,8 +123,7 @@ const BusinessDetails = () => {
               borderRadius: 2,
               border: businessType === 1 ? 2 : 1,
               p: 1,
-              borderColor:
-                businessType === 1 ? "#F47621" : "lightgrey",
+              borderColor: businessType === 1 ? "#F47621" : "lightgrey",
               mt: 2,
               mb: 2,
               "&:hover": {

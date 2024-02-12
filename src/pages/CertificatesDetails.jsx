@@ -34,6 +34,14 @@ const CertificatesDetails = () => {
         certificates: event.target.value === "true" ? 1 : 0,
       })
     );
+    if (event.target.value === "false") {
+      dispatch(
+        setCertificatesDetails({
+          certificatesNames: "",
+        })
+      );
+      setCertificatesNames("");
+    }
   };
 
   return (
