@@ -120,7 +120,13 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
     let data = store.getState().form.formData.businessRegDetails;
 
     if (data.registered === 1) {
-      if (data.businessName == "") {
+      if (data.businessType === "") {
+        isValidate = 0;
+        showAlertMessage({
+          message: "Please enter the business type !",
+          type: "error",
+        });
+      } else if (data.businessName == "") {
         isValidate = 0;
         showAlertMessage({
           message: "Please enter the business name !",

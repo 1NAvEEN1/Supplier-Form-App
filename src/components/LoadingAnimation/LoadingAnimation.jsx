@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import "./LoadingAnimation.css";
-import store from "../../app/store";
 
 const LoadingAnimation = () => {
   const { isVisible, message } = useSelector((state) => state.loader);

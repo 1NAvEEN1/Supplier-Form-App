@@ -162,12 +162,24 @@ const ProductDetails = () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography mt={2}>
-                  {product.pricing.priceQtyUnitValue +
-                    product.pricing.priceQtyUnit +
+                  {product.supplyQuantity +
+                    (product.unitType == 0
+                      ? "Kg"
+                      : product.unitType == 1
+                      ? "g"
+                      : product.unitType == 2
+                      ? "mg"
+                      : product.unitType == 3
+                      ? "l"
+                      : product.unitType == 4
+                      ? "ml"
+                      : product.unitType == 5
+                      ? " packets"
+                      : " Unit") +
                     " at Rs." +
-                    product.pricing.price +
+                    product.price +
                     " can supply " +
-                    product.supplyQty +
+                    product.monthlySupplyQuantity +
                     " units monthly."}
                 </Typography>
               </Grid>

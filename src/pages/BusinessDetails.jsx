@@ -33,6 +33,16 @@ const BusinessDetails = () => {
         registered: event.target.value === "true" ? 1 : 0,
       })
     );
+    if (event.target.value === "false") {
+      dispatch(
+        setBusinessRegDetails({
+          businessType: "",
+          businessName: "",
+        })
+      );
+      setBusinessName("");
+      setBusinessType("");
+    }
   };
 
   const handleBusinessTypeChange = (data) => {
@@ -93,16 +103,16 @@ const BusinessDetails = () => {
           <Box
             sx={{
               borderRadius: 2,
-              border: businessType === "pvt" ? 2 : 1,
+              border: businessType === 2 ? 2 : 1,
               p: 1,
-              borderColor: businessType === "pvt" ? "#F47621" : "lightgrey",
+              borderColor: businessType === 2 ? "#F47621" : "lightgrey",
               mt: 4,
               "&:hover": {
                 backgroundColor: "lightgray",
                 cursor: "pointer",
               },
             }}
-            onClick={() => handleBusinessTypeChange("pvt")}
+            onClick={() => handleBusinessTypeChange(2)}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:pvt")}
@@ -111,10 +121,9 @@ const BusinessDetails = () => {
           <Box
             sx={{
               borderRadius: 2,
-              border: businessType === "partnership" ? 2 : 1,
+              border: businessType === 1 ? 2 : 1,
               p: 1,
-              borderColor:
-                businessType === "partnership" ? "#F47621" : "lightgrey",
+              borderColor: businessType === 1 ? "#F47621" : "lightgrey",
               mt: 2,
               mb: 2,
               "&:hover": {
@@ -122,7 +131,7 @@ const BusinessDetails = () => {
                 cursor: "pointer",
               },
             }}
-            onClick={() => handleBusinessTypeChange("partnership")}
+            onClick={() => handleBusinessTypeChange(1)}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:partnership")}
@@ -131,15 +140,15 @@ const BusinessDetails = () => {
           <Box
             sx={{
               borderRadius: 2,
-              border: businessType === "solo" ? 2 : 1,
+              border: businessType === 0 ? 2 : 1,
               p: 1,
-              borderColor: businessType === "solo" ? "#F47621" : "lightgrey",
+              borderColor: businessType === 0 ? "#F47621" : "lightgrey",
               "&:hover": {
                 backgroundColor: "lightgray",
                 cursor: "pointer",
               },
             }}
-            onClick={() => handleBusinessTypeChange("solo")}
+            onClick={() => handleBusinessTypeChange(0)}
           >
             <Typography fontWeight={500}>
               {t("translation:BusinessDetails:solo")}
