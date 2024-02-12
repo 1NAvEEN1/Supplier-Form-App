@@ -78,7 +78,7 @@ const FormLayout = () => {
       const response = await SubmitData(data);
       console.log("response", response);
       if (response.status == 200) {
-        navigate("/FinalPage");
+        navigate("/Supplier-Form-App/FinalPage");
       } else {
         showAlertMessage({
           message: "Error while saving data..!",
@@ -124,7 +124,7 @@ const FormLayout = () => {
         const nextPageIndex = currentPageIndex + 1;
         if (nextPageIndex < pages.length) {
           setCurrentPageIndex(nextPageIndex);
-          navigate(`/${pages[nextPageIndex]}`);
+          navigate(`/Supplier-Form-App/${pages[nextPageIndex]}`);
         }
       }
     } catch (error) {
