@@ -54,29 +54,18 @@ const AddProducts = ({ closeDrawer }) => {
   const categoryNames = useSelector((state) => state.form.productCategoryNames);
   const defaultValues = {
     productOrRaw: true,
-    category: 0,
-    subCategory: 0,
+    productCategoryId: 0,
+    productSubCategoryId: 0,
     name: "",
-    pricing: {
-      price: "",
-      priceQtyUnitValue: "",
-      priceQtyUnit: "kg",
-    },
-    supplyQty: "",
-    orderQty: "",
-    // supply: {
-    //   supplyQty: "",
-    //   supplyQtyUnitValue: "",
-    //   supplyQtyUnit: 10,
-    // },
-    // order: {
-    //   orderQty: "",
-    //   orderQtyUnitValue: "",
-    //   orderQtyUnit: 10,
-    // },
-    supplyFrequency: true,
-    selectedMonths: [],
+    description: "",
+    price: "",
+    supplyQuantity: "",
+    unitType: 0,
+    monthlySupplyQuantity: "",
+    monthlyMinimumQuantity: "",
+    supplyMonths: [],
     otherDetails: "",
+    supplyFrequency: true,
   };
 
   const [product, setProduct] = useState(defaultValues);
@@ -107,7 +96,7 @@ const AddProducts = ({ closeDrawer }) => {
   const getSubCategories = async () => {
     try {
       setSubCategoriesLoading(true);
-      const response = await GetProductSubCategories(product.category);
+      const response = await GetProductSubCategories(product.productCategoryId);
       setSubCategories(response.data);
     } catch (error) {
       console.error("Error fetching SubCategories:", error);
@@ -117,10 +106,10 @@ const AddProducts = ({ closeDrawer }) => {
   };
 
   useEffect(() => {
-    if (product.category !== 0) {
+    if (product.productCategoryId !== 0) {
       getSubCategories();
     }
-  }, [product.category]);
+  }, [product.productCategoryId]);
 
   useEffect(() => {
     const selectedProductIndex = store.getState().form.selectedProductIndex;
@@ -144,19 +133,19 @@ const AddProducts = ({ closeDrawer }) => {
         ...prevProduct,
         [key]: value,
         // Reset subCategory to 0 if key is "category"
-        ...(key === "category" && { subCategory: 0 }),
+        ...(key === "productCategoryId" && { productSubCategoryId: 0 }),
       }));
     }
   };
 
   // Function to toggle selection of a month
   const handleMonthSelection = (month) => {
-    const isSelected = product.selectedMonths.includes(month);
+    const isSelected = product.supplyMonths.includes(month);
     const updatedMonths = isSelected
-      ? product.selectedMonths.filter((m) => m !== month)
-      : [...product.selectedMonths, month];
+      ? product.supplyMonths.filter((m) => m !== month)
+      : [...product.supplyMonths, month];
 
-    handleChange("selectedMonths", updatedMonths);
+    handleChange("supplyMonths", updatedMonths);
   };
 
   const renderMonthSelection = () => {
@@ -186,7 +175,7 @@ const AddProducts = ({ closeDrawer }) => {
           >
             <Box
               bgcolor={
-                product.selectedMonths.includes(month) ? "#F47621" : "#D5D8DC"
+                product.supplyMonths.includes(month) ? "#F47621" : "#D5D8DC"
               }
               onClick={() => handleMonthSelection(month)}
               sx={{
@@ -211,7 +200,7 @@ const AddProducts = ({ closeDrawer }) => {
   };
 
   const validation = () => {
-    if (product.category == 0) {
+    if (product.productCategoryId == 0) {
       showAlertMessage({
         message: "Please select a product category !",
         type: "error",
@@ -221,7 +210,7 @@ const AddProducts = ({ closeDrawer }) => {
     }
 
     if (product.productOrRaw) {
-      if (product.subCategory == 0) {
+      if (product.productSubCategoryId == 0) {
         showAlertMessage({
           message: "Please select a product subcategory !",
           type: "error",
@@ -240,14 +229,14 @@ const AddProducts = ({ closeDrawer }) => {
       return 0;
     }
 
-    if (product.pricing.price == "") {
+    if (product.price == "") {
       showAlertMessage({
         message: "Please enter the product price !",
         type: "error",
       });
       setError("price");
       return 0;
-    } else if (product.pricing.priceQtyUnitValue == "") {
+    } else if (product.supplyQuantity == "") {
       showAlertMessage({
         message: "Please enter the price unit quantity!",
         type: "error",
@@ -256,7 +245,7 @@ const AddProducts = ({ closeDrawer }) => {
       return 0;
     }
 
-    if (product.supplyQty == "") {
+    if (product.monthlySupplyQuantity == "") {
       showAlertMessage({
         message: "Please enter the monthly supply quantity !",
         type: "error",
@@ -265,7 +254,7 @@ const AddProducts = ({ closeDrawer }) => {
       return 0;
     }
 
-    if (!product.supplyFrequency && product.selectedMonths.length == 0) {
+    if (!product.supplyFrequency && product.supplyMonths.length == 0) {
       showAlertMessage({
         message: "Please select the month range !",
         type: "error",
@@ -285,10 +274,10 @@ const AddProducts = ({ closeDrawer }) => {
 
       const categoryNamesObject = {
         category: categories.find(
-          (category) => category.id === product.category
+          (category) => category.id === product.productCategoryId
         ),
         subCategory: subCategories.find(
-          (subCategory) => subCategory.id === product.subCategory
+          (subCategory) => subCategory.id === product.productSubCategoryId
         ),
       };
 
@@ -344,9 +333,11 @@ const AddProducts = ({ closeDrawer }) => {
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             value={product.productOrRaw.toString()}
-            onChange={(e) =>
-              handleChange("productOrRaw", e.target.value === "true")
-            }
+            onChange={(e) => (
+              handleChange("productOrRaw", e.target.value === "true"),
+              e.target.value === "false" &&
+                handleChange("productSubCategoryId", 0)
+            )}
             name="radio-buttons-group"
           >
             <Grid container>
@@ -389,7 +380,7 @@ const AddProducts = ({ closeDrawer }) => {
               <Autocomplete
                 value={
                   categories.find(
-                    (category) => category.id === product.category
+                    (category) => category.id === product.productCategoryId
                   ) || null
                 }
                 size="small"
@@ -402,7 +393,7 @@ const AddProducts = ({ closeDrawer }) => {
                     : option.nameTamil
                 }
                 onChange={(_, newValue) => {
-                  handleChange("category", newValue ? newValue.id : 0);
+                  handleChange("productCategoryId", newValue ? newValue.id : 0);
                   setSubCategories([]);
                 }}
                 renderInput={(params) => (
@@ -441,7 +432,8 @@ const AddProducts = ({ closeDrawer }) => {
                   <Autocomplete
                     value={
                       subCategories.find(
-                        (subCategory) => subCategory.id === product.subCategory
+                        (subCategory) =>
+                          subCategory.id === product.productSubCategoryId
                       ) || null
                     }
                     size="small"
@@ -454,7 +446,10 @@ const AddProducts = ({ closeDrawer }) => {
                         : option.nameTamil
                     }
                     onChange={(_, newValue) => {
-                      handleChange("subCategory", newValue ? newValue.id : 0);
+                      handleChange(
+                        "productSubCategoryId",
+                        newValue ? newValue.id : 0
+                      );
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -469,7 +464,7 @@ const AddProducts = ({ closeDrawer }) => {
                         }}
                       />
                     )}
-                    disabled={product.category === 0}
+                    disabled={product.productCategoryId === 0}
                     loading={subCategoriesLoading} // Add loading prop
                   />
                 </FormControl>
@@ -531,10 +526,10 @@ const AddProducts = ({ closeDrawer }) => {
                   fullWidth
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
-                  value={product.pricing.price}
+                  value={product.price}
                   onChange={(e) => {
                     const value = Math.max(0, e.target.value);
-                    handleChange("pricing", value, "price");
+                    handleChange("price", value);
                   }}
                 ></TextField>
               </CustomStyledBox>
@@ -564,10 +559,10 @@ const AddProducts = ({ closeDrawer }) => {
                       inputProps={{
                         style: { fontWeight: "bold" },
                       }}
-                      value={product.pricing.priceQtyUnitValue}
+                      value={product.supplyQuantity}
                       onChange={(e) => {
                         const value = Math.max(0, e.target.value);
-                        handleChange("pricing", value, "priceQtyUnitValue");
+                        handleChange("supplyQuantity", value);
                       }}
                     ></TextField>
                   </Grid>
@@ -584,21 +579,18 @@ const AddProducts = ({ closeDrawer }) => {
                           pl: 2,
                         }}
                         fullWidth
-                        value={product.pricing.priceQtyUnit}
+                        value={product.unitType}
                         onChange={(e) =>
-                          handleChange(
-                            "pricing",
-                            e.target.value,
-                            "priceQtyUnit"
-                          )
+                          handleChange("unitType", e.target.value)
                         }
                       >
-                        <MenuItem value={"kg"}>Kilogram (kg)</MenuItem>
-                        <MenuItem value={"g"}>Gram (g)</MenuItem>
-                        <MenuItem value={"ml"}>Milliliter (ml)</MenuItem>
-                        <MenuItem value={"l"}>Liter (l)</MenuItem>
-                        <MenuItem value={"Packet"}>Packet</MenuItem>
-                        <MenuItem value={"Unit"}>Unit</MenuItem>
+                        <MenuItem value={0}>Kilogram (kg)</MenuItem>
+                        <MenuItem value={1}>Gram (g)</MenuItem>
+                        <MenuItem value={2}>Milligram (mg)</MenuItem>
+                        <MenuItem value={3}>Milliliter (ml)</MenuItem>
+                        <MenuItem value={4}>Liter (l)</MenuItem>
+                        <MenuItem value={5}>Packet</MenuItem>
+                        <MenuItem value={6}>Unit</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -635,10 +627,10 @@ const AddProducts = ({ closeDrawer }) => {
                   fullWidth
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
-                  value={product.supplyQty}
+                  value={product.monthlySupplyQuantity}
                   onChange={(e) => {
                     const value = Math.max(0, e.target.value); // Ensure non-negative value
-                    handleChange("supplyQty", value);
+                    handleChange("monthlySupplyQuantity", value);
                   }}
                 ></TextField>
               </CustomStyledBox>
@@ -725,10 +717,10 @@ const AddProducts = ({ closeDrawer }) => {
                   fullWidth
                   type="number"
                   inputProps={{ style: { fontWeight: "bold" } }}
-                  value={product.orderQty}
+                  value={product.monthlyMinimumQuantity}
                   onChange={(e) => {
                     const value = Math.max(0, e.target.value);
-                    handleChange("orderQty", value);
+                    handleChange("monthlyMinimumQuantity", value);
                   }}
                 ></TextField>
               </CustomStyledBox>
@@ -794,9 +786,10 @@ const AddProducts = ({ closeDrawer }) => {
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               value={product.supplyFrequency.toString()}
-              onChange={(e) =>
-                handleChange("supplyFrequency", e.target.value === "true")
-              }
+              onChange={(e) => (
+                handleChange("supplyFrequency", e.target.value === "true"),
+                e.target.value === "true" && handleChange("supplyMonths", [])
+              )}
               name="radio-buttons-group"
             >
               <Grid container>
