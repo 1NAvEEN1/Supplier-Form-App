@@ -26,7 +26,7 @@ const formSlice = createSlice({
       productDetails: [],
       businessRegDetails: {
         registered: 0,
-        businessType: "",
+        businessType: 0,
         businessName: "",
       },
       certificatesDetails: {

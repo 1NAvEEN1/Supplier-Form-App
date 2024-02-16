@@ -58,11 +58,11 @@ const AddProducts = ({ closeDrawer }) => {
     productSubCategoryId: 0,
     name: "",
     description: "",
-    price: "",
-    supplyQuantity: "",
+    price: 0,
+    supplyQuantity: 0,
     unitType: 0,
-    monthlySupplyQuantity: "",
-    monthlyMinimumQuantity: "",
+    monthlySupplyQuantity:0,
+    monthlyMinimumQuantity: 0,
     supplyMonths: [],
     otherDetails: "",
     supplyFrequency: true,
@@ -97,7 +97,11 @@ const AddProducts = ({ closeDrawer }) => {
     try {
       setSubCategoriesLoading(true);
       const response = await GetProductSubCategories(product.productCategoryId);
-      setSubCategories(response.data);
+      if (response.data.length == 0) {
+        setSubCategories([0]);
+      } else {
+        setSubCategories(response.data);
+      }
     } catch (error) {
       console.error("Error fetching SubCategories:", error);
     } finally {
@@ -209,7 +213,7 @@ const AddProducts = ({ closeDrawer }) => {
       return 0;
     }
 
-    if (product.productOrRaw) {
+    if (product.productOrRaw && subCategories[0] != 0) {
       if (product.productSubCategoryId == 0) {
         showAlertMessage({
           message: "Please select a product subcategory !",
@@ -220,39 +224,39 @@ const AddProducts = ({ closeDrawer }) => {
       }
     }
 
-    if (product.name == "") {
-      showAlertMessage({
-        message: "Please enter the product name !",
-        type: "error",
-      });
-      setError("name");
-      return 0;
-    }
+    // if (product.name == "") {
+    //   showAlertMessage({
+    //     message: "Please enter the product name !",
+    //     type: "error",
+    //   });
+    //   setError("name");
+    //   return 0;
+    // }
 
-    if (product.price == "") {
-      showAlertMessage({
-        message: "Please enter the product price !",
-        type: "error",
-      });
-      setError("price");
-      return 0;
-    } else if (product.supplyQuantity == "") {
-      showAlertMessage({
-        message: "Please enter the price unit quantity!",
-        type: "error",
-      });
-      setError("unit");
-      return 0;
-    }
+    // if (product.price == "") {
+    //   showAlertMessage({
+    //     message: "Please enter the product price !",
+    //     type: "error",
+    //   });
+    //   setError("price");
+    //   return 0;
+    // } else if (product.supplyQuantity == "") {
+    //   showAlertMessage({
+    //     message: "Please enter the price unit quantity!",
+    //     type: "error",
+    //   });
+    //   setError("unit");
+    //   return 0;
+    // }
 
-    if (product.monthlySupplyQuantity == "") {
-      showAlertMessage({
-        message: "Please enter the monthly supply quantity !",
-        type: "error",
-      });
-      setError("supplyQty");
-      return 0;
-    }
+    // if (product.monthlySupplyQuantity == "") {
+    //   showAlertMessage({
+    //     message: "Please enter the monthly supply quantity !",
+    //     type: "error",
+    //   });
+    //   setError("supplyQty");
+    //   return 0;
+    // }
 
     if (!product.supplyFrequency && product.supplyMonths.length == 0) {
       showAlertMessage({
@@ -412,7 +416,7 @@ const AddProducts = ({ closeDrawer }) => {
             </FormControl>
           </CustomStyledBox>
 
-          {product.productOrRaw && (
+          {product.productOrRaw && subCategories[0] != 0 && (
             <>
               <CustomStyledBox
                 sx={{
@@ -472,7 +476,7 @@ const AddProducts = ({ closeDrawer }) => {
             </>
           )}
 
-          <CustomStyledBox
+          {/* <CustomStyledBox
             sx={{
               boxShadow: error === "name" ? errorShadow : initialShadow,
             }}
@@ -491,10 +495,10 @@ const AddProducts = ({ closeDrawer }) => {
               value={product.name}
               onChange={(e) => handleChange("name", e.target.value)}
             ></TextField>
-          </CustomStyledBox>
+          </CustomStyledBox> */}
         </Grid>
 
-        <Grid item xs={12} mt={3}>
+        {/* <Grid item xs={12} mt={3}>
           <Typography fontWeight={600}>
             {t("translation:AddProduct:pricing")}
           </Typography>
@@ -598,9 +602,9 @@ const AddProducts = ({ closeDrawer }) => {
               </CustomStyledBox>
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} mt={3}>
+        {/*  <Grid item xs={12} mt={3}>
           <Typography fontWeight={600}>
             {t("translation:AddProduct:supplyQuantity")}
           </Typography>
@@ -635,7 +639,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            {/* <Grid item xs={6}>
+           <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={0}>
                   Quantity unit
@@ -687,11 +691,11 @@ const AddProducts = ({ closeDrawer }) => {
                   </Grid>
                 </Grid>
               </CustomStyledBox>
-            </Grid> */}
+            </Grid> 
           </Grid>
-        </Grid>
+        </Grid>*/}
 
-        <Grid item xs={12} mt={3}>
+        {/*     <Grid item xs={12} mt={3}>
           <Typography fontWeight={600}>
             {t("translation:AddProduct:orderQuantity")}
           </Typography>
@@ -725,7 +729,7 @@ const AddProducts = ({ closeDrawer }) => {
                 ></TextField>
               </CustomStyledBox>
             </Grid>
-            {/* <Grid item xs={6}>
+          <Grid item xs={6}>
               <CustomStyledBox height={85}>
                 <Typography color="primary" pl={2} mb={1}>
                   Quantity unit
@@ -773,16 +777,16 @@ const AddProducts = ({ closeDrawer }) => {
                   </Grid>
                 </Grid>
               </CustomStyledBox>
-            </Grid> */}
+            </Grid> 
           </Grid>
         </Grid>
-
+*/}
         <Grid item xs={12} mt={3}>
           <Typography variant="h6" fontWeight={700} mt={2} mb={2}>
             {t("translation:AddProduct:supplyFrequency")}
           </Typography>
           <Divider sx={{ mb: 3 }} />
-          <FormControl fullWidth sx={{ pl: 2, pr: 2 }}>
+          <FormControl fullWidth sx={{ pl: 2, pr: 2 ,mb:-2}}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               value={product.supplyFrequency.toString()}
@@ -847,7 +851,7 @@ const AddProducts = ({ closeDrawer }) => {
             onChange={(e) => handleChange("otherDetails", e.target.value)}
           ></TextField>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={3}>
           <Button
             variant="contained"
             size="large"

@@ -42,9 +42,12 @@ const FormLayout = () => {
       showLoadingAnimation({ message: "Saving data...." });
       const formData = store.getState().form.formData;
       console.log("formData", formData);
+
       let products = formData.productDetails?.map((product, index) => ({
         productCategoryId: product.productCategoryId,
-        productSubCategoryId: product.productSubCategoryId,
+        ...(product.productSubCategoryId !== 0 && {
+          productSubCategoryId: product.productSubCategoryId,
+        }),
         name: product.name,
         description: product.description,
         price: product.price,

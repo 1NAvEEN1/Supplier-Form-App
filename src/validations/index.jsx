@@ -78,7 +78,7 @@ const validation = (currentPageIndex, dispatch, setErrorsBasicDetails) => {
       isValidate = 0;
     } else {
       validatePhoneNumber(data.contactNo, "Invalid Contact Number");
-      validatePhoneNumber(data.contactNo2, "Invalid Secondary Contact Number");
+      validatePhoneNumber(data.contactNo2, "Invalid WhatsApp Number");
     }
 
     if (data.email == "") {
