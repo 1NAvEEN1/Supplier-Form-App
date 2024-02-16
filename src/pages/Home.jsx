@@ -3,9 +3,12 @@ import React from "react";
 import HomeLogo from "../assets/HomeLogo.svg";
 import Carousel from "../components/Carousel/Carousel";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setStarted } from "../reducers/formSlice";
 
 const Home = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Grid
@@ -77,7 +80,10 @@ const Home = () => {
                 sm: 200, // 100px width on small screens and above
               },
             }}
-            onClick={() => navigate("../LangSelect")}
+            onClick={() => {
+              dispatch(setStarted(true));
+              navigate("../LangSelect");
+            }}
           >
             <Typography textTransform="capitalize" variant="h6">
               Get Started

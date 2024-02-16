@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import validation from "../validations";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
-import { setNavigateToPage } from "../reducers/formSlice";
+import { setNavigateToPage, setStarted } from "../reducers/formSlice";
 import store from "../app/store";
 import { SubmitData } from "../services/SubmitService";
 import {
@@ -82,6 +82,7 @@ const FormLayout = () => {
       console.log("response", response);
       if (response.status == 200) {
         navigate("/FinalPage");
+        dispatch(setStarted(false));
       } else {
         showAlertMessage({
           message: "Error while saving data..!",
@@ -169,6 +170,24 @@ const FormLayout = () => {
       dispatch(setNavigateToPage(99));
     }
   }, [navigateToPage]);
+
+  useEffect(() => {
+    const handleWindowClose = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      const confirmationMessage = "Your changes may not be saved.";
+      event.returnValue = confirmationMessage;
+      return confirmationMessage;
+    };
+
+    // Add event listener for beforeunload event
+    window.addEventListener("beforeunload", handleWindowClose);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("beforeunload", handleWindowClose);
+    };
+  }, []);
 
   return (
     <Box

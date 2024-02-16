@@ -11,6 +11,7 @@ const formSlice = createSlice({
       district: {},
       city: {},
     },
+    started: false,
     productCategoryNames: [],
     formData: {
       language: "en",
@@ -132,6 +133,10 @@ const formSlice = createSlice({
       state.formData.askForExporting = action.payload;
     },
 
+    setStarted: (state, action) => {
+      state.started = action.payload;
+    },
+
     setLocationName: (state, action) => {
       const { province, district, city } = action.payload;
       state.locationName = {
@@ -157,6 +162,7 @@ export const {
   setNavigateToPage,
   setLocationName,
   setProductCategoryNames,
+  setStarted,
 } = formSlice.actions;
 
 export default formSlice.reducer;
