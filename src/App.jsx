@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import AlertMessage from "./components/AlertMessage/AlertMessage";
 import LoadingAnimation from "./components/LoadingAnimation/LoadingAnimation";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 const HomePage = Loadable(lazy(() => import("./pages/Home")));
 const LanguageSelect = Loadable(lazy(() => import("./pages/LanguageSelect")));
@@ -41,7 +42,11 @@ function App() {
         },
         {
           path: "/Supplier-Form-App",
-          element: <FormLayout />,
+          element: (
+            <ProtectedRoute>
+              <FormLayout />
+            </ProtectedRoute>
+          ),
           children: [
             {
               path: "/Supplier-Form-App/LangSelect",

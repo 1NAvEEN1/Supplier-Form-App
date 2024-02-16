@@ -169,10 +169,10 @@ const Summary = () => {
                   bgcolor: "#FFFFFF",
                 }}
               >
-                <Grid item xs={1} display={"flex"} alignItems={"center"}>
-                  {index + 1}
+                <Grid item xs={2} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                  <b>{index + 1}</b>
                 </Grid>
-                <Grid item xs={11}>
+                <Grid item xs={10}>
                   <Grid container>
                     <Grid
                       item
@@ -182,42 +182,45 @@ const Summary = () => {
                       alignItems={"center"}
                       justifyContent={"center"}
                     >
-                      <Typography fontWeight={600}>{product.name}</Typography>
+                      {/* <Typography fontWeight={600}>{product.name}</Typography> */}
                     </Grid>
                     <Grid
                       item
                       xs={12}
-                      sm={5}
+                      sm={12}
                       justifyContent={"center"}
                       display={"flex"}
                       alignItems={"center"}
                     >
                       {product.productOrRaw ? (
                         <>
-                          <Typography fontWeight={600} textAlign={"center"}>
+                          <Typography fontWeight={600} variant="h6">
                             {i18n.language == "en"
-                              ? productsCategories[index].category.nameEnglish
+                              ? productsCategories[index].category?.nameEnglish
                               : i18n.language == "si"
-                              ? productsCategories[index].category.nameSinhala
-                              : productsCategories[index].category.nameTamil}
-                            {" - "}
-                            {i18n.language == "en"
-                              ? productsCategories[index].subCategory
-                                  .nameEnglish
-                              : i18n.language == "si"
-                              ? productsCategories[index].subCategory
-                                  .nameSinhala
-                              : productsCategories[index].subCategory.nameTamil}
+                              ? productsCategories[index].category?.nameSinhala
+                              : productsCategories[index].category?.nameTamil}
+                            {productsCategories[index].subCategory
+                              ?.nameEnglish &&
+                              " - " +
+                                (i18n.language == "en"
+                                  ? productsCategories[index].subCategory
+                                      ?.nameEnglish
+                                  : i18n.language == "si"
+                                  ? productsCategories[index].subCategory
+                                      ?.nameSinhala
+                                  : productsCategories[index].subCategory
+                                      ?.nameTamil)}
                           </Typography>
                         </>
                       ) : (
                         <>
-                          <Typography fontWeight={600}>
+                          <Typography fontWeight={600} variant="h6">
                             {i18n.language == "en"
-                              ? productsCategories[index].category.nameEnglish
+                              ? productsCategories[index].category?.nameEnglish
                               : i18n.language == "si"
-                              ? productsCategories[index].category.nameSinhala
-                              : productsCategories[index].category.nameTamil}
+                              ? productsCategories[index].category?.nameSinhala
+                              : productsCategories[index].category?.nameTamil}
                             {" - "}
                             {t("translation:AddProduct:rawMaterial")}
                           </Typography>

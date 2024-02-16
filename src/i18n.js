@@ -33,7 +33,7 @@ i18next.use(initReactI18next).init({
           SelectCity: "Select a City",
           name: "Your Name",
           number: "Contact Number",
-          number2: "Secondary Contact Number (Optional)",
+          number2: "WhatsApp Number (Optional)",
           email: "Email (Optional)",
         },
         ProductDetails: {
@@ -124,7 +124,7 @@ i18next.use(initReactI18next).init({
           SelectCity: "නගරයක් තෝරන්න",
           name: "නම",
           number: "ඇමතුම් අංකය",
-          number2: "දෙවැනි ඇමතුම් අංකය (Optional)",
+          number2: "WhatsApp අංකය (Optional)",
           email: "Email ලිපිනය (Optional)",
         },
         ProductDetails: {
@@ -214,7 +214,7 @@ i18next.use(initReactI18next).init({
           SelectCity: "நகரம் தேர்ந்தெடு",
           name: "உங்கள் பெயர்",
           number: "தொடர்பு எண்",
-          number2: "இரண்டாம் நிலை தொடர்பு எண் (Optional)",
+          number2: "WhatsApp எண் (Optional)",
           email: "மின்னஞ்சல் (விரும்பினால்)",
         },
         ProductDetails: {

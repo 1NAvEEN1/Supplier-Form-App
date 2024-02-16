@@ -109,33 +109,34 @@ const ProductDetails = () => {
           >
             <Grid container>
               <Grid item xs={9}>
-                <Typography fontWeight={600} variant="h6">
-                  {product.name}
-                </Typography>
+                {/* <Typography fontWeight={600} variant="h6">
+                  {product?.name}
+                </Typography> */}
                 {product.productOrRaw ? (
                   <>
-                    <Typography>
+                    <Typography fontWeight={600} variant="h6">
                       {i18n.language == "en"
-                        ? productsCategories[index].category.nameEnglish
+                        ? productsCategories[index].category?.nameEnglish
                         : i18n.language == "si"
-                        ? productsCategories[index].category.nameSinhala
-                        : productsCategories[index].category.nameTamil}
-                      {" - "}
-                      {i18n.language == "en"
-                        ? productsCategories[index].subCategory.nameEnglish
-                        : i18n.language == "si"
-                        ? productsCategories[index].subCategory.nameSinhala
-                        : productsCategories[index].subCategory.nameTamil}
+                        ? productsCategories[index].category?.nameSinhala
+                        : productsCategories[index].category?.nameTamil}
+                      {productsCategories[index].subCategory?.nameEnglish &&
+                        " - " +
+                          (i18n.language == "en"
+                            ? productsCategories[index].subCategory?.nameEnglish
+                            : i18n.language == "si"
+                            ? productsCategories[index].subCategory?.nameSinhala
+                            : productsCategories[index].subCategory?.nameTamil)}
                     </Typography>
                   </>
                 ) : (
                   <>
-                    <Typography>
+                    <Typography fontWeight={600} variant="h6">
                       {i18n.language == "en"
-                        ? productsCategories[index].category.nameEnglish
+                        ? productsCategories[index].category?.nameEnglish
                         : i18n.language == "si"
-                        ? productsCategories[index].category.nameSinhala
-                        : productsCategories[index].category.nameTamil}
+                        ? productsCategories[index].category?.nameSinhala
+                        : productsCategories[index].category?.nameTamil}
                       {" - "}
                       {t("translation:AddProduct:rawMaterial")}
                     </Typography>
@@ -161,8 +162,9 @@ const ProductDetails = () => {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography mt={2}>
-                  {product.supplyQuantity +
+                <Typography mt={product?.otherDetails ? 2 : 0}>
+                  {product?.otherDetails}
+                  {/* {product.supplyQuantity +
                     (product.unitType == 0
                       ? "Kg"
                       : product.unitType == 1
@@ -180,7 +182,7 @@ const ProductDetails = () => {
                     product.price +
                     " can supply " +
                     product.monthlySupplyQuantity +
-                    " units monthly."}
+                    " units monthly."} */}
                 </Typography>
               </Grid>
             </Grid>

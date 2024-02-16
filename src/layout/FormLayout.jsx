@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import validation from "../validations";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorsBasicDetails } from "../reducers/errorMessages";
-import { setNavigateToPage } from "../reducers/formSlice";
+import { setNavigateToPage, setStarted } from "../reducers/formSlice";
 import store from "../app/store";
 import { SubmitData } from "../services/SubmitService";
 import {
@@ -42,9 +42,12 @@ const FormLayout = () => {
       showLoadingAnimation({ message: "Saving data...." });
       const formData = store.getState().form.formData;
       console.log("formData", formData);
+
       let products = formData.productDetails?.map((product, index) => ({
         productCategoryId: product.productCategoryId,
-        productSubCategoryId: product.productSubCategoryId,
+        ...(product.productSubCategoryId !== 0 && {
+          productSubCategoryId: product.productSubCategoryId,
+        }),
         name: product.name,
         description: product.description,
         price: product.price,
@@ -79,6 +82,7 @@ const FormLayout = () => {
       console.log("response", response);
       if (response.status == 200) {
         navigate("/Supplier-Form-App/FinalPage");
+        dispatch(setStarted(false));
       } else {
         showAlertMessage({
           message: "Error while saving data..!",
@@ -165,6 +169,24 @@ const FormLayout = () => {
       dispatch(setNavigateToPage(99));
     }
   }, [navigateToPage]);
+
+  useEffect(() => {
+    const handleWindowClose = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      const confirmationMessage = "Your changes may not be saved.";
+      event.returnValue = confirmationMessage;
+      return confirmationMessage;
+    };
+
+    // Add event listener for beforeunload event
+    window.addEventListener("beforeunload", handleWindowClose);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("beforeunload", handleWindowClose);
+    };
+  }, []);
 
   return (
     <Box
