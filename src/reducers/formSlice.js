@@ -1,46 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  navigateToPage: 99,
+  initialRender: 0,
+  selectedProductIndex: 99,
+  locationName: {
+    province: {},
+    district: {},
+    city: {},
+  },
+  started: false,
+  productCategoryNames: [],
+  formData: {
+    language: "en",
+    basicDetails: {
+      province: "0",
+      district: "0",
+      city: "0",
+      name: "",
+      contactNo: "",
+      contactNo2: "",
+      email: "",
+    },
+    productDetails: [],
+    businessRegDetails: {
+      registered: 0,
+      businessType: 0,
+      businessName: "",
+    },
+    certificatesDetails: {
+      certificates: 0,
+      certificatesNames: "",
+    },
+    exportingDetails: {
+      exporting: 0,
+      countries: "",
+    },
+    askForExporting: 1,
+  },
+};
+
 const formSlice = createSlice({
   name: "form",
-  initialState: {
-    navigateToPage: 99,
-    initialRender: 0,
-    selectedProductIndex: 99,
-    locationName: {
-      province: {},
-      district: {},
-      city: {},
-    },
-    started: false,
-    productCategoryNames: [],
-    formData: {
-      language: "en",
-      basicDetails: {
-        province: "0",
-        district: "0",
-        city: "0",
-        name: "",
-        contactNo: "",
-        contactNo2: "",
-        email: "",
-      },
-      productDetails: [],
-      businessRegDetails: {
-        registered: 0,
-        businessType: 0,
-        businessName: "",
-      },
-      certificatesDetails: {
-        certificates: 0,
-        certificatesNames: "",
-      },
-      exportingDetails: {
-        exporting: 0,
-        countries: "",
-      },
-      askForExporting: 1,
-    },
-  },
+  initialState,
   reducers: {
     setFormData: (state, action) => {
       const { province, district, city, name, phone, phone2, email } =
@@ -148,6 +150,7 @@ const formSlice = createSlice({
         city: city !== undefined ? city : state.locationName.city,
       };
     },
+    resetFormData: () => initialState,
   },
 });
 
@@ -163,6 +166,7 @@ export const {
   setLocationName,
   setProductCategoryNames,
   setStarted,
+  resetFormData
 } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -1,9 +1,21 @@
 import { Typography, Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { resetFormData } from "../reducers/formSlice";
 
 const FinalPage = () => {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleResetForm = () => {
+    dispatch(resetFormData());
+  };
+
+  useEffect(() => {
+    handleResetForm();
+  }, []);
+
   return (
     <div style={{ whiteSpace: "pre-line" }}>
       <Box

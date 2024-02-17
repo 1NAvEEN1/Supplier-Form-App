@@ -1,17 +1,5 @@
-import React, { useState } from "react";
-import {
-  Typography,
-  Button,
-  SwipeableDrawer,
-  Divider,
-  Box,
-  useMediaQuery,
-  Dialog,
-  DialogContent,
-  Grid,
-  IconButton,
-} from "@mui/material";
-import AddProducts from "./AddProducts";
+import React from "react";
+import { Typography, Divider, Box, Grid, IconButton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import store from "../app/store";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
@@ -169,7 +157,13 @@ const Summary = () => {
                   bgcolor: "#FFFFFF",
                 }}
               >
-                <Grid item xs={2} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                <Grid
+                  item
+                  xs={2}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                >
                   <b>{index + 1}</b>
                 </Grid>
                 <Grid item xs={10}>
