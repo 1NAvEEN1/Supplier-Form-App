@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import React from "react";
 import HomeLogo from "../assets/HomeLogo.svg";
 import Carousel from "../components/Carousel/Carousel";

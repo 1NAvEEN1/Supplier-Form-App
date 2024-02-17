@@ -1,7 +1,7 @@
 import { Grid, Box, IconButton, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React, { useState, useEffect, useRef } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LinearProgress, {
   linearProgressClasses,
@@ -187,6 +187,16 @@ const FormLayout = () => {
       window.removeEventListener("beforeunload", handleWindowClose);
     };
   }, []);
+
+  //------------Get the current URL location & the set selected menu Item---------------//
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentUrl = location.pathname;
+    const firstPath = currentUrl.split("/")[1];
+    console.log("1", firstPath);
+    setCurrentPageIndex(pages.indexOf(firstPath));
+  }, [location.pathname]);
 
   return (
     <Box

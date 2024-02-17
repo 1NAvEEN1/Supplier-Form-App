@@ -36,12 +36,12 @@ const BusinessDetails = () => {
     if (event.target.value === "false") {
       dispatch(
         setBusinessRegDetails({
-          businessType: "",
+          businessType: 0,
           businessName: "",
         })
       );
       setBusinessName("");
-      setBusinessType("");
+      setBusinessType(0);
     }
   };
 
