@@ -263,21 +263,28 @@ const Summary = () => {
             <BorderColorIcon fontSize="small" />
           </IconButton>
         </Grid>{" "}
-        <Grid container gap={1}>
+        <Grid container spacing={1}>
           {businessRegDetails.registered === 1 && (
             <>
               <Divider sx={{ width: "100%", mt: 2 }} />
               <Grid item xs={11} sm={7}>
                 {t("translation:BusinessDetails:type")}
               </Grid>
-              <Grid item xs={11} sm={4}>
-                : {businessRegDetails.businessType}
+              <Grid item xs={11} sm={5}>
+                :{" "}
+                <Typography display={"inline"}>
+                  {businessRegDetails.businessType == 0
+                    ? t("translation:BusinessDetails:solo")
+                    : businessRegDetails.businessType == 1
+                    ? t("translation:BusinessDetails:partnership")
+                    : t("translation:BusinessDetails:pvt")}
+                </Typography>
               </Grid>
               <Divider sx={{ width: "100%" }} />
               <Grid item xs={11} sm={7}>
                 {t("translation:BusinessDetails:name")}.
               </Grid>
-              <Grid item xs={11} sm={4} display={"flex"} alignItems={"center"}>
+              <Grid item xs={11} sm={5} display={"flex"} alignItems={"center"}>
                 : {businessRegDetails.businessName}
               </Grid>
               <Divider sx={{ width: "100%" }} />
