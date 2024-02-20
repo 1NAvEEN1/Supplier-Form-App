@@ -162,8 +162,8 @@ const ProductDetails = () => {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography mt={product?.otherDetails ? 2 : 0}>
-                  {product?.otherDetails}
+                <Typography mt={product?.description ? 2 : 0}>
+                  {product?.description}
                   {/* {product.supplyQuantity +
                     (product.unitType == 0
                       ? "Kg"

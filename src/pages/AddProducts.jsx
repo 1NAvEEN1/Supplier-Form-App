@@ -847,8 +847,8 @@ const AddProducts = ({ closeDrawer }) => {
             InputProps={{ sx: { borderRadius: 3 } }}
             multiline
             rows={7}
-            value={product.otherDetails}
-            onChange={(e) => handleChange("otherDetails", e.target.value)}
+            value={product.description}
+            onChange={(e) => handleChange("description", e.target.value)}
           ></TextField>
         </Grid>
         <Grid item xs={12} mt={3}>

@@ -56,7 +56,7 @@ const FormLayout = () => {
         monthlySupplyQuantity: product.monthlySupplyQuantity,
         monthlyMinimumQuantity: product.monthlyMinimumQuantity,
         supplyMonths: product.supplyMonths.toString(),
-        otherDetails: product.otherDetails,
+        otherDetails: product.description,
       }));
 
       const data = {
