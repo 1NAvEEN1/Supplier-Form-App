@@ -193,7 +193,7 @@ const FormLayout = () => {
 
   useEffect(() => {
     const currentUrl = location.pathname;
-    const firstPath = currentUrl.split("/")[1];
+    const firstPath = currentUrl.split("/")[2];
     console.log("1", firstPath);
     setCurrentPageIndex(pages.indexOf(firstPath));
   }, [location.pathname]);
