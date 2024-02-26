@@ -118,14 +118,26 @@ const ProductDetails = () => {
                       {i18n.language == "en"
                         ? productsCategories[index].category?.nameEnglish
                         : i18n.language == "si"
-                        ? productsCategories[index].category?.nameSinhala
+                        ? productsCategories[index].category?.nameSinhala == ""
+                          ? productsCategories[index].category?.nameEnglish
+                          : productsCategories[index].category?.nameSinhala
+                        : productsCategories[index].category?.nameTamil == ""
+                        ? productsCategories[index].category?.nameEnglish
                         : productsCategories[index].category?.nameTamil}
                       {productsCategories[index].subCategory?.nameEnglish &&
                         " - " +
                           (i18n.language == "en"
                             ? productsCategories[index].subCategory?.nameEnglish
                             : i18n.language == "si"
-                            ? productsCategories[index].subCategory?.nameSinhala
+                            ? productsCategories[index].subCategory
+                                ?.nameSinhala == ""
+                              ? productsCategories[index].subCategory
+                                  ?.nameEnglish
+                              : productsCategories[index].subCategory
+                                  ?.nameSinhala
+                            : productsCategories[index].subCategory
+                                ?.nameTamil == ""
+                            ? productsCategories[index].subCategory?.nameEnglish
                             : productsCategories[index].subCategory?.nameTamil)}
                     </Typography>
                   </>
@@ -135,7 +147,11 @@ const ProductDetails = () => {
                       {i18n.language == "en"
                         ? productsCategories[index].category?.nameEnglish
                         : i18n.language == "si"
-                        ? productsCategories[index].category?.nameSinhala
+                        ? productsCategories[index].category?.nameSinhala == ""
+                          ? productsCategories[index].category?.nameEnglish
+                          : productsCategories[index].category?.nameSinhala
+                        : productsCategories[index].category?.nameTamil == ""
+                        ? productsCategories[index].category?.nameEnglish
                         : productsCategories[index].category?.nameTamil}
                       {" - "}
                       {t("translation:AddProduct:rawMaterial")}

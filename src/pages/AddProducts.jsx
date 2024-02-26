@@ -61,7 +61,7 @@ const AddProducts = ({ closeDrawer }) => {
     price: 0,
     supplyQuantity: 0,
     unitType: 0,
-    monthlySupplyQuantity:0,
+    monthlySupplyQuantity: 0,
     monthlyMinimumQuantity: 0,
     supplyMonths: [],
     otherDetails: "",
@@ -393,7 +393,11 @@ const AddProducts = ({ closeDrawer }) => {
                   i18n.language === "en"
                     ? option.nameEnglish
                     : i18n.language === "si"
-                    ? option.nameSinhala
+                    ? option.nameSinhala == ""
+                      ? option.nameEnglish
+                      : option.nameSinhala
+                    : option.nameTamil == ""
+                    ? option.nameEnglish
                     : option.nameTamil
                 }
                 onChange={(_, newValue) => {
@@ -446,7 +450,11 @@ const AddProducts = ({ closeDrawer }) => {
                       i18n.language === "en"
                         ? option.nameEnglish
                         : i18n.language === "si"
-                        ? option.nameSinhala
+                        ? option.nameSinhala == ""
+                          ? option.nameEnglish
+                          : option.nameSinhala
+                        : option.nameTamil == ""
+                        ? option.nameEnglish
                         : option.nameTamil
                     }
                     onChange={(_, newValue) => {
@@ -786,7 +794,7 @@ const AddProducts = ({ closeDrawer }) => {
             {t("translation:AddProduct:supplyFrequency")}
           </Typography>
           <Divider sx={{ mb: 3 }} />
-          <FormControl fullWidth sx={{ pl: 2, pr: 2 ,mb:-2}}>
+          <FormControl fullWidth sx={{ pl: 2, pr: 2, mb: -2 }}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               value={product.supplyFrequency.toString()}
