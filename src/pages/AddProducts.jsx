@@ -52,6 +52,21 @@ const AddProducts = ({ closeDrawer }) => {
   const { t, i18n } = useTranslation();
   const formData = useSelector((state) => state.form.formData);
   const categoryNames = useSelector((state) => state.form.productCategoryNames);
+  const initialMonths = [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ];
+
   const defaultValues = {
     productOrRaw: true,
     productCategoryId: 0,
@@ -63,9 +78,20 @@ const AddProducts = ({ closeDrawer }) => {
     unitType: 0,
     monthlySupplyQuantity: 0,
     monthlyMinimumQuantity: 0,
-    supplyMonths: [],
     otherDetails: "",
     supplyFrequency: true,
+    jan: false,
+    feb: false,
+    mar: false,
+    apr: false,
+    may: false,
+    jun: false,
+    jul: false,
+    aug: false,
+    sep: false,
+    oct: false,
+    nov: false,
+    dec: false,
   };
 
   const [product, setProduct] = useState(defaultValues);
@@ -124,6 +150,25 @@ const AddProducts = ({ closeDrawer }) => {
     }
   }, [store.getState().form.selectedProductIndex]);
 
+  // const handleChange = (key, value, subKey = null) => {
+  //   setError("");
+
+  //   if (subKey) {
+  //     setProduct((prevProduct) => ({
+  //       ...prevProduct,
+  //       [key]: { ...prevProduct[key], [subKey]: value },
+  //     }));
+  //   } else {
+  //     setProduct((prevProduct) => ({
+  //       ...prevProduct,
+  //       [key]: value,
+  //       // Reset subCategory to 0 if key is "category"
+  //       ...(key === "productCategoryId" && { productSubCategoryId: 0 }),
+  //     }));
+  //   }
+  // };
+
+  // Function to toggle selection of a month
   const handleChange = (key, value, subKey = null) => {
     setError("");
 
@@ -132,24 +177,22 @@ const AddProducts = ({ closeDrawer }) => {
         ...prevProduct,
         [key]: { ...prevProduct[key], [subKey]: value },
       }));
+    } else if (key === "supplyMonths") {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [value]: !prevProduct[value],
+        // supplyMonths: {
+        //   ...prevProduct.supplyMonths,
+        //   [value]: !prevProduct.supplyMonths[value],
+        // },
+      }));
     } else {
       setProduct((prevProduct) => ({
         ...prevProduct,
         [key]: value,
-        // Reset subCategory to 0 if key is "category"
         ...(key === "productCategoryId" && { productSubCategoryId: 0 }),
       }));
     }
-  };
-
-  // Function to toggle selection of a month
-  const handleMonthSelection = (month) => {
-    const isSelected = product.supplyMonths.includes(month);
-    const updatedMonths = isSelected
-      ? product.supplyMonths.filter((m) => m !== month)
-      : [...product.supplyMonths, month];
-
-    handleChange("supplyMonths", updatedMonths);
   };
 
   const renderMonthSelection = () => {
@@ -167,21 +210,14 @@ const AddProducts = ({ closeDrawer }) => {
       "Nov",
       "Dec",
     ];
+
     return (
       <Grid container spacing={2}>
-        {months.map((month, index) => (
-          <Grid
-            key={index}
-            item
-            xs={3}
-            display={"flex"}
-            justifyContent={"center"}
-          >
+        {months.map((month) => (
+          <Grid key={month} item xs={3} display="flex" justifyContent="center">
             <Box
-              bgcolor={
-                product.supplyMonths.includes(month) ? "#F47621" : "#D5D8DC"
-              }
-              onClick={() => handleMonthSelection(month)}
+              bgcolor={product[month.toLowerCase()] ? "#F47621" : "#D5D8DC"}
+              onClick={() => handleChange("supplyMonths", month.toLowerCase())}
               sx={{
                 borderRadius: 2,
                 width: 60,
@@ -191,11 +227,11 @@ const AddProducts = ({ closeDrawer }) => {
                   border: "2px solid #F47621",
                 },
               }}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
             >
-              <Typography textAlign={"center"}>{month}</Typography>
+              <Typography textAlign="center">{month.toLowerCase()}</Typography>
             </Box>
           </Grid>
         ))}
@@ -258,7 +294,18 @@ const AddProducts = ({ closeDrawer }) => {
     //   return 0;
     // }
 
-    if (!product.supplyFrequency && product.supplyMonths.length == 0) {
+    // if (!product.supplyFrequency && product.every((month) => month === false)) {
+    //   showAlertMessage({
+    //     message: "Please select the month range !",
+    //     type: "error",
+    //   });
+    //   return 0;
+    // }
+
+    if (
+      !product.supplyFrequency &&
+      initialMonths.every((month) => product[month] === false)
+    ) {
       showAlertMessage({
         message: "Please select the month range !",
         type: "error",
@@ -271,6 +318,15 @@ const AddProducts = ({ closeDrawer }) => {
 
   const save = () => {
     console.log(product);
+    let ProductDetails = { ...product };
+
+    if (product.supplyFrequency) {
+      initialMonths.forEach((month) => {
+        ProductDetails[month] = false;
+      });
+    }
+    delete ProductDetails[""];
+    console.log(ProductDetails);
     const isValidate = validation();
     if (isValidate) {
       const updatedProductDetails = [...formData.productDetails];
@@ -278,24 +334,25 @@ const AddProducts = ({ closeDrawer }) => {
 
       const categoryNamesObject = {
         category: categories.find(
-          (category) => category.id === product.productCategoryId
+          (category) => category.id === ProductDetails.productCategoryId
         ),
         subCategory: subCategories.find(
-          (subCategory) => subCategory.id === product.productSubCategoryId
+          (subCategory) =>
+            subCategory.id === ProductDetails.productSubCategoryId
         ),
       };
 
       if (store.getState().form.selectedProductIndex !== 99) {
         // Update the existing object in the array
         updatedProductDetails[store.getState().form.selectedProductIndex] =
-          product;
+          ProductDetails;
 
         updatedProductCategoryNames[
           store.getState().form.selectedProductIndex
         ] = categoryNamesObject;
       } else {
         // Add a new object to the array
-        updatedProductDetails.push(product);
+        updatedProductDetails.push(ProductDetails);
         updatedProductCategoryNames.push(categoryNamesObject);
       }
       dispatch(setProductDetails(updatedProductDetails));
