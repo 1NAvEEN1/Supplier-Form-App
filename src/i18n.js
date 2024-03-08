@@ -100,7 +100,7 @@ i18next.use(initReactI18next).init({
         FinalPage: {
           heading1: "Thank you for submitting",
           heading2: "your application!",
-          text: "Our Ceylon Exports Hub Supply Management Team\nwill contact you after reviewing your details.\nFor further assistance, feel free to reach out to us via\nemail at info.cehub@gmail.lk or contact us on WhatsApp at\n0702300325.",
+          text: "Our Ceylon Exports Hub Supply Management Team\nwill contact you after reviewing your details.\nFor further assistance, feel free to reach out to us via\nemail at info@cehub.lk or contact us on WhatsApp at\n0702300325.",
         },
       },
     },
@@ -190,7 +190,7 @@ i18next.use(initReactI18next).init({
         FinalPage: {
           heading1: "ඔබගේ අයදුම්පත ඉදිරිපත් කිරීම ගැන",
           heading2: "ඔබට ස්තුතියි!",
-          text: "ඔබගේ අයදුම්පත විශ්ලේෂණය කිරීමෙන් පසුව\n Exports Hub සැපයුම් කළමනාකරණ කණ්ඩායම\nඔබ හා සම්බන්ධ වනු ඇත. ඔබට අමතර සහාය අවශ්‍ය නම්,\nකරුණාකර info.cehub@gmail.lk විද්‍යුත් තැපෑලෙන්\nහෝ 0702300325 WhatsApp හරහා\nඅප හා සම්බන්ධ වන්න",
+          text: "ඔබගේ අයදුම්පත විශ්ලේෂණය කිරීමෙන් පසුව\n Exports Hub සැපයුම් කළමනාකරණ කණ්ඩායම\nඔබ හා සම්බන්ධ වනු ඇත. ඔබට අමතර සහාය අවශ්‍ය නම්,\nකරුණාකර info@cehub.lk විද්‍යුත් තැපෑලෙන්\nහෝ 0702300325 WhatsApp හරහා\nඅප හා සම්බන්ධ වන්න",
         },
       },
     },
@@ -281,7 +281,7 @@ i18next.use(initReactI18next).init({
         FinalPage: {
           heading1: "சமர்ப்பிக்கும் முடிவுகள் க்கு நன்றி",
           heading2: "உங்கள் விண்ணப்பை!",
-          text: "எங்கள் சீலன் எக்ஸ்போர்ட்ஸ் ஹப் வழங்கும் பொருள் மேலாண்மை குழு\nஉங்கள் விவரங்களை பராமரித்துப் பிறகு உங்களை தொடர்பு கொள்ளும்.\nமேலும் உதவி தேவைப்பட்டால், நீங்கள் எங்களுடைய மின்னஞ்சலில்\ninfo.cehub@gmail.lk இல் அல்லது வாட்ஸ்அப்பில் 0702300325 எண்ணில் தொடர்பு கொள்ளலாம்.",
+          text: "எங்கள் சீலன் எக்ஸ்போர்ட்ஸ் ஹப் வழங்கும் பொருள் மேலாண்மை குழு\nஉங்கள் விவரங்களை பராமரித்துப் பிறகு உங்களை தொடர்பு கொள்ளும்.\nமேலும் உதவி தேவைப்பட்டால், நீங்கள் எங்களுடைய மின்னஞ்சலில்\ninfo@cehub.lk இல் அல்லது வாட்ஸ்அப்பில் 0702300325 எண்ணில் தொடர்பு கொள்ளலாம்.",
         },
       },
     },

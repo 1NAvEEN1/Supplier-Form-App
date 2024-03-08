@@ -55,7 +55,18 @@ const FormLayout = () => {
         unitType: product.unitType,
         monthlySupplyQuantity: product.monthlySupplyQuantity,
         monthlyMinimumQuantity: product.monthlyMinimumQuantity,
-        supplyMonths: product.supplyMonths.toString(),
+        jan: product.jan,
+        feb: product.feb,
+        mar: product.mar,
+        apr: product.apr,
+        may: product.may,
+        jun: product.jun,
+        jul: product.jul,
+        aug: product.aug,
+        sep: product.sep,
+        oct: product.oct,
+        nov: product.nov,
+        dec: product.dec,
         otherDetails: product.description,
       }));
 
@@ -91,7 +102,7 @@ const FormLayout = () => {
       }
     } catch (error) {
       showAlertMessage({
-        message: "Error while saving data..!",
+        message: "Error while saving datax..!",
         type: "error",
       });
     } finally {

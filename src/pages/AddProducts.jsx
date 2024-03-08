@@ -186,6 +186,25 @@ const AddProducts = ({ closeDrawer }) => {
         //   [value]: !prevProduct.supplyMonths[value],
         // },
       }));
+    } else if (key === "supplyFrequency") {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [key]: value,
+        ...(value === false && {
+          jan: false,
+          feb: false,
+          mar: false,
+          apr: false,
+          may: false,
+          jun: false,
+          jul: false,
+          aug: false,
+          sep: false,
+          oct: false,
+          nov: false,
+          dec: false,
+        }),
+      }));
     } else {
       setProduct((prevProduct) => ({
         ...prevProduct,
@@ -322,7 +341,7 @@ const AddProducts = ({ closeDrawer }) => {
 
     if (product.supplyFrequency) {
       initialMonths.forEach((month) => {
-        ProductDetails[month] = false;
+        ProductDetails[month] = true;
       });
     }
     delete ProductDetails[""];
